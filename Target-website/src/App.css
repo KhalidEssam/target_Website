@@ -1,7 +1,7 @@
 #root {
-  max-width: 1280px;
+  max-width: 100vw;
   margin: 0 auto;
-  padding: 2rem;
+  /* padding: 2rem; */
   text-align: center;
 }
 
@@ -37,6 +37,38 @@
   padding: 2em;
 }
 
-.read-the-docs {
+/* .read-the-docs {
   color: #888;
+} */
+
+
+/* Fullscreen Slider Section */
+.fullscreen-slider {
+  height: 100vh; /* Fullscreen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Card Section */
+.card-section {
+  margin-top: 25vh; /* Add margin between the slider and card section */
+  padding: 3rem 0; /* Add spacing */
+  text-align: center;
+  background-color: inherit; /* Matches the theme */
+}
+
+.card-section h1 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.card-section p {
+  font-size: 1.1rem;
+  margin-bottom: 1.5rem;
+}
+
+.card-section .btn {
+  padding: 0.6em 1.5em;
+  font-size: 1rem;
 }
