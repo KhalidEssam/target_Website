@@ -2,6 +2,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../features/theme/themeSlice"; // Import the action
 import React, { useState, useEffect } from "react";
+import Login from "./handleLogin"
+
 const Navbar = () => {
 
 
@@ -82,6 +84,11 @@ const Navbar = () => {
             <li className="nav-item">
               <a className="nav-link" href="#contact">Contact</a>
             </li>
+            
+          
+             <Login/> 
+            
+            
           </ul>
           <button className="btn btn-outline-secondary" onClick={handleThemeToggle}>
             {isDarkMode ? "🌙 Dark" : "☀️ Light"}
