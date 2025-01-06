@@ -71,7 +71,6 @@ const FullscreenSlider = () => {
           slidesPerView={1}
           style={{ height: "100%" }} // Ensure the slider takes up full height
         >
-          <Navbar /> 
           {images.map(({ url, backgroundSize, backgroundRepeat, backgroundPosition, title }, index) => (
             <SwiperSlide key={index}>
                

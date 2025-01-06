@@ -10,6 +10,7 @@ const Footer = () => {
         color: "#fff", // White text
         padding: "2rem 1rem",
         textAlign: "center",
+        marginTop: "auto", // Push footer to the bottom
       }}
     >
       {/* Social Media Section */}

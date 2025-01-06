@@ -2,7 +2,7 @@
 const oktaConfig = {
     clientId: "0oamct1k6lOQO3TTD5d7",
     issuer: "https://dev-36372109.okta.com",
-    redirectUri: "http://localhost:5173",
+    redirectUri: "http://localhost:5173/login/callback",
     pkce: true,
     responseType: "code", // Ensure you are using the appropriate response type
     scope: "openid profile email", // Scopes

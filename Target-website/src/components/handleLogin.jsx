@@ -16,7 +16,7 @@ const Login = () => {
   if (!authState) {
     return (
       <div className="auth-loading">
-        <p>Loading...</p>
+        
       </div>
     );
   }
@@ -37,3 +37,4 @@ const Login = () => {
 };
 
 export default Login;
+

@@ -39,7 +39,7 @@ const Navbar = () => {
   return (
      
     <nav
-      className={`navbar navbar-expand-lg fixed-top  ${
+      className={`navbar container mt-4 navbar-expand-lg fixed-top  ${
         scrolled
           ? isDarkMode
             ? "bg-dark text-light"
@@ -51,20 +51,20 @@ const Navbar = () => {
       }}
     >
       
-      <div className="container-fluid">
-        <a className="navbar-brand nav-link" href="#">Target for Engineering</a>
+      <div className="container-fluid ">
+        <a className="navbar-brand nav-link p-3" href="/">Target for Engineering</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link" href="#about">About Us</a>
+              <a className="nav-link p-3 " href="/about">About Us</a>
             </li>
             <li className="nav-item dropdown">
               <a 
-                className="nav-link dropdown-toggle" 
-                href="#" 
+                className="nav-link p-3  dropdown-toggle" 
+                href="/" 
                 id="navbarDropdown" 
                 role="button" 
                 data-bs-toggle="dropdown" 
@@ -72,21 +72,21 @@ const Navbar = () => {
                 Services
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a className="dropdown-item" href="#service1">Construction</a></li>
-                <li><a className="dropdown-item" href="#service2">Engineering Consultancy</a></li>
-                <li><a className="dropdown-item" href="#service3">Material Supplies</a></li>
-                <li><a className="dropdown-item" href="#service4">Maintenance</a></li>
+                <li><a className="dropdown-item" href="/service1">Construction</a></li>
+                <li><a className="dropdown-item" href="/service2">Engineering Consultancy</a></li>
+                <li><a className="dropdown-item" href="/service3">Material Supplies</a></li>
+                <li><a className="dropdown-item" href="/service4">Maintenance</a></li>
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#projects">Projects</a>
+              <a className="nav-link p-3  " href="/projects">Projects</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link" href="#contact">Contact</a>
+              <a className="nav-link p-3  " href="/contact">Contact</a>
             </li>
-            
+
           
-             <Login/> 
+             <Login /> 
             
             
           </ul>
