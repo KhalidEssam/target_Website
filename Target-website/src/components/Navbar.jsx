@@ -6,10 +6,11 @@ import Login from "./handleLogin"
 
 const Navbar = () => {
 
-
   const dispatch = useDispatch();
   let isDarkMode = useSelector((state) => state.theme.isDarkMode); // Get the theme state from Redux
   const [scrolled, setScrolled] = useState(false);
+  const { isLoggedIn, userInfo } = useSelector((state) => state.user);
+
   useEffect(() => {
     const handleScroll = () => {
       if (window.scrollY > 0) {
@@ -86,13 +87,22 @@ const Navbar = () => {
             </li>
 
           
-             <Login /> 
+             
+
+             {isLoggedIn ? (
+        <p>
+          hello, {userInfo.firstName} {userInfo.lastName} 
+        </p>
+      ) : () => {
+        <Login />;
+      }}
             
             
           </ul>
           <button className="btn btn-outline-secondary" onClick={handleThemeToggle}>
             {isDarkMode ? "🌙 Dark" : "☀️ Light"}
           </button>
+          <Login  /> 
         </div>
       </div>
     </nav>
