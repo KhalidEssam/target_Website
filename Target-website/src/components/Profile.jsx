@@ -1,20 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useOktaAuth } from '@okta/okta-react';
+import { useSelector } from 'react-redux';
 
 
 const Profile = () => {
-    const { authState, oktaAuth } = useOktaAuth();
-    const [userInfo, setUserInfo] = useState(null);
 
-    useEffect(() => {
-        if (!authState || !authState.isAuthenticated) {
-            setUserInfo(null);
-        } else {
-            oktaAuth.getUser().then(info => {
-                setUserInfo(info);
-            });
-        }
-    }, [authState, oktaAuth]);
+    const userInfo = useSelector((state) => state.user.userInfo);
 
     if (!userInfo) {
         return <div>Loading...</div>;
@@ -28,6 +17,7 @@ const Profile = () => {
                         <img src={userInfo.picture} className="card-img-top" alt={userInfo.picture} />
                         <div className="card-body">
                             <h5 className="card-title">{userInfo.name}</h5>
+                            {userInfo.groups  && <p className="card-text">Role: {userInfo.groups}</p>}
                             <p className="card-text">Email: {userInfo.email}</p>
                             <p className="card-text">Profile: <a href={userInfo.profile} target="_blank" rel="noopener noreferrer">{userInfo.profile}</a></p>
                         </div>

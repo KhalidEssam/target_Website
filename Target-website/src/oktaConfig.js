@@ -15,9 +15,6 @@ const oktaConfig = {
     disableHttpsCheck: true,
     // postLoginRedirectUri: "/", // Redirect to home after login
     
-
-    
-
   };
   
   

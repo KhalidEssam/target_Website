@@ -15,7 +15,7 @@ const Login = () => {
 
   const handleLogout = async () => {
     await oktaAuth.signOut();
-    dispatch(logout()); // Dispatch logout action
+    dispatch(logout()); // Dispatch logout action'
   };
   React.useEffect(() => {
     const fetchUser = async () => {
@@ -23,14 +23,8 @@ const Login = () => {
         if (authState?.isAuthenticated) {
           // Wait until the tokens are resolved
           const user = await oktaAuth.getUser();
-          const userData = {
-            firstName: user.given_name || '',
-            lastName: user.family_name || '',
-            email: user.email || '',
-          };
-
           // Dispatch login action with user data
-          dispatch(login(userData));
+          dispatch(login(user));
         }
       } catch (error) {
         console.error('Error fetching user info:', error);

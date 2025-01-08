@@ -1,7 +1,6 @@
 import React from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
-import Navbar from "./Navbar";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";

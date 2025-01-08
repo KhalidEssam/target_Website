@@ -31,12 +31,7 @@ function App() {
     color: isDarkMode ? "#ffffff" : "#000000",
     transition: "all 0.3s ease",
   };
-  // if (authState?.isAuthenticated) {
-  //   oktaAuth.getUser().then((user) => {
-  //     console.log("User Info:", user);
-  //     console.log("User Groups:", user.groups); // Groups should be part of the user object
-  //   });
-  // }
+
 
   return (
       <div style={appStyle}>

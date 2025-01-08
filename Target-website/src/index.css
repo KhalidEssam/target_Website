@@ -13,30 +13,17 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.navbar {
-  background-color: rgb(255, 255, 255);
+.navat{
+  color: rgb(255, 255, 255) !important;
+}
+.body:not(.dark-mode)  .navat{
+  color: rgb(0, 0, 0) !important;
 }
 
-.nav-link {
-  color: black;
-}
-
-/* Dark theme */
-body.dark-mode {
-  background-color: #121212;
-  color: white;
-}
-
-.navbar.dark-mode {
-  background-color: #000000;
-}
-
-.nav-link.dark-mode {
-  color: rgb(252, 252, 252);
-}
 
 .nav-link:not(.dark-mode):hover {
-  background-color: rgb(139, 109, 209) !important; 
+  background-color: rgb(200, 188, 228) !important; 
+  color: rgb(0, 0, 0) !important;
 }
 
 
@@ -46,14 +33,14 @@ a {
   text-decoration: inherit;
 }
 a:hover {
-  color: #101466;
+  color: #a8acf1;
 }
 
-body.dark-mode .nav-link  {
-  color: #ffffff !important;  
+body.dark-mode   {
+  color: #c51f1f !important;  
 }
 
-body:not(.dark-mode) .nav-link {
+body:not(.dark-mode) {
   color: #000000 !important;  /* Dark color for light mode */
 }
 
@@ -83,7 +70,7 @@ button {
   transition: border-color 0.25s;
 }
 button:hover {
-  border-color: #646cff;
+  border-color: #abaedf;
 }
 button:focus,
 button:focus-visible {
