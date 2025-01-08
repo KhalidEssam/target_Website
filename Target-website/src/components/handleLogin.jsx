@@ -1,7 +1,9 @@
 import React from 'react';
 import { useOktaAuth } from '@okta/okta-react';
 import { useDispatch } from 'react-redux';
-import { login, logout } from '../features/theme/userSlice';
+import { login, logout } from '../store/features/userSlice';
+import { CiLogin, CiLogout } from "react-icons/ci";
+
 
 const Login = () => {
   const { oktaAuth, authState } = useOktaAuth();
@@ -47,14 +49,18 @@ const Login = () => {
   }
 
   return (
-    <div className="auth-container">
+    <div className="auth-container m-2 d-sm">
       {authState.isAuthenticated ? (
         <button className="btn btn-outline-secondary" onClick={handleLogout}>
-          Logout
+          {/* Logout
+           */}
+            <CiLogout />
         </button>
       ) : (
         <button className="btn btn-outline-secondary" onClick={handleLogin}>
-          Login
+          {/* Login */}
+          <CiLogin />
+
         </button>
       )}
     </div>

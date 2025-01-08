@@ -11,13 +11,17 @@ import oktaConfig from './oktaConfig'; // Import Okta config
 
 // Initialize OktaAuth instance
 const oktaAuth = new OktaAuth(oktaConfig);
+const restoreOriginalUri = async (_oktaAuth, originalUri) => {
+  history.replace(toRelativeUrl(originalUri || '', window.location.origin));
+};
 
 // Render the App component with Redux store, Router, and Okta auth
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <Provider store={store}> {/* Wrap App with Provider and pass the store */}
       <Router> {/* Add Router back here */}
-        <Security oktaAuth={oktaAuth} restoreOriginalUri={oktaConfig.redirectUri}>
+        <Security oktaAuth={oktaAuth}
+        restoreOriginalUri={restoreOriginalUri}>
           <App />
         </Security>
       </Router>

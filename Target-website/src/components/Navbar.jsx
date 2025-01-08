@@ -1,6 +1,6 @@
 // Navbar.jsx
 import { useDispatch, useSelector } from "react-redux";
-import { toggleTheme } from "../features/theme/themeSlice"; // Import the action
+import { toggleTheme } from "../store/features/themeSlice"; // Import the action
 import React, { useState, useEffect } from "react";
 import Login from "./handleLogin"
 
@@ -38,9 +38,24 @@ const Navbar = () => {
   };
 
   return (
+    <>
      
+    <nav className="fixed-top bg-dark text-light">
+      <div className="container-fluid d-flex justify-content-between">
+        {isLoggedIn ? (
+          <p className="m-2">
+            <a href="/profile" className="text-light">
+            hello, {userInfo.firstName} {userInfo.lastName} 
+            </a>
+          </p>
+        ) : (
+            <p className="m-2">hello, Guest</p>
+        )}
+        <Login />
+      </div>
+    </nav>
     <nav
-      className={`navbar container mt-4 navbar-expand-lg fixed-top  ${
+      className={`navbar container navbar-expand-md  ${
         scrolled
           ? isDarkMode
             ? "bg-dark text-light"
@@ -48,11 +63,11 @@ const Navbar = () => {
           : "bg-transparent"
       }`}
       style={{
+        marginTop: "56px", // Adjusts the margin-top to the height of the first navbar
         transition: "background-color 0.3s ease",
       }}
     >
-      
-      <div className="container-fluid ">
+      <div className="container-fluid">
         <a className="navbar-brand nav-link p-3" href="/">Target for Engineering</a>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -60,11 +75,11 @@ const Navbar = () => {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
             <li className="nav-item">
-              <a className="nav-link p-3 " href="/about">About Us</a>
+              <a className="nav-link p-3" href="/about">About Us</a>
             </li>
             <li className="nav-item dropdown">
               <a 
-                className="nav-link p-3  dropdown-toggle" 
+                className="nav-link p-3 dropdown-toggle" 
                 href="/" 
                 id="navbarDropdown" 
                 role="button" 
@@ -80,32 +95,19 @@ const Navbar = () => {
               </ul>
             </li>
             <li className="nav-item">
-              <a className="nav-link p-3  " href="/projects">Projects</a>
+              <a className="nav-link p-3" href="/projects">Projects</a>
             </li>
             <li className="nav-item">
-              <a className="nav-link p-3  " href="/contact">Contact</a>
+              <a className="nav-link p-3" href="/contact">Contact</a>
             </li>
-
-          
-             
-
-             {isLoggedIn ? (
-        <p>
-          hello, {userInfo.firstName} {userInfo.lastName} 
-        </p>
-      ) : () => {
-        <Login />;
-      }}
-            
-            
           </ul>
-          <button className="btn btn-outline-secondary" onClick={handleThemeToggle}>
-            {isDarkMode ? "🌙 Dark" : "☀️ Light"}
+          <button className="btn btn-outline-secondary m-2" onClick={handleThemeToggle}>
+            {isDarkMode ? " Dark" : " Light"}
           </button>
-          <Login  /> 
         </div>
       </div>
     </nav>
+    </>
   );
 };
 
