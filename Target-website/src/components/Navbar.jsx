@@ -4,35 +4,9 @@ import React, { useState, useEffect } from "react";
 import Login from "./handleLogin";
 
 const Navbar = () => {
-  const dispatch = useDispatch();
-  let isDarkMode = useSelector((state) => state.theme.isDarkMode); // Get the theme state from Redux
-  const [scrolled, setScrolled] = useState(false);
   const { isLoggedIn, userInfo } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 0) {
-        setScrolled(true);
-      } else {
-        setScrolled(false);
-      }
-    };
-
-    // Attach scroll event listener
-    window.addEventListener("scroll", handleScroll);
-
-    // Cleanup event listener on unmount
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-    };
-  }, []);
-
-  // Toggle the theme globally
-  const handleThemeToggle = () => {
-    dispatch(toggleTheme());
-  };
-
-  const navLinkClass = isDarkMode ? "text-light" : "text-dark";
+  
 
   return (
     <>
@@ -50,14 +24,61 @@ const Navbar = () => {
           <Login />
         </div>
       </nav>
-      <nav
-        className={`navbar container navbar-expand-md  
+      <ExpandableNavbar className=""/>
+    </>
+  );
+};
+
+const ExpandableNavbar = () => {
+  const dispatch = useDispatch();
+
+  const [scrolled, setScrolled] = useState(false);
+  let isDarkMode = useSelector((state) => state.theme.isDarkMode); // Get the theme state from Redux
+  // Toggle the theme globally
+  const handleThemeToggle = () => {
+    const body = document.body;
+    if (!isDarkMode) {
+      body.classList.add("dark-mode");
+    } else {
+      body.classList.remove("dark-mode");
+    }
+    dispatch(toggleTheme());
+  };
+
+
+
+  
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    // Attach scroll event listener
+    window.addEventListener("scroll", handleScroll);
+
+    // Cleanup event listener on unmount
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+  const navLinkClass = isDarkMode ? "text-light" : "text-dark";
+
+
+  
+
+  return (
+    <nav
+        className={`navbar fixed-top container navbar-expand-md  s
         ${
-          scrolled
+          !scrolled
             ? isDarkMode
               ? "bg-dark"
               : "bg-light"
-            : "bg-transparent"
+            : "bg-tranparent "
         }
       `}
         style={{
@@ -80,7 +101,7 @@ const Navbar = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <div className="collapse navbar-collapse" id="navbarNav">
+          <div className={`collapse navbar-collapse `} id="navbarNav">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <a className={`nav-link p-3 ${navLinkClass}`} href="/about">
@@ -141,8 +162,8 @@ const Navbar = () => {
           </div>
         </div>
       </nav>
-    </>
   );
-};
+}
 
 export default Navbar;
+

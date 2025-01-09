@@ -13,11 +13,29 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-.navat{
-  color: rgb(255, 255, 255) !important;
-}
+
 .body:not(.dark-mode)  .navat{
   color: rgb(0, 0, 0) !important;
+}
+
+
+body.dark-mode {
+  background-color: #000000 !important;  /* Dark color for light mode */
+}
+
+
+body {
+  margin: 0;
+  display: flex;
+  background-color: #f8f8f8 !important;  
+
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+.navbar-hidden {
+  display: none; /* Or use visibility: hidden; for smoother transitions */
+  transition: all 0.3s ease; /* Optional for a fade-out effect */
 }
 
 
@@ -42,6 +60,75 @@ body.dark-mode   {
 
 body:not(.dark-mode) {
   color: #000000 !important;  /* Dark color for light mode */
+}
+
+
+/* Container */
+.profile-container {
+  color: #000000 !important;
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+  padding: 20px;
+  margin-top: 20vh;
+}
+
+/* Sidebar */
+.profile-sidebar {
+  width: 25%;
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Profile Card in Sidebar */
+.profile-card {
+  text-align: center;
+}
+
+/* Circular Profile Image */
+.profile-image {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+/* Profile Name and Role */
+.profile-name {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.profile-role {
+  color: gray;
+  font-size: 0.9rem;
+  margin-bottom: 15px;
+}
+
+/* Main Content */
+.profile-main {
+  width: 75%;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Sections in Main Content */
+.profile-section {
+  padding: 15px;
+  background-color: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.profile-section h5 {
+  margin-bottom: 10px;
+  font-size: 1.2rem;
+  color: #333;
 }
 
 

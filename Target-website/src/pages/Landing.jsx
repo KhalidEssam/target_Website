@@ -33,7 +33,7 @@ const Landing = () => {
 
 
 
-          <h1>Target for Engineering</h1>
+          {/* <h1>Target for Engineering</h1> */}
         </>
     
     );
