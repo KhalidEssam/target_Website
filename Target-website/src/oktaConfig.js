@@ -1,9 +1,10 @@
+/*************  ✨ Codeium Command 🌟  *************/
 // oktaConfig.js
 const oktaConfig = {
-    clientId: "0oamct1k6lOQO3TTD5d7",
-    issuer: "https://dev-36372109.okta.com/oauth2/default",
-/*************  ✨ Codeium Command 🌟  *************/
-    redirectUri: window.location.origin + "/profile",
+    clientId: import.meta.env.VITE_OKTA_CLIENT_ID,
+    issuer: import.meta.env.VITE_OKTA_ISSUER,
+    redirectUri: `${window.location.origin}/profile`,
+    api_key: import.meta.env.VITE_OKTA_API_KEY,
     pkce: true,
     responseType: "code", // Ensure you are using the appropriate response type
     scope: "openid profile email groups", // Scopes
@@ -16,6 +17,9 @@ const oktaConfig = {
     // postLoginRedirectUri: "/", // Redirect to home after login
     
   };
+  
+  console.log(oktaConfig);
+
   
   
   export default oktaConfig;

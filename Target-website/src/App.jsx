@@ -42,9 +42,9 @@ function App() {
 
            {/* conditional rendering of profile page */}
           {authState?.isAuthenticated ? (
-            <Route path="/profile"  element={<Profile />}/>
+            <Route path="/profile/*"  element={<Profile />}/>
           ) : (
-            <Route path="/profile" Component={LoginCallback }/>
+            <Route path="/profile/*" Component={LoginCallback }/>
           )}
 
           {/* rendering the pages */}

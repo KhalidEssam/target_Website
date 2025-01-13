@@ -1,19 +1,18 @@
 import { useSelector } from "react-redux";
-import Vehicles from "./Vehicles";
-// import "./Profile.css"; // CSS for styling
+import MainContent from "./ProfileContent";
+import { Route, Routes } from "react-router-dom";
+import { serviceMetadata } from "./services/serviceMetadata";
+
+//services
+
+import EditLoginInfo from "./services/EditLoginInfo";
 
 const Profile = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
 
-  // Example services data
-  const services = [
-    { name: "Service 1", route: "/service-1", roles: ["Admin", "user"] },
-    { name: "Service 2", route: "/service-2", roles: ["user"] },
-    { name: "Service 3", route: "/service-3", roles: ["Admin"] },
-  ];
 
   // Filter services based on user role
-  const availableServices = services.filter((service) =>
+  const availableServices = serviceMetadata.filter((service) =>
     service.roles.some((role) => userInfo.groups.includes(role))
   );
   
@@ -46,52 +45,27 @@ const Profile = () => {
               {userInfo.profile}
             </a>
           </p>
-          <a href="/edit-login-info" className="edit-link">
+          <a href={`/profile/edit-login-info`} className="edit-link">
             Edit Login Information
           </a>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="profile-main">
-        {/* Personal Information */}
-        <div className="profile-section">
-          <h5>Personal Information</h5>
-          <p>Locale: {userInfo.locale}</p>
-          <p>
-            Website:{" "}
-            <a
-              href={userInfo.website}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              {userInfo.website}
-            </a>
-          </p>
-          <p>Gender: {userInfo.gender}</p>
-          <p>Birthdate: {userInfo.birthdate}</p>
-        </div>
+      <div className="card profile-main">
+        <Routes>
+          {/* <Route path="/" element={<EditLoginInfo />} /> */}
+          <Route path="/" element={<MainContent userInfo={userInfo} availableServices={availableServices} />} />
+          <Route path="edit-login-info" element={<EditLoginInfo/>} />
+          {availableServices.map((service) => (
+            <Route
+              key={service.name}
+              path={service.route}
+              element={<service.component />}
+            />
+          ))}
+        </Routes>
 
-        {/* Available Services */}
-        <div className="profile-section">
-          <h5>Available Services</h5>
-          {availableServices.length > 0 ? (
-            <ul className="services-list">
-              {availableServices.map((service) => (
-                <li key={service.name}>
-                  <a href={service.route} className="service-link">
-                    {service.name}
-                  </a>
-                </li>
-              ))}
-            </ul>
-          ) : (
-            <p>No services available for your role.</p>
-          )}
-        </div>
-
-        {/* Vehicles Component */}
-        <Vehicles />
       </div>
     </div>
   );
