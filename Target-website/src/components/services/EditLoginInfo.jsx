@@ -8,7 +8,7 @@ const EditLoginInfo = () => {
     lastName: authState?.idToken?.claims?.family_name || "",
     email: authState?.idToken?.claims?.email || "",
   });
-
+  const userId = authState.idToken.claims.sub;
   const [message, setMessage] = useState("");
 
   // Handle form field changes
@@ -23,8 +23,7 @@ const EditLoginInfo = () => {
     setMessage("Updating your profile...");
 
     try {
-      const userId = authState.idToken.claims.sub; // Get user ID from token
-      console.log("userId", userId);
+       // Get user ID from token
 
       const yourOktaDomain = import.meta.env.VITE_OKTA_DOMAIN;
       const resp = await fetch(      
@@ -63,6 +62,7 @@ const EditLoginInfo = () => {
   return (
     <div className="container mt-4">
       <h2>Edit Login Information</h2>
+      {  userId &&    console.log("userId", userId)}
       <form onSubmit={handleEditLogin}>
         <div className="mb-3">
           <label htmlFor="firstName" className="form-label">

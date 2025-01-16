@@ -13,7 +13,7 @@ const Profile = () => {
 
   // Filter services based on user role
   const availableServices = serviceMetadata.filter((service) =>
-    service.roles.some((role) => userInfo.groups.includes(role))
+    service.roles.some((role) => userInfo.groups.includes(role) || role === "Everyone")
   );
   
 

@@ -1,6 +1,7 @@
 import BrowseMaintenancePlans from './BrowseOrder';
 import EditLoginInfo from './EditLoginInfo';
 import Maintenance from './Maintenance';
+import ProfileForm from './EditProfileInfo';
 
 export const serviceMetadata = [
     {
@@ -13,12 +14,18 @@ export const serviceMetadata = [
         name: "Edit Login Info",
         route: "/edit-login-info",
         component: EditLoginInfo,    
-        roles: ["Admin" ],
+        roles: ["Everyone" ],
     },  
     {
         name: "Maintenance",
         route: "/maintenance",
         component: Maintenance,
         roles: ["Admin", "user"],
+    },
+    {
+        name: "Edit Profile Info",
+        route: "/edit-profile-info",
+        component: ProfileForm,
+        roles: ["Everyone"],
     },
 ]
