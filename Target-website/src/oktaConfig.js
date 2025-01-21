@@ -17,8 +17,6 @@ const oktaConfig = {
     // postLoginRedirectUri: "/", // Redirect to home after login
     
   };
-  
-  console.log(oktaConfig);
 
   
   

@@ -15,7 +15,8 @@ const Navbar = () => {
           {isLoggedIn ? (
             <p className="m-2">
               <a href="/profile" className="text-light">
-                hello, {userInfo.nickname}
+              {console.log(userInfo)}
+                hello, {userInfo.name}
               </a>
             </p>
           ) : (

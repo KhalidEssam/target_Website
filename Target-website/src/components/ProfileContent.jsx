@@ -1,4 +1,3 @@
-import Vehicles from "./Vehicles";
 
 export const MainContent = ( { userInfo, availableServices } ) => {
     return (
@@ -40,7 +39,6 @@ export const MainContent = ( { userInfo, availableServices } ) => {
         </div>
 
         {/* Vehicles Component */}
-        <Vehicles />
       </>
     );
 };

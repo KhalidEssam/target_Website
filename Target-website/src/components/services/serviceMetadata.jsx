@@ -1,23 +1,27 @@
 import BrowseMaintenancePlans from './BrowseOrder';
-import EditLoginInfo from './EditLoginInfo';
 import Maintenance from './Maintenance';
 import ProfileForm from './EditProfileInfo';
+import AdminCustomization from './AdminCustomization';
+import AddOrg from './AddOrg';
+import OrderDetail from './OrderDetails';
 
 export const serviceMetadata = [
     {
         name: "Browse Maintenance Plans",
-        route: "/browse-maintenance-plans",
+        route: "/orders",
         component: BrowseMaintenancePlans,
         roles: ["Admin", "user"],
+    }, 
+    {
+        name: "Order Details",
+        route: "/orders/:id",
+        component: OrderDetail,
+        roles: ["Admin", "user"],
+
     },
+
     {
-        name: "Edit Login Info",
-        route: "/edit-login-info",
-        component: EditLoginInfo,    
-        roles: ["Everyone" ],
-    },  
-    {
-        name: "Maintenance",
+        name: "Add Maintenance order",
         route: "/maintenance",
         component: Maintenance,
         roles: ["Admin", "user"],
@@ -27,5 +31,17 @@ export const serviceMetadata = [
         route: "/edit-profile-info",
         component: ProfileForm,
         roles: ["Everyone"],
+    },
+    {
+        name: "Admin Customization",
+        route: "/admin-customization",
+        component: AdminCustomization,
+        roles: ["Admin"],
+    },
+    {
+        name: "Add Organization",
+        route: "/add-PartyOrg",
+        component: AddOrg,
+        roles: ["Admin"],
     },
 ]

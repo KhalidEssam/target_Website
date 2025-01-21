@@ -4,8 +4,7 @@ import { Route, Routes } from "react-router-dom";
 import { serviceMetadata } from "./services/serviceMetadata";
 
 //services
-
-import EditLoginInfo from "./services/EditLoginInfo";
+import ProfileForm from "./services/EditProfileInfo";
 
 const Profile = () => {
   const userInfo = useSelector((state) => state.user.userInfo);
@@ -45,8 +44,8 @@ const Profile = () => {
               {userInfo.profile}
             </a>
           </p>
-          <a href={`/profile/edit-login-info`} className="edit-link">
-            Edit Login Information
+          <a href={`/profile/edit-profile-info`} className="edit-link">
+            Edit profile Information
           </a>
         </div>
       </div>
@@ -54,9 +53,8 @@ const Profile = () => {
       {/* Main Content */}
       <div className="card profile-main">
         <Routes>
-          {/* <Route path="/" element={<EditLoginInfo />} /> */}
           <Route path="/" element={<MainContent userInfo={userInfo} availableServices={availableServices} />} />
-          <Route path="edit-login-info" element={<EditLoginInfo/>} />
+          <Route path="edit-profile-info" element={<ProfileForm/>} />
           {availableServices.map((service) => (
             <Route
               key={service.name}

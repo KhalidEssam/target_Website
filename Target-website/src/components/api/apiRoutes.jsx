@@ -6,7 +6,7 @@ export const fetch_party_organizations = async () =>
   {
   const [partries, setParties] = useState([]);
     
-    const response = await fetch("http://127.0.0.1:3000/parties", {
+    const response = await fetch("/api/parties", {
       method: "GET",
       headers: {
         "Content-Type": "application/json",

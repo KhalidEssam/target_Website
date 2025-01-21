@@ -16,6 +16,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import AboutUs from "./pages/Aboutus";
 import Landing from "./pages/Landing";
 import Projects from "./pages/Projects";
+import ContactUs from "./pages/ContactUs";
 
 
 
@@ -23,7 +24,6 @@ import Projects from "./pages/Projects";
 
 function App() {
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
-  // const authState = useSelector((state) => state.user.authState);
   const { authState, oktaAuth } = useOktaAuth();
 
   const appStyle = {
@@ -50,6 +50,7 @@ function App() {
           {/* rendering the pages */}
           <Route path="/about" element={<AboutUs />} />
           <Route path="/projects" element={<Projects />} />
+          <Route path="/contact" element={<ContactUs />} />
           {/* <Route path='/' Component={LoginCallback }  /> */}
 
 

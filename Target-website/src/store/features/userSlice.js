@@ -22,17 +22,6 @@ const initialState = {
     groups: [],
     updated_at: 0,
     email_verified: false,
-    headers: {
-      'cache-control': '',
-      'content-type': '',
-      date: '',
-      expires: '',
-      pragma: '',
-      'x-okta-request-id': '',
-      'x-rate-limit-limit': '',
-      'x-rate-limit-remaining': '',
-      'x-rate-limit-reset': '',
-    },
   },
 };
 
@@ -67,17 +56,6 @@ const userSlice = createSlice({
         updated_at: 0,
         email_verified: false,
         groups: [],
-        headers: {
-          'cache-control': '',
-          'content-type': '',
-          date: '',
-          expires: '',
-          pragma: '',
-          'x-okta-request-id': '',
-          'x-rate-limit-limit': '',
-          'x-rate-limit-remaining': '',
-          'x-rate-limit-reset': '',
-        },
       };
     },
   },

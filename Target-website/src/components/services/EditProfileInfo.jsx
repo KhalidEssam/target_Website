@@ -1,97 +1,68 @@
-import React, { useState, useEffect } from "react";
-import { useOktaAuth } from "@okta/okta-react";
+import React, { useState, useEffect, useMemo } from "react";
+import { useSelector } from "react-redux";
 
 const ProfileForm = () => {
-  const { authState, oktaAuth } = useOktaAuth();
-  const allowedProfileFields = [
-    "login",
-    "firstName",
-    "lastName",
-    "nickName",
-    "displayName",
-    "email",
-    "secondEmail",
-    "profileUrl",
-    "preferredLanguage",
-    "userType",
-    "organization",
-    "title",
-    "division",
-    "department",
-    "costCenter",
-    "employeeNumber",
-    "mobilePhone",
-    "primaryPhone",
-    "streetAddress",
-    "city",
-    "state",
-    "zipCode",
-    "countryCode"
-  ];
+  const user = useSelector((state) => state.user);
+  const userInfo = user.userInfo;
 
-  const [profileData, setProfileData] = useState({
-    login: "" || authState.idToken.claims.email ,
-    firstName: "",
-    lastName: "",
-    nickName: "",
-    displayName: "",
-    email: "" || authState.idToken.claims.email,
-    secondEmail: "" || "non-registered",
-    profileUrl: "",
-    preferredLanguage: "",
-    userType: "",
-    organization: "",
-    title: "",
-    division: "",
-    department: "",
-    costCenter: "",
-    employeeNumber: "",
-    mobilePhone: "" || "000",
-    primaryPhone: "",
-    streetAddress: "",
-    city: "",
-    state: "",
-    zipCode: "",
-    countryCode: "",
-  });
-  const userId = authState.idToken.claims.sub;
+  const allowedProfileFields = useMemo(
+    () => [
+      "login",
+      "firstName",
+      "lastName",
+      "nickName",
+      "displayName",
+      "email",
+      "secondEmail",
+      "profileUrl",
+      "preferredLanguage",
+      "organization",
+      "title",
+      "division",
+      "department",
+      "costCenter",
+      "employeeNumber",
+      "mobilePhone",
+      "primaryPhone",
+      "streetAddress",
+      "city",
+      "state",
+      "zipCode",
+      "countryCode",
+    ],
+    []
+  );
 
-  const [editedFields, setEditedFields] = useState({
-    login: authState.idToken.claims.email,
-    email: authState.idToken.claims.email,
-  });
+  const [profileData, setProfileData] = useState({});
+  const [editedFields, setEditedFields] = useState({});
   const [loading, setLoading] = useState(false);
+  const userId = userInfo.sub;
 
   // Fetch the user's profile data when the component mounts
   useEffect(() => {
     const fetchProfileData = async () => {
       try {
-        const resp = await fetch(`http://127.0.0.1:3000/profile/${userId}`, {
+        const resp = await fetch(`/api/profile/${userId}`, {
           method: "GET",
           headers: {
             Authorization: import.meta.env.VITE_OKTA_API_TOKEN,
           },
         });
   
-        const data = await resp.json();
-        let profile = {};
-        const newdata = JSON.parse(data);
-        const updatedJsonData = Object.keys(newdata).reduce((acc, key) => {
-            if (key === 'profile') {
-            profile = newdata[key]; // Store the profile object
-            //console.log(key);
-            } else {
-            acc[key] = newdata[key]; // Keep the other keys
-            }
-            return acc;
-        }, {});
-
+        const profile = await resp.json();  
+        if (!resp.ok) {
+          throw new Error("Error fetching profile data");
+        }
+        const filteredProfile = Object.keys(profile)
+          .filter((key) => allowedProfileFields.includes(key))
+          .reduce((obj, key) => {
+            obj[key] = profile[key];
+            return obj;
+          }, {});
   
-        console.log(profile);
   
-        if (profile) {
-        //   console.log(profile);
-          setProfileData(profile);
+        if (filteredProfile) {
+          setProfileData(filteredProfile);
         } else {
           console.error("Profile data is undefined");
         }
@@ -125,16 +96,19 @@ const ProfileForm = () => {
     });
   };
 
+
   // Handle form submission
   const handleSubmit = async (e) => {
+    console.log(editedFields);
     e.preventDefault();
     setLoading(true);
+    editedFields.firstName ? editedFields.firstName = editedFields.firstName : editedFields.firstName = profileData.firstName;
+    editedFields.lastName ? editedFields.lastName = editedFields.lastName : editedFields.lastName = profileData.lastName;
 
     const editedData = editedFields;
-    console.log(editedData);
 
     try {
-      const response = await fetch(`http://127.0.0.1:3000/profile/${userId}`, {
+      const response = await fetch(`/api/profile/${userId}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -169,7 +143,7 @@ const ProfileForm = () => {
               type="text"
               id={key}
               name={key}
-              value={profileData[key]}
+              value={profileData[key] || ""}
               onChange={handleChange}
               className="form-control"
             />
