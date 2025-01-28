@@ -15,7 +15,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <p className="m-2">
               <a href="/profile" className="text-light">
-              {console.log(userInfo)}
+              {/* {console.log(userInfo)} */}
                 hello, {userInfo.name}
               </a>
             </p>
@@ -122,22 +122,22 @@ const ExpandableNavbar = () => {
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
-                    <a className="dropdown-item" href="/service1">
+                    <a className="dropdown-item" href="/services/Construction">
                       Construction
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="/service2">
+                    <a className="dropdown-item" href="/services/Consultancy">
                       Engineering Consultancy
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="/service3">
+                    <a className="dropdown-item" href="/services/Supplies">
                       Material Supplies
                     </a>
                   </li>
                   <li>
-                    <a className="dropdown-item" href="/service4">
+                    <a className="dropdown-item" href="/services/Maintenance">
                       Maintenance
                     </a>
                   </li>

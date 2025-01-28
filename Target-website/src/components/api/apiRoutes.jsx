@@ -17,7 +17,7 @@ export const fetch_party_organizations = async () =>
     });
     const data = await response.json();
     if(data) {
-      console.log(data);
+      // console.log(data);
       setParties(data);
     }
     else

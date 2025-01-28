@@ -19,7 +19,6 @@ export const serviceMetadata = [
         roles: ["Admin", "user"],
 
     },
-
     {
         name: "Add Maintenance order",
         route: "/maintenance",
@@ -40,7 +39,7 @@ export const serviceMetadata = [
     },
     {
         name: "Add Organization",
-        route: "/add-PartyOrg",
+        route: "/add-Org",
         component: AddOrg,
         roles: ["Admin"],
     },

@@ -23,7 +23,7 @@ const Landing = () => {
               </div>
               <div className="col-md-6">
                 <img
-                  src="https://orascom.com/wp-content/uploads/Plant-1-Bahr-2.png"
+                  src="https://res.cloudinary.com/dlup3gczf/image/upload/v1737562034/o4mizoqasdscrdglctza.png"
                   alt="Random"
                   className="img-fluid"
                 />

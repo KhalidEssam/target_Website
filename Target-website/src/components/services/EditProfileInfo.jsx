@@ -99,7 +99,7 @@ const ProfileForm = () => {
 
   // Handle form submission
   const handleSubmit = async (e) => {
-    console.log(editedFields);
+    // console.log(editedFields);
     e.preventDefault();
     setLoading(true);
     editedFields.firstName ? editedFields.firstName = editedFields.firstName : editedFields.firstName = profileData.firstName;

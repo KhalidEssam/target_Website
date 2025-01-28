@@ -17,6 +17,7 @@ import AboutUs from "./pages/Aboutus";
 import Landing from "./pages/Landing";
 import Projects from "./pages/Projects";
 import ContactUs from "./pages/ContactUs";
+import Services from "./pages/Services";
 
 
 
@@ -51,6 +52,7 @@ function App() {
           <Route path="/about" element={<AboutUs />} />
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<ContactUs />} />
+          <Route path="/services/*" element={<Services />} />
           {/* <Route path='/' Component={LoginCallback }  /> */}
 
 

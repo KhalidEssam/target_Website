@@ -21,7 +21,7 @@ const Vehicles = () => {
 
 
     const handleVehicleClick = (vehicle) => {
-        console.log(`Selected vehicle: ${vehicle}`);
+        // console.log(`Selected vehicle: ${vehicle}`);
       };
     return (
         <div className="dropdown">

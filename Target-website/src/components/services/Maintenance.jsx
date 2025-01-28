@@ -5,7 +5,7 @@ import { useSelector } from 'react-redux';
 const Maintenance = () => {
   const [formData, setFormData] = useState({
     type: '',
-    items: [{ type: '', itemId: '64fdeab6f3245a9b6d7e003c', description: '' }],
+    items: [{ type: '', description: '', imageUrls: [] }],
     adminId: '',
     partyId: '',
     description: '',
@@ -15,6 +15,47 @@ const Maintenance = () => {
 
   const user = useSelector((state) => state.user);
   const [parties, setParties] = useState([]);
+  
+
+
+  const handleBrowseImage = async (e) => {
+    const file = e.target?.files?.[0];
+    if (!handleFileValidation(file)) return;
+  
+    const formData = new FormData();
+    formData.append("file", file);
+  
+    try {
+      const response = await fetch("/api/upload-single", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        console.error("Error uploading image:", data.error);
+        return;
+      }
+
+
+      setFormData((prev) => ({
+        ...prev, // Spread the previous state to keep other properties intact
+        items: prev.items.map((item) =>
+          item.type
+            ? {
+                ...item,
+                imageUrls: [...(item.imageUrls || []), data.imageUrl], // Append the new imageUrl
+              }
+            : item // If no `_id`, leave the item unchanged
+        ),
+      }));
+      
+      
+
+    } catch (error) {
+      console.error("Error uploading image:", error);
+    }
+  };
+
 
   // Fetch party organizations
   const fetchPartyOrganizations = useCallback(async () => {
@@ -37,21 +78,41 @@ const Maintenance = () => {
   const handleChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+    console.log(formData);
   }, []);
+
+  // browse imnage from computer
+  const handleFileValidation = (file) => {
+    if (!file) {
+      console.error("No file selected");
+      return false;
+    }
+    if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+      console.error("Unsupported file type");
+      return false;
+    }
+    if (file.size > 5 * 1024 * 1024) { // 5MB limit
+      console.error("File size exceeds 5MB");
+      return false;
+    }
+    return true;
+  };
 
   const handleItemsChange = useCallback((index, e) => {
     const { name, value } = e.target;
+    console.log(name + " ======= " + value);
     setFormData((prev) => {
       const newItems = [...prev.items];
       newItems[index] = { ...newItems[index], [name]: value };
       return { ...prev, items: newItems };
     });
+    console.log(formData.items);
   }, []);
 
   const handleAddItem = useCallback(() => {
     setFormData((prev) => ({
       ...prev,
-      items: [...prev.items, { type: '', itemId: '64fdeab6f3245a9b6d7e003c', description: '' }],
+      items: [...prev.items, { type: '',  description: '', imageUrls: [] }],
     }));
   }, []);
 
@@ -64,7 +125,7 @@ const Maintenance = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
     if (!formData.type || !formData.partyId) {
       alert('Please fill all required fields.');
       return;
@@ -133,6 +194,16 @@ const Maintenance = () => {
               placeholder="Enter description"
               className="mb-2"
             />
+
+             {/* Add image input for each item */}
+            <Input
+              type="file"
+              name="image"
+              onChange={handleBrowseImage}
+              className="mb-2"
+            />
+
+
             <Button color="danger" onClick={() => handleRemoveItem(index)}>
               Remove
             </Button>
@@ -157,6 +228,8 @@ const Maintenance = () => {
           {partyOptions}
         </Input>
       </FormGroup>
+      <a href='add-Org'>Cant find your Organization?</a>
+
 
       <FormGroup>
         <Label for="description">Description</Label>
@@ -169,6 +242,11 @@ const Maintenance = () => {
           placeholder="Enter detailed description"
         />
       </FormGroup>
+
+      <FormGroup>
+
+      </FormGroup>
+      
 
       <FormGroup>
         <Label for="status">Status</Label>
@@ -209,3 +287,4 @@ const Maintenance = () => {
 };
 
 export default Maintenance;
+
