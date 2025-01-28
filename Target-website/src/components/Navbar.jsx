@@ -73,7 +73,7 @@ const ExpandableNavbar = () => {
 
   return (
     <nav
-        className={`navbar fixed-top container navbar-expand-md  s
+        className={`navbar fixed-top container navbar-expand-md 
         ${
           !scrolled
             ? isDarkMode

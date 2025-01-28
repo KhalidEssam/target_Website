@@ -21,7 +21,6 @@ const Login = () => {
     const fetchUser = async () => {
       try {
         if (authState?.isAuthenticated) {
-          console.log('AdminID' , authState.idToken.claims.sub);
           // Wait until the tokens are resolved
           const user = await oktaAuth.getUser();
           // Dispatch login action with user data

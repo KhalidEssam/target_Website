@@ -22,7 +22,7 @@ const Profile = () => {
   }
 
   return (
-    <div className="profile-container">
+    <div className="profile-container d-block d-md-flex">
       {/* Sidebar */}
       <div className="profile-sidebar">
         <div className="profile-card">
