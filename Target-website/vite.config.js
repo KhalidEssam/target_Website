@@ -17,7 +17,7 @@ export default defineConfig(({mode}) => {
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
-          secure: true,
+          secure: process.env.NODE_ENV === 'production', // Only secure in production
         },
       },
     },
