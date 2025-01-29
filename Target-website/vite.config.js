@@ -13,7 +13,7 @@ export default defineConfig(({mode}) => {
     server: {
       proxy: {
         '/api': {
-          target: process.env.VITE_API_URL,
+          target: process.env.VITE_API_URL || 'https://target-backend-production.up.railway.app',
           changeOrigin: true,
           ws: true,
           rewrite: (path) => path.replace(/^\/api/, ''),
