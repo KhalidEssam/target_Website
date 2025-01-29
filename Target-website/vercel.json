@@ -1,6 +1,10 @@
 {
   "rewrites": [
     {
+      "source": "/api/(.*)", 
+      "destination": "https://target-backend-production.up.railway.app"
+    },
+    {
       "source": "/(.*)",
       "destination": "/index.html"
     }
