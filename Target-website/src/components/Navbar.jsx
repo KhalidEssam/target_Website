@@ -14,13 +14,20 @@ const Navbar = () => {
         <div className="container-fluid d-flex justify-content-between">
           {isLoggedIn ? (
             <p className="m-2">
+             <a rel="icon" type="image/svg+xml" href="/" >
+                <img src="./logo_target-.svg" alt="logo" style={{width:"50px", height:"50px"}} />
+            </a>
               <a href="/profile" className="text-light">
-              {/* {console.log(userInfo)} */}
                 hello, {userInfo.name}
               </a>
             </p>
           ) : (
+            <>
+            <a rel="icon" type="image/svg+xml" href="/" >
+                <img src="./logo_target-.svg" alt="logo" style={{width:"50px", height:"50px"}} />
+            </a>
             <p className="m-2">hello, Guest</p>
+            </>
           )}
           <Login />
         </div>
@@ -87,9 +94,12 @@ const ExpandableNavbar = () => {
           transition: "background-color 0.3s ease",
         }}
       >
-        <div className="container-fluid navat">
+        <div className="container-fluid">
+
+
+
           <a className={`navbar-brand nav-link p-3 ${navLinkClass}`} href="/">
-            Target for Engineering
+            Target for Engineering  
           </a>
           <button
             className="navbar-toggler"
@@ -126,11 +136,11 @@ const ExpandableNavbar = () => {
                       Construction
                     </a>
                   </li>
-                  <li>
+                  {/* <li>
                     <a className="dropdown-item" href="/services/Consultancy">
                       Engineering Consultancy
                     </a>
-                  </li>
+                  </li> */}
                   <li>
                     <a className="dropdown-item" href="/services/Supplies">
                       Material Supplies
