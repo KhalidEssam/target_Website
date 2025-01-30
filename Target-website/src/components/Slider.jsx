@@ -12,21 +12,21 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 
 const images = [
   {
-    url: "https://orascom.com/wp-content/uploads/DJI_0104-0-e1687423876762-1366x768.jpg",
+    url: "https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.56.46-AM.jpeg",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     title: "Image 1",
   },
   {
-    url: "https://orascom.com/wp-content/uploads/Plant-1-Bahr-2.png",
+    url: "https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.16.46-AM.jpeg",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     title: "Image 2",
   },
   {
-    url: "https://orascom.com/wp-content/uploads/Clarkson-Aerial-Jan2023-5-1366x768.png",
+    url: "https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.45.33-AM.jpeg",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
@@ -96,7 +96,8 @@ const FullscreenSlider = () => {
                 width: "100%",
               }}
             >
-              {title}
+              .
+              {/* {.} */}
             </h1>
             
               </div>

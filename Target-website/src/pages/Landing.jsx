@@ -1,5 +1,6 @@
 // import React from 'react';
 import FullscreenSlider from "../components/Slider";
+import FAQ from "../components/Faq";
 
 
 const Landing = () => {
@@ -23,12 +24,18 @@ const Landing = () => {
               </div>
               <div className="col-md-6">
                 <img
-                  src="https://res.cloudinary.com/dlup3gczf/image/upload/v1737562034/o4mizoqasdscrdglctza.png"
+                  src="https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.23.28-AM.jpeg"
                   alt="Random"
                   className="img-fluid"
                 />
               </div>
             </div>
+          </section>
+
+          {/* FAQ Section */}
+          <section className="faq-section container">
+            <h2>Frequently Asked Questions</h2>
+            <FAQ />
           </section>
 
 
