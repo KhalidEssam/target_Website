@@ -1,0 +1,44 @@
+{
+    "navbar": {
+        "targetForEngineering": { "en": "Target for Engineering", "ar": "تارجت للهندسة" },
+        "aboutUs": { "en": "About Us", "ar": "عنا" },
+        "services": { "en": "Services", "ar": "الخدمات" },
+        "construction": { "en": "Construction", "ar": "الانشاء" },
+        "materialSupplies": { "en": "Material Supplies", "ar": "التوريدات" },
+        "maintenance": { "en": "Maintenance", "ar": "الصيانة" },
+        "projects": { "en": "Projects", "ar": "المشاريع" },
+        "contact": { "en": "Contact", "ar": "اتصل بنا" },
+        "darkMode": { "en": "Dark Mode", "ar": "الوضع الداكن" },
+        "lightMode": { "en": "Light Mode", "ar": "الوضع الفاتح" }
+    },
+    "body": {
+        "FAQ": { "en": "Frequently Asked Questions", "ar": "الاسئلة الشائعة" },
+        "story": { "en": "A story of more than just Engineering, but also of a family that has been working together for more than 30 years.", "ar": "قصة أكثر من هندسة، ولكن أيضاً قصة عائلة تعمل معاً لمدة 30 عاماً." },
+        "readMore": { "en": "Learn More", "ar": "اقراء المزيد" }
+    },
+    "services": {
+        "services": { "en": "Services", "ar": "الخدمات" },
+        "construction": { "en": "Construction", "ar": "الانشاء" },
+        "materialSupplies": { "en": "Material Supplies", "ar": "التوريدات" },
+        "search": { "en": "Search", "ar": "بحث" },
+        "Noordersfound": { "en": "No orders found", "ar": "لم يتم العثور على طلبات" },
+        "browseOrderByPhoneNumber": { "en": "Browse Our Orders By Phone", "ar": "  تصفح الطلبات بواسطة الهاتف المسجل"  }
+    },
+    "contactUs": {
+        "title": { "en": "Contact Us", "ar": "اتصل بنا" },
+        "subtitle": { "en": "We’d love to hear from you. Let’s get in touch!", "ar": "نود سماع منك. دعونا نتواصل!" },
+        "ourLocation": { "en": "Our location", "ar": "موقعنا" },
+        "address": { "en": "12 Bahr Street , GiZa, Saqil Ossim", "ar": "12 شارع بحر ، الجيزة ، ساقية الصاوي" },
+        "contactInformation": { "en": "Contact Information", "ar": "معلومات الاتصال" },
+        "email": { "en": "Email: info@target-for-engineering.com", "ar": "البريد الإلكتروني: info@target-for-engineering.com" },
+        "phone": { "en": "Phone: +20 (10) 40109864", "ar": "الهاتف: +20 (10) 40109864" },
+        "doYouHaveQuestions": { "en": "Do you have any questions?", "ar": "هل لديك أي أسئلة؟" },
+        "name": { "en": "Name", "ar": "الاسم" },
+        "namePlaceholder": { "en": "Enter your name", "ar": "أدخل اسمك" },
+        "emailField": { "en": "Email", "ar": "البريد الإلكتروني" },
+        "emailPlaceholder": { "en": "Enter your email", "ar": "أدخل بريدك الإلكتروني" },
+        "message": { "en": "Message", "ar": "الرسالة" },
+        "messagePlaceholder": { "en": "Write your message here", "ar": "اكتب رسالتك هنا" },
+        "sendMessage": { "en": "Send Message", "ar": "أرسل الرسالة" }
+  }
+}

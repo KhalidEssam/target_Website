@@ -1,10 +1,13 @@
 import { Input } from 'reactstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from '../../hooks/useTranslation'; 
 const BrowseOrderByPhoneNumber = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [orders, setOrders] = useState([]);
   let query = '';
+
+  const { translate : t } = useTranslation();
 
   const navigate = useNavigate();
 
@@ -51,17 +54,17 @@ const BrowseOrderByPhoneNumber = () => {
 
 
 
-      <h1>Browse Orders By Phone Number</h1>
+      <h1>{t("services.browseOrderByPhoneNumber")}</h1>
 
       <Input
         type="text"
         name="search"
         id="search"
-        placeholder="Search by party phone number..."
+        placeholder={t("services.browseOrderByPhoneNumber")}
         onChange={handleQuery}
       />
 
-      <button type='submit' onClick={handleSearch}>Search</button>
+      <button type='submit' onClick={handleSearch}>{t("services.search")}</button>
 
       {orders.length > 0 ? orders.map((order) => (
         <div key={order._id} className='card m-2 ' onClick={() => navigate(`/profile/orders/${order._id}`)}>
@@ -73,7 +76,7 @@ const BrowseOrderByPhoneNumber = () => {
           {/* <p>City: {order.city}</p>
           <p>State: {order.state}</p> */}
         </div>
-      )) : <p>No orders found</p>}
+      )) : <p>{t("services.Noordersfound")}</p>}
     </div>
   );
 };

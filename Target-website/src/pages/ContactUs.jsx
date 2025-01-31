@@ -1,13 +1,13 @@
 import React from "react";
-// import "./ContactUs.css";
-
+import { useTranslation } from "../hooks/useTranslation";
 const ContactUs = () => {
+  const { translate: t } = useTranslation();
   return (
-    <div className=" contact-us">
+    <div className=" mt-vh contact-us">
       {/* Banner Section */}
-      <div className="contact-banner mt-5 ">
-        <h1>Contact Us</h1>
-        <p>We’d love to hear from you. Let’s get in touch!</p>
+      <div className="contact-banner  ">
+        <h1>{t("contactUs.title")}</h1>
+        <p>{t("contactUs.subtitle")}</p>
       </div>
 
       {/* Map and Info Section */}
@@ -25,31 +25,31 @@ const ContactUs = () => {
           ></iframe>
         </div>
         <div className="info-container">
-          <h3>Our location</h3>
-          <p>12 Bahr Street , GiZa, Saqil Ossim</p>
-          <h3>Contact Information</h3>
-          <p>Email: info@target-for-engineering.com</p>
-          <p>Phone: +20 (10) 40109864</p>
+          <h3>{t("contactUs.ourLocation")}</h3>
+          <p>{t("contactUs.address")}</p>
+          <h3>{t("contactUs.contactInformation")}</h3>
+          <p>{t("contactUs.email")}</p>
+          <p>{t("contactUs.phone")}</p>
         </div>
       </div>
 
       {/* Contact Form Section */}
       <div className="contact-form">
-        <h2>Have Any Questions?</h2>
+        <h2>{t("contactUs.title")}</h2>
         <form>
           <div className="form-group">
-            <label>Name</label>
-            <input type="text" placeholder="Enter your name" required />
+            <label>{t("contactUs.name")}</label>
+            <input type="text" placeholder={t("contactUs.name")} required />
           </div>
           <div className="form-group">
-            <label>Email</label>
-            <input type="email" placeholder="Enter your email" required />
+            <label>{t("contactUs.emailField")}</label>
+            <input type="email" placeholder={t("contactUs.emailPlaceholder")} required />
           </div>
           <div className="form-group">
-            <label>Message</label>
-            <textarea rows="5" placeholder="Write your message here" required></textarea>
+            <label>{t("contactUs.message")}</label>
+            <textarea rows="5" placeholder={t("contactUs.messagePlaceholder")} required></textarea>
           </div>
-          <button type="submit">Send Message</button>
+          <button type="submit">{t("contactUs.sendMessage")}</button>
         </form>
       </div>
     </div>

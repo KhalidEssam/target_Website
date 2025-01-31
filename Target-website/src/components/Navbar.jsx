@@ -2,9 +2,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleTheme } from "../store/features/themeSlice"; // Import the action
 import React, { useState, useEffect } from "react";
 import Login from "./handleLogin";
+import LanguageToggle from "./LanguageToggle";
+import { useTranslation } from "../hooks/useTranslation"; 
 
 const Navbar = () => {
   const { isLoggedIn, userInfo } = useSelector((state) => state.user);
+
 
   
 
@@ -15,7 +18,7 @@ const Navbar = () => {
           {isLoggedIn ? (
             <p className="m-2">
              <a rel="icon" type="image/svg+xml" href="/" >
-                <img src="./logo_target-.svg" alt="logo" style={{width:"50px", height:"50px"}} />
+                <img src="/logo_target-.svg" alt="logo" style={{width:"50px", height:"50px"}} />
             </a>
               <a href="/profile" className="text-light">
                 hello, {userInfo.name}
@@ -24,7 +27,7 @@ const Navbar = () => {
           ) : (
             <>
             <a rel="icon" type="image/svg+xml" href="/" >
-                <img src="./logo_target-.svg" alt="logo" style={{width:"50px", height:"50px"}} />
+                <img src="/logo_target-.svg" alt="logo" style={{width:"50px", height:"50px"}} />
             </a>
             <p className="m-2">hello, Guest</p>
             </>
@@ -38,6 +41,8 @@ const Navbar = () => {
 };
 
 const ExpandableNavbar = () => {
+  const { translate: t } = useTranslation();
+
   const dispatch = useDispatch();
 
   const [scrolled, setScrolled] = useState(false);
@@ -99,7 +104,8 @@ const ExpandableNavbar = () => {
 
 
           <a className={`navbar-brand nav-link p-3 ${navLinkClass}`} href="/">
-            Target for Engineering  
+            {t("navbar.targetForEngineering")}
+         
           </a>
           <button
             className="navbar-toggler"
@@ -116,7 +122,7 @@ const ExpandableNavbar = () => {
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <a className={`nav-link p-3 ${navLinkClass}`} href="/about">
-                  About Us
+                {t("navbar.aboutUs")}
                 </a>
               </li>
               <li className="nav-item dropdown">
@@ -128,12 +134,12 @@ const ExpandableNavbar = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
-                  Services
+                  {t("navbar.services")}
                 </a>
                 <ul className="dropdown-menu" aria-labelledby="navbarDropdown">
                   <li>
                     <a className="dropdown-item" href="/services/Construction">
-                      Construction
+                      {t("navbar.construction")}
                     </a>
                   </li>
                   {/* <li>
@@ -143,24 +149,24 @@ const ExpandableNavbar = () => {
                   </li> */}
                   <li>
                     <a className="dropdown-item" href="/services/Supplies">
-                      Material Supplies
+                      {t("navbar.materialSupplies")}
                     </a>
                   </li>
                   <li>
                     <a className="dropdown-item" href="/services/Maintenance">
-                      Maintenance
+                      {t("navbar.maintenance")}
                     </a>
                   </li>
                 </ul>
               </li>
               <li className="nav-item">
                 <a className={`nav-link p-3 ${navLinkClass}`} href="/projects">
-                  Projects
+                  {t("navbar.projects")}
                 </a>
               </li>
               <li className="nav-item">
                 <a className={`nav-link p-3 ${navLinkClass}`} href="/contact">
-                  Contact
+                  {t("navbar.contact")}
                 </a>
               </li>
             </ul>
@@ -168,8 +174,9 @@ const ExpandableNavbar = () => {
               className="btn btn-outline-secondary m-2"
               onClick={handleThemeToggle}
             >
-              {isDarkMode ? " Dark" : " Light"}
+              {isDarkMode ? t("navbar.darkMode") : t("navbar.lightMode")}
             </button>
+            <LanguageToggle />
           </div>
         </div>
       </nav>

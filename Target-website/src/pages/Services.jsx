@@ -3,9 +3,12 @@ import BrowseOrderByPhoneNumber from "../components/services/BrowseOrderByPhoneN
 import ShowAvailableSupplies from "../components/services/Supplies";
 import { useState , useEffect } from "react";
 
+import { useTranslation } from "../hooks/useTranslation";
+
 
 const Services = () => {
   const [supplies, setSupplies] = useState([]);
+  const { translate : t } = useTranslation();
 
   const fetchSupplies = async () => {
     try {
@@ -45,7 +48,7 @@ const Services = () => {
 
   return (
     <>
-      <h1>Services</h1>
+      <h1>{t("navbar.services")}</h1>
 
       <Routes>
         {availableServices.map((service) => (

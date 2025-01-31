@@ -1,9 +1,12 @@
 // import React from 'react';
 import FullscreenSlider from "../components/Slider";
 import FAQ from "../components/Faq";
+import { useTranslation } from "../hooks/useTranslation";
+
 
 
 const Landing = () => {
+  const { translate:t } = useTranslation();
     return (
         <>
         
@@ -13,14 +16,13 @@ const Landing = () => {
           </div>
 
           {/* Card Section */}
-          <section className="card-section container">
+          <section className=" card card-section border-3  container">
             <div className="row justify-content-center align-items-center">
               <div className="col-md-4 text-center">
-                <h1>Target for Engineering</h1>
+                <h1>{t("navbar.targetForEngineering")}</h1>
                 <p>
-                  A story of more than just Engineering, but also of a family that has been working together for more than 30 years.
-                </p>
-                <button className="btn btn-primary">Learn More</button>
+                {t("body.story")}</p>
+                <button className="btn btn-primary">{t("body.readMore")}</button>
               </div>
               <div className="col-md-6">
                 <img
@@ -34,7 +36,7 @@ const Landing = () => {
 
           {/* FAQ Section */}
           <section className="faq-section container">
-            <h2>Frequently Asked Questions</h2>
+            <h2>{t("body.FAQ")}</h2>
             <FAQ />
           </section>
 

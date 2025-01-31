@@ -3,6 +3,9 @@ import "./App.css";
 import {  LoginCallback } from "@okta/okta-react";
 import { useOktaAuth } from '@okta/okta-react';
 
+import useDirection from "./hooks/useDirection";
+
+
 // Components
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -24,6 +27,7 @@ import Services from "./pages/Services";
 
 
 function App() {
+  useDirection(); // Apply RTL/LTR direction
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const { authState, oktaAuth } = useOktaAuth();
 

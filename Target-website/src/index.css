@@ -13,11 +13,22 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 
-.body:not(.dark-mode)  .navat{
-  color: rgb(0, 0, 0) !important;
-} */
+body {
+  /* font-family: "Arial", sans-serif; */
+  transition: all 0.3s ease;
+}
 
+body[dir="rtl"] {
+  text-align: right;
+}
+
+body[dir="ltr"] {
+  text-align: left;
+}
+
+.mt-vh {
+  margin-top: 10vh;
+}
 
 body.dark-mode {
   background-color: #000000 !important;  /* Dark color for light mode */

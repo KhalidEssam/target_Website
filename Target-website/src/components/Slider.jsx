@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useRef, useEffect } from "react";
 // Import Swiper React components
 import { Swiper, SwiperSlide } from "swiper/react";
+import { useSelector } from "react-redux";
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
@@ -9,6 +10,8 @@ import "swiper/css/autoplay";
 
 // Import Swiper modules
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
+import useSwiperDirectionFix from "../hooks/useSwiperDirectionFix";
+
 
 const images = [
   {
@@ -35,6 +38,17 @@ const images = [
 ];
 
 const FullscreenSlider = () => {
+  const direction = useSelector((state) => state.language.direction); // Get direction (rtl or ltr) from the language state
+
+  // Trigger Swiper update when the language changes
+  useEffect(() => {
+    // if (swiperRef.current) {
+      console.log(direction);
+      swiperRef.current.swiper.update(); // Force Swiper to update
+    // }
+  }, [direction]); // Trigger when the direction changes
+  const swiperRef = useSwiperDirectionFix(); // Use the updated hook
+
   return (
     <div
       style={{
@@ -61,6 +75,7 @@ const FullscreenSlider = () => {
         }}
       >
         <Swiper
+          ref={swiperRef}
           modules={[Navigation, Pagination, Autoplay]}
           navigation
           pagination={{ clickable: true }}
