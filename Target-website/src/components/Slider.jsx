@@ -1,17 +1,11 @@
-import React, { useRef, useEffect } from "react";
-// Import Swiper React components
+import React, { useRef, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useSelector } from "react-redux";
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-
-// Import Swiper modules
 import { Navigation, Pagination, Autoplay } from "swiper/modules";
-import useSwiperDirectionFix from "../hooks/useSwiperDirectionFix";
-
 
 const images = [
   {
@@ -39,55 +33,54 @@ const images = [
 
 const FullscreenSlider = () => {
   const direction = useSelector((state) => state.language.direction); // Get direction (rtl or ltr) from the language state
+  const [swiperKey, setSwiperKey] = useState(0);
+  const swiperRef = useRef(null);
 
-  // Trigger Swiper update when the language changes
+  // Force re-render when direction changes
   useEffect(() => {
-    // if (swiperRef.current) {
-      console.log(direction);
-      swiperRef.current.swiper.update(); // Force Swiper to update
-    // }
-  }, [direction]); // Trigger when the direction changes
-  const swiperRef = useSwiperDirectionFix(); // Use the updated hook
+    setSwiperKey((prev) => prev + 1); // Update key to force Swiper re-initialization
+
+    if (swiperRef.current?.swiper) {
+      swiperRef.current.swiper.slideTo(0, 0, 0); // Reset position
+    }
+  }, [direction]);
 
   return (
     <div
       style={{
-        height: "100vh", // Full viewport height
-        width: "100vw", // Full viewport width
+        height: "100vh",
+        width: "100vw",
         display: "flex",
         flexDirection: "column",
         justifyContent: "center",
         alignItems: "center",
-        backgroundColor: "#f8f9fa", // Optional background color
+        backgroundColor: "#f8f9fa",
       }}
     >
-
-      <div className="img"
+      <div
+        className="img"
         style={{
-          maxWidth: "100vw", // Optional max width for the slider  
-          // display: "flex",
+          maxWidth: "100vw",
           alignContent: "center",
-          // height: "100%", // Full height for the slider
-          borderRadius: "10px", // Rounded corners for the card look
-          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)", // Card shadow
+          borderRadius: "10px",
+          boxShadow: "0 4px 8px rgba(0, 0, 0, 0.1)",
           overflow: "hidden",
           position: "relative",
         }}
       >
         <Swiper
+          key={swiperKey} // 🔥 Forces Swiper to reinitialize when direction changes
           ref={swiperRef}
           modules={[Navigation, Pagination, Autoplay]}
           navigation
           pagination={{ clickable: true }}
           autoplay={{ delay: 3000, disableOnInteraction: false }}
-          loop={true}
-          spaceBetween={30}
           slidesPerView={1}
-          style={{ height: "100%" }} // Ensure the slider takes up full height
+          dir={direction} // ✅ Correctly update Swiper direction
+          style={{ height: "100%" }}
         >
           {images.map(({ url, backgroundSize, backgroundRepeat, backgroundPosition, title }, index) => (
             <SwiperSlide key={index}>
-               
               <div
                 style={{
                   height: "100vh",
@@ -97,26 +90,22 @@ const FullscreenSlider = () => {
                   backgroundPosition,
                   display: "flex",
                   justifyContent: "center",
-                  alignItems: "flex-end", 
-                  position: "relative", 
+                  alignItems: "flex-end",
+                  position: "relative",
                 }}
               >
-               
-              <h1
-              style={{
-                fontSize: "2rem",
-                textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
-                bottom: "40px", // Adjust based on your preference
-                textAlign: "center",
-                width: "100%",
-              }}
-            >
-              .
-              {/* {.} */}
-            </h1>
-            
+                <h1
+                  style={{
+                    fontSize: "2rem",
+                    textShadow: "2px 2px 4px rgba(0,0,0,0.8)",
+                    bottom: "40px",
+                    textAlign: "center",
+                    width: "100%",
+                  }}
+                >
+                  .
+                </h1>
               </div>
-                  
             </SwiperSlide>
           ))}
         </Swiper>
