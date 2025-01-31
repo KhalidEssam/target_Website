@@ -1,76 +1,135 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Button, Input } from "reactstrap";
 import { useSelector } from "react-redux";
-import { DataGrid , GridToolbar  } from "@mui/x-data-grid";
-// Import Swiper React components
+import { DataGrid, GridToolbar } from "@mui/x-data-grid";
 import { Swiper, SwiperSlide } from "swiper/react";
-// Import Swiper styles
+import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
 
-// Import Swiper modules
-import { Navigation, Pagination, Autoplay } from "swiper/modules";
+// Utility function for file validation
+const validateFile = (file) => {
+  if (!file) {
+    console.error("No file selected");
+    return false;
+  }
+  if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
+    console.error("Unsupported file type");
+    return false;
+  }
+  if (file.size > 5 * 1024 * 1024) {
+    console.error("File size exceeds 5MB");
+    return false;
+  }
+  return true;
+};
+
+// Swiper Component for Item Images
+const ItemSwiper = ({ images, itemType }) => {
+  const direction = useSelector((state) => state.language.direction);
+
+  return (
+    <Swiper
+      key={direction} // Re-initialize Swiper on direction change
+      modules={[Navigation, Pagination, Autoplay]}
+      navigation
+      pagination={{ clickable: true }}
+      autoplay={{ delay: 3000, disableOnInteraction: false }}
+      loop={true}
+      style={{
+        height: "300px",
+        backgroundSize: "cover",
+        backgroundRepeat: "no-repeat",
+        backgroundPosition: "center",
+      }}
+      className="mySwiper"
+    >
+      {images.map((url, idx) => (
+        <SwiperSlide key={idx}>
+          <img src={url} alt={itemType} style={{ width: "100%", height: "auto" }} />
+        </SwiperSlide>
+      ))}
+    </Swiper>
+  );
+};
+
+// Generate DataGrid Columns and Rows
+const generateDataGridData = (items) => {
+  if (!items?.length) return { columns: [], rows: [] };
+
+  const columns = Object.keys(items[0]).map((key) => ({
+    field: key,
+    headerName: key.charAt(0).toUpperCase() + key.slice(1),
+    width: key === "description" ? 300 : 200,
+    ...(key === "imageUrls" && {
+      renderCell: (params) =>
+        params.value?.length ? (
+          <a href={params.value[0]} target="_blank" rel="noopener noreferrer">
+            <img
+              src={params.value[0]}
+              alt="Item"
+              style={{ width: 80, height: 80, objectFit: "contain" }}
+            />
+          </a>
+        ) : (
+          "No Image"
+        ),
+    }),
+  }));
+
+  const rows = items.map((item) => ({
+    id: item._id ? item._id.toString() : "",
+    ...item,
+  }));
+
+  return { columns, rows };
+};
 
 const OrderDetail = () => {
-  const user = useSelector((state) => state.user);
-  const { id } = useParams(); // Get order ID from the URL
-  const [order, setOrder] = useState(null);
+  const { id } = useParams();
   const navigate = useNavigate();
+  const [order, setOrder] = useState(null);
+  const swiperRef = useRef(null);
+  const direction = useSelector((state) => state.language.direction);
 
-  const fetchOrder = async () => {
-    try {
-      const response = await fetch(`/api/orders/${id}`);
-      const data = await response.json();
-      setOrder(data || {});
-    } catch (error) {
-      console.error("Error fetching order:", error);
-    }
-  };
+  // Fetch Order Data
+  useEffect(() => {
+    const fetchOrder = async () => {
+      try {
+        const response = await fetch(`/api/orders/${id}`);
+        const data = await response.json();
+        setOrder(data || {});
+      } catch (error) {
+        console.error("Error fetching order:", error);
+      }
+    };
+    fetchOrder();
+  }, [id]);
 
-  const handleFileValidation = (file) => {
-    if (!file) {
-      console.error("No file selected");
-      return false;
-    }
-    if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
-      console.error("Unsupported file type");
-      return false;
-    }
-    if (file.size > 5 * 1024 * 1024) {
-      // 5MB limit
-      console.error("File size exceeds 5MB");
-      return false;
-    }
-    return true;
-  };
-
+  // Handle Image Upload
   const handleBrowseImage = async (e, itemId) => {
     const file = e.target?.files?.[0];
-    if (!handleFileValidation(file)) return;
-  
+    if (!validateFile(file)) return;
+
     const formData = new FormData();
     formData.append("file", file);
-    formData.append("itemId", itemId); // Attach itemId to FormData
-  
+    formData.append("itemId", itemId);
+
     try {
       const response = await fetch("/api/upload-single", {
         method: "POST",
         body: formData,
       });
       const data = await response.json();
-      if (!response.ok) {
-        console.error("Error uploading image:", data.error);
-        return;
-      }
-  
-      // Update the order with the new image URL dynamically
+      if (!response.ok) throw new Error(data.error);
+
       setOrder((prevOrder) => ({
         ...prevOrder,
         items: prevOrder.items.map((item) =>
-          item._id === data.itemId
+          item._id === itemId
             ? { ...item, imageUrls: [...(item.imageUrls || []), data.imageUrl] }
             : item
         ),
@@ -79,8 +138,8 @@ const OrderDetail = () => {
       console.error("Error uploading image:", error);
     }
   };
-  
 
+  // Handle Order Update
   const handleUpdateOrder = async () => {
     try {
       const response = await fetch(`/api/orders/${id}`, {
@@ -101,17 +160,13 @@ const OrderDetail = () => {
     }
   };
 
+  // Handle Order Deletion
   const handleDeleteOrder = async () => {
-    const confirmDelete = window.confirm(
-      "Are you sure you want to delete this order?"
-    );
+    const confirmDelete = window.confirm("Are you sure you want to delete this order?");
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`/api/orders/${id}`, {
-        method: "DELETE",
-      });
-
+      const response = await fetch(`/api/orders/${id}`, { method: "DELETE" });
       if (response.ok) {
         alert("Order deleted successfully");
         navigate("/profile/orders");
@@ -124,44 +179,9 @@ const OrderDetail = () => {
     }
   };
 
-  useEffect(() => {
-    fetchOrder();
-  }, [id]);
-
   if (!order) return <p>Loading...</p>;
 
-  // Extract items and dynamically generate DataGrid columns and rows
-  const { items } = order;
-  const columns = items?.length
-    ? Object.keys(items[0]).map((key) => ({
-        field: key,
-        headerName: key.charAt(0).toUpperCase() + key.slice(1),
-        width: key === "description" ? 300 : 200, // Adjust column width
-        ...(key === "imageUrls" && {
-          renderCell: (params) =>
-            params.value?.length ? (
-              <a
-                href={params.value[0]}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <img
-                  src={params.value[0]}
-                  alt="Item"
-                  style={{ width: 80, height: 80, objectFit: "contain" }}
-                />
-              </a>
-            ) : (
-              "No Image"
-            ),
-        }),
-      }))
-    : [];
-
-  const rows = items?.map((item) => ({
-    id: item._id ? item._id.toString() : "", // Use _id as the unique row identifier
-    ...item,
-  }));
+  const { columns, rows } = generateDataGridData(order.items);
 
   return (
     <>
@@ -172,56 +192,33 @@ const OrderDetail = () => {
 
       {/* Data Grid Table */}
       <div style={{ height: 400, width: "100%", marginBottom: "20px" }}>
-      <DataGrid
-        rows={rows}
-        columns={columns}
-        pageSize={5}
-        checkboxSelection
-        slots={{ toolbar: GridToolbar }}
-      />
+        <DataGrid
+          rows={rows}
+          columns={columns}
+          pageSize={5}
+          checkboxSelection
+          slots={{ toolbar: GridToolbar }}
+        />
       </div>
 
-      {/* Swiper Section */}
+      {/* Items Section */}
       {order.items?.map((item) => (
         <div key={item._id}>
           <p>Item: {item.type}</p>
           {item.imageUrls?.length > 0 ? (
-            <Swiper
-              modules={[Navigation, Pagination, Autoplay]}
-              navigation
-              pagination={{ clickable: true }}
-              autoplay={{ delay: 3000, disableOnInteraction: false }}
-              loop={true}
-              style={{
-                height: "300px",
-                backgroundSize: "cover",
-                backgroundRepeat: "no-repeat",
-                backgroundPosition: "center",
-              }}
-              className="mySwiper"
-            >
-              {item.imageUrls.map((url, idx) => (
-                <SwiperSlide key={idx}>
-                  <img
-                    src={url}
-                    alt={item.type}
-                    style={{ width: "100%", height: "auto" }}
-                  />
-                </SwiperSlide>
-              ))}
-            </Swiper>
+            <ItemSwiper images={item.imageUrls} itemType={item.type} />
           ) : (
             <p>No images available</p>
           )}
           <Input
             type="file"
             accept="image/*"
-            key={item._id}
             onChange={(e) => handleBrowseImage(e, item._id)}
-            />
+          />
         </div>
       ))}
 
+      {/* Order Controls */}
       <Input
         type="select"
         name="status"
@@ -241,30 +238,35 @@ const OrderDetail = () => {
         onChange={(e) => setOrder({ ...order, description: e.target.value })}
       />
 
-
-
-      <Button color="success" onClick={() => setOrder({
-        ...order,
-        items: [...order.items, {
-          type: '',
-          description: '',
-          imageUrls: [],
-        }]
-      })}>
+      <Button
+        color="success"
+        onClick={() =>
+          setOrder((prevOrder) => ({
+            ...prevOrder,
+            items: [
+              ...prevOrder.items,
+              { type: "", description: "", imageUrls: [] },
+            ],
+          }))
+        }
+      >
         Add Item
       </Button>
+
       {order.items.map((item, idx) => (
         <div key={idx}>
           <p>Item: {item.type}</p>
           <Input
             type="select"
             value={item.type}
-            onChange={(e) => setOrder({
-              ...order,
-              items: order.items.map((i, index) =>
-                idx === index ? { ...i, type: e.target.value } : i
-              )
-            })}
+            onChange={(e) =>
+              setOrder((prevOrder) => ({
+                ...prevOrder,
+                items: prevOrder.items.map((i, index) =>
+                  idx === index ? { ...i, type: e.target.value } : i
+                ),
+              }))
+            }
           >
             <option value="vehicle">Vehicle</option>
             <option value="equipment">Equipment</option>
@@ -272,17 +274,17 @@ const OrderDetail = () => {
           <Input
             type="text"
             value={item.description}
-            onChange={(e) => setOrder({
-              ...order,
-              items: order.items.map((i, index) =>
-                idx === index ? { ...i, description: e.target.value } : i
-              )
-            })}
+            onChange={(e) =>
+              setOrder((prevOrder) => ({
+                ...prevOrder,
+                items: prevOrder.items.map((i, index) =>
+                  idx === index ? { ...i, description: e.target.value } : i
+                ),
+              }))
+            }
           />
         </div>
       ))}
-
-
 
       <Button color="primary" onClick={handleUpdateOrder}>
         Update Order
