@@ -79,6 +79,7 @@ const FullscreenSlider = () => {
           slidesPerView={1}
           dir={direction} // ✅ Correctly update Swiper direction
           style={{ height: "100%" }}
+          className="gray-effect"
         >
           {images.map(({ url, backgroundSize, backgroundRepeat, backgroundPosition, title }, index) => (
             <SwiperSlide key={index}>

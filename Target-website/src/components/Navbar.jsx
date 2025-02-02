@@ -108,7 +108,7 @@ const ExpandableNavbar = () => {
          
           </a>
           <button
-            className="navbar-toggler"
+            className="navbar-toggler border-3 bg-secondary"
             type="button"
             data-bs-toggle="collapse"
             data-bs-target="#navbarNav"

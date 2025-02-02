@@ -10,13 +10,13 @@ export const serviceMetadata = [
         name: "Browse Maintenance Plans",
         route: "/orders",
         component: BrowseMaintenancePlans,
-        roles: ["Admin", "user"],
+        roles: ["Admin"],
     }, 
     {
         name: "Order Details",
         route: "/orders/:id",
         component: OrderDetail,
-        roles: ["Admin", "user"],
+        roles: ["Admin"],
 
     },
     {

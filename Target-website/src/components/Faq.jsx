@@ -15,12 +15,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-            What is Target for Engineering?
+            {t("faq.q1")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-            Target for Engineering is a platform dedicated to providing high-quality engineering solutions, resources, and support to help individuals and organizations achieve their goals in the engineering field.
+          {t("faq.a1")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -29,12 +29,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-            How can I contact support?
+          {t("faq.q2")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-            You can contact our support team by emailing <strong>support@targetforengineering.com</strong> or by calling our helpline at <strong>+1 (123) 456-7890</strong>.
+            {t("faq.a2")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -43,12 +43,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-            What services do you offer?
+          {t("faq.q3")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-            We offer a wide range of services, including engineering consulting, project management, training programs, and technical support for various engineering disciplines.
+          {t("faq.a3")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -57,12 +57,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-            Do you provide custom solutions?
+          {t("faq.q4")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-            Yes, we specialize in creating custom engineering solutions tailored to your specific needs. Contact us to discuss your requirements, and we'll design a solution that fits your goals.
+          {t("faq.a4")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -71,12 +71,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-            Is there a free trial available?
+          {t("faq.q5")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-            Yes, we offer a free trial for some of our services. Please reach out to our team to learn more about the available options and eligibility.
+          {t("faq.a5")}
           </Typography>
         </AccordionDetails>
       </Accordion>

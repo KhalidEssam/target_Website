@@ -28,7 +28,7 @@
         "title": { "en": "Contact Us", "ar": "اتصل بنا" },
         "subtitle": { "en": "We’d love to hear from you. Let’s get in touch!", "ar": "نود سماع منك. دعونا نتواصل!" },
         "ourLocation": { "en": "Our location", "ar": "موقعنا" },
-        "address": { "en": "12 Bahr Street , GiZa, Saqil Ossim", "ar": "12 شارع بحر ، الجيزة ، ساقية الصاوي" },
+        "address": { "en": "12 Bahr Street , GiZa, Saqil Ossim", "ar": "12 شارع سكة البحر ، الجيزة ، سقيل أوسيم" },
         "contactInformation": { "en": "Contact Information", "ar": "معلومات الاتصال" },
         "email": { "en": "Email: info@target-for-engineering.com", "ar": "البريد الإلكتروني: info@target-for-engineering.com" },
         "phone": { "en": "Phone: +20 (10) 40109864", "ar": "الهاتف: +20 (10) 40109864" },
@@ -40,5 +40,20 @@
         "message": { "en": "Message", "ar": "الرسالة" },
         "messagePlaceholder": { "en": "Write your message here", "ar": "اكتب رسالتك هنا" },
         "sendMessage": { "en": "Send Message", "ar": "أرسل الرسالة" }
+  },
+  "faq":{
+    "q1": { "en": "What is Target For Engineering?", "ar": "ما هي الهندسية تارجت ؟" },
+    "a1": { "en": "Target for Engineering is a platform dedicated to providing high-quality engineering solutions, resources, and support to help individuals and organizations achieve their goals in the engineering field. We provide a wide range of engineering services, including construction, material supplies, and maintenance, as well as a platform for engineers to share their knowledge and experience with others.", "ar" :" الهندسية تارجت هي منصة مكرسة لتقديم حلول هندسية عالية الجودة، والموارد، والدعم لمساعدة الأفراد والمنظمات على تحقيق أهدافهم في مجال الهندسة. ونقدم مجموعة واسعة من خدمات الهندسة، بما في ذلك البناء، وتوريدات المواد، والصيانة، فضلا عن منصة للهندسين لمشاركة معرفتهم وتجربتهم مع الآخرين."},
+    "q2": { "en":"How can I contact support?" ,"ar": "كيف يمكنني الاتصال بالدعم؟" },
+    "a2": { "en": "You can reach out to our support team at info@target-for-engineering.com", "ar": "يمكنك الاتصال بفريق الدعم على info@target-for-engineering.com" },
+    "q3": { "en": "What services do you offer?", "ar": "ما الخدمات التي تقدمها؟" },
+    "a3": { "en": "We offer a wide range of services, including engineering consulting, project management, training programs, and technical support for various engineering disciplines." , "ar": "نقدم مجموعة واسعة من الخدمات، بما في ذلك استشارات الهندسة، وإدارة المشاريع، وبرامج التدريب، والدعم الفني لعدد من التخصصات الهندسية."},
+    "q4": { "en": "What is your privacy policy?", "ar": "ما هي سياسة الخصوصية الخاصة بك؟" },
+    "a4": {
+        "en": "Our privacy policy ensures that your data is kept secure and is only used for the purposes for which it was collected. We do not share your personal information with third parties without your consent, except as required by law.",
+        "ar": "سياسة الخصوصية الخاصة بنا تضمن أن بياناتك تظل آمنة وتستخدم فقط للأغراض التي تم جمعها من أجلها. لا نشارك معلوماتك الشخصية مع أطراف ثالثة دون موافقتك، إلا إذا كان ذلك مطلوبًا بموجب القانون."
+    },
+    "q5": {"en": "Do you provide custom solutions?", "ar": "هل تقدم حلول مخصصة؟"},
+    "a5": {"en":"Yes, we offer custom solutions for specific engineering challenges and needs.", "ar": "نعرض حلول مخصصة لكل عميل على حدى والحاجات الهندسية المخصصة."}
   }
 }

@@ -36,20 +36,32 @@ const ContactUs = () => {
       {/* Contact Form Section */}
       <div className="contact-form">
         <h2>{t("contactUs.title")}</h2>
-        <form>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          const name = formData.get("name");
+          const email = formData.get("email");
+          const message = formData.get("message");
+
+          const body = `Name: ${name}\nEmail: ${email}\nMessage: ${message}`;
+          const subject = "Message from website contact form";
+
+          const mailto = `mailto:Info@target-for-engineering.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+          window.location.href = mailto;
+        }}>
           <div className="form-group">
             <label>{t("contactUs.name")}</label>
-            <input type="text" placeholder={t("contactUs.name")} required />
+            <input type="text" name="name" placeholder={t("contactUs.name")} required />
           </div>
           <div className="form-group">
             <label>{t("contactUs.emailField")}</label>
-            <input type="email" placeholder={t("contactUs.emailPlaceholder")} required />
+            <input type="email" name="email" placeholder={t("contactUs.emailPlaceholder")} required />
           </div>
           <div className="form-group">
             <label>{t("contactUs.message")}</label>
-            <textarea rows="5" placeholder={t("contactUs.messagePlaceholder")} required></textarea>
+            <textarea rows="5" name="message" placeholder={t("contactUs.messagePlaceholder")} required></textarea>
           </div>
-          <button type="submit">{t("contactUs.sendMessage")}</button>
+          <button type="submit" >{t("contactUs.sendMessage")}</button>
         </form>
       </div>
     </div>
