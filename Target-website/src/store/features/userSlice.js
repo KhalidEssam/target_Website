@@ -32,8 +32,6 @@ const userSlice = createSlice({
     login: (state, action) => {
       state.isLoggedIn = true;
       state.userInfo = action.payload;
-      // console.log(state.userInfo);
-      // state.userInfo.role = action.payload.groups ? action.payload.groups : 'user';
     },
     logout: (state) => {
       state.isLoggedIn = false;

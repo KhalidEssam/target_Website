@@ -4,7 +4,7 @@ const AboutUs = () => {
     const [isClicked , setIsClicked] = useState(false);
     return (
         <>
-        <div className=" d-flex" style={{ minHeight: "100vh" }}>
+        <div className="d-block d-md-flex" style={{ minHeight: "100vh" }}>
             <div className=" m-auto d-flex justify-content-center align-items-center card" style={{ maxWidth: "800px" }}>
                 <div className="row g-0">
                     <div className="col-md-6">
@@ -19,7 +19,7 @@ const AboutUs = () => {
                     </div>
                     <div className="col-md-6">
                         <img
-                            src="https://target-for-engineering.com/wp-content/uploads/2021/03/WhatsApp-Image-2021-03-30-at-10.38.03-AM.jpeg"
+                            src="https://res.cloudinary.com/dlup3gczf/image/upload/v1738617152/orfo21knbgkqdp67rquc.jpg"
                             alt="Random"
                             className="img-fluid"
                             style={{

@@ -109,10 +109,14 @@ const OrderDetail = () => {
     fetchOrder();
   }, [id]);
 
+  const [isLoading, setIsLoading] = useState(false); // State to manage loading animation
+
   // Handle Image Upload
   const handleBrowseImage = async (e, itemId) => {
     const file = e.target?.files?.[0];
     if (!validateFile(file)) return;
+
+    setIsLoading(true); // Start loading animation
 
     const formData = new FormData();
     formData.append("file", file);
@@ -126,6 +130,7 @@ const OrderDetail = () => {
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
 
+      // Update the order state with the new image URL
       setOrder((prevOrder) => ({
         ...prevOrder,
         items: prevOrder.items.map((item) =>
@@ -136,6 +141,8 @@ const OrderDetail = () => {
       }));
     } catch (error) {
       console.error("Error uploading image:", error);
+    } finally {
+      setIsLoading(false); // Stop loading animation
     }
   };
 
@@ -215,6 +222,7 @@ const OrderDetail = () => {
             accept="image/*"
             onChange={(e) => handleBrowseImage(e, item._id)}
           />
+          {isLoading && <div className="loading-animation">Uploading...</div>}
         </div>
       ))}
 
