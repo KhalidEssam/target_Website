@@ -9,8 +9,10 @@ import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "swiper/css/autoplay";
-
+import UserGallery from "../Gallery";
+import ReactDOM from "react-dom";
 // Utility function for file validation
+
 const validateFile = (file) => {
   if (!file) {
     console.error("No file selected");
@@ -49,7 +51,11 @@ const ItemSwiper = ({ images, itemType }) => {
     >
       {images.map((url, idx) => (
         <SwiperSlide key={idx}>
-          <img src={url} alt={itemType} style={{ width: "100%", height: "auto" }} />
+          <img
+            src={url}
+            alt={itemType}
+            style={{ width: "100%", height: "auto" }}
+          />
         </SwiperSlide>
       ))}
     </Swiper>
@@ -89,11 +95,25 @@ const generateDataGridData = (items) => {
 };
 
 const OrderDetail = () => {
+  const UserID = useSelector((state) => state.user.userInfo.sub);
+
   const { id } = useParams();
   const navigate = useNavigate();
   const [order, setOrder] = useState(null);
-  const swiperRef = useRef(null);
   const direction = useSelector((state) => state.language.direction);
+
+  useEffect(() => {
+    const handleImageChange = () => {
+      setSelectedImage(window.selectedImageUrl);
+      console.log("New Selected Image:", window.selectedImageUrl);
+    };
+
+    window.addEventListener("selectedImageChange", handleImageChange);
+
+    return () => {
+      window.removeEventListener("selectedImageChange", handleImageChange);
+    };
+  }, []);
 
   // Fetch Order Data
   useEffect(() => {
@@ -110,6 +130,8 @@ const OrderDetail = () => {
   }, [id]);
 
   const [isLoading, setIsLoading] = useState(false); // State to manage loading animation
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   // Handle Image Upload
   const handleBrowseImage = async (e, itemId) => {
@@ -139,6 +161,15 @@ const OrderDetail = () => {
             : item
         ),
       }));
+
+      // update usergallery with this uploaded image
+      const response2 = await fetch(`/api/galleries/${UserID}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ imageUrls: [data.imageUrl] }), // Now an array with 1 element
+      });
+      const data2 = await response2.json();
+      if (!response2.ok) throw new Error(data2.error);
     } catch (error) {
       console.error("Error uploading image:", error);
     } finally {
@@ -169,7 +200,9 @@ const OrderDetail = () => {
 
   // Handle Order Deletion
   const handleDeleteOrder = async () => {
-    const confirmDelete = window.confirm("Are you sure you want to delete this order?");
+    const confirmDelete = window.confirm(
+      "Are you sure you want to delete this order?"
+    );
     if (!confirmDelete) return;
 
     try {
@@ -187,14 +220,14 @@ const OrderDetail = () => {
   };
 
   if (!order) return <p>Loading...</p>;
-
   const { columns, rows } = generateDataGridData(order.items);
 
   return (
     <>
       <h1>Order Details</h1>
+      <p>Selected Image: {selectedImage}</p>
+      <p>window.selectedImageUrl: </p>
       <p>Description: {order.description}</p>
-      <p>Admin ID: {order.adminId}</p>
       <p>Party ID: {order.partyId}</p>
 
       {/* Data Grid Table */}
@@ -210,21 +243,71 @@ const OrderDetail = () => {
 
       {/* Items Section */}
       {order.items?.map((item) => (
-        <div key={item._id}>
-          <p>Item: {item.type}</p>
-          {item.imageUrls?.length > 0 ? (
-            <ItemSwiper images={item.imageUrls} itemType={item.type} />
-          ) : (
-            <p>No images available</p>
-          )}
+  <div key={item._id}>
+    <p>Item: {item.type}</p>
+    {item.imageUrls?.length > 0 ? (
+      <ItemSwiper images={item.imageUrls} itemType={item.type} />
+    ) : (
+      <p>No images available</p>
+    )}
+
+    <button onClick={() => setIsGalleryOpen(item._id)}>
+      Add image from user gallery
+    </button>
+
+    {isGalleryOpen === item._id &&
+      ReactDOM.createPortal(
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "white",
+            padding: "20px",
+            borderRadius: "10px",
+            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+            zIndex: 1000,
+          }}
+        >
+          <button onClick={() => setIsGalleryOpen(null)}>Close</button>
+          <UserGallery />
+
+          <button
+            onClick={() => {
+              if (!selectedImage) return;
+              setOrder((prevOrder) => ({
+                ...prevOrder,
+                items: prevOrder.items.map((subitem) =>
+                  subitem._id === item._id
+                    ? {
+                        ...subitem,
+                        imageUrls: [
+                          ...(subitem.imageUrls || []),
+                          selectedImage,
+                        ],
+                      }
+                    : subitem
+                ),
+              }));
+              setIsGalleryOpen(null);
+              setSelectedImage(""); // Reset selected image
+            }}
+          >
+            Confirm Selection
+          </button>
+
           <Input
             type="file"
             accept="image/*"
             onChange={(e) => handleBrowseImage(e, item._id)}
           />
-          {isLoading && <div className="loading-animation">Uploading...</div>}
-        </div>
-      ))}
+        </div>,
+        document.body
+      )}
+  </div>
+))}
+
 
       {/* Order Controls */}
       <Input

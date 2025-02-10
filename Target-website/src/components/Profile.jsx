@@ -4,6 +4,7 @@ import { serviceMetadata } from "./services/serviceMetadata";
 import { useOktaAuth } from "@okta/okta-react";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import UserGallery from "./Gallery";
 
 //services
 import ProfileForm from "./services/EditProfileInfo";

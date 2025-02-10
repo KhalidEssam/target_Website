@@ -81,7 +81,7 @@ const FullscreenSlider = () => {
           style={{ height: "100%" }}
           className="gray-effect"
         >
-          {images.map(({ url, backgroundSize, backgroundRepeat, backgroundPosition, title }, index) => (
+          {images.map(({ url, backgroundSize, backgroundRepeat, backgroundPosition }, index) => (
             <SwiperSlide key={index}>
               <div
                 style={{

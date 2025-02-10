@@ -55,5 +55,12 @@
     },
     "q5": {"en": "Do you provide custom solutions?", "ar": "هل تقدم حلول مخصصة؟"},
     "a5": {"en":"Yes, we offer custom solutions for specific engineering challenges and needs.", "ar": "نعرض حلول مخصصة لكل عميل على حدى والحاجات الهندسية المخصصة."}
+  },
+  "AdminCustom": {
+    "title": {"en":"Page Customization","ar":"تخصيص الصفحة"},
+    "pages": {"en":" Page Customization","ar":"تخصيص الصفحة"},
+    "createPage": {"en":"Create Page","ar":"إنشاء صفحة"},
+    "addSection": {"en":"Add Section","ar":"إضافة قسم"},
+    "sections": {"en":"Sections","ar":"الاقسام"}
   }
 }

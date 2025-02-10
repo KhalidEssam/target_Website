@@ -141,6 +141,114 @@
   align-items: center;
 }
 
+.admin-customization {
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.admin-title {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.card {
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+.form-group textarea {
+  resize: vertical;
+}
+
+.btn-primary {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn-primary:hover {
+  background: #0056b3;
+}
+
+.page-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.page-btn {
+  background: #f0f0f0;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+/* Swiper container */
+.swiper-container {
+  width: 50vw; /* 50% of viewport width */
+  height: 50vh; /* 50% of viewport height */
+  margin: 0 auto; /* Center the Swiper */
+}
+
+/* Custom Swiper class */
+.custom-swiper {
+  width: 100%;
+  height: 100%;
+}
+
+/* Swiper images */
+.swiper-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensure images cover the slide */
+  border-radius: 10px; /* Optional: Add rounded corners */
+}
+
+/* Page buttons */
+.page-btn.selected {
+  background: #007bff;
+  color: #fff;
+}
+
+.section-item {
+  background: #f9f9f9;
+  padding: 15px;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.section-item h3 {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+}
+
+.section-item p {
+  margin: 5px 0;
+}
 
 /* Card Section */
 .card-section {
