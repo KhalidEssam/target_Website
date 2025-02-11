@@ -39,9 +39,9 @@ const Projects = () => {
 
       {sections.length === 0 ? (
         <p className="text-center">Loading projects...</p>
-      ) : (
+      ) :  (
         <div className="row row-cols-1 row-cols-md-3 g-4">
-          {sections.map((section, index) => {
+          {sections.map((section, index) => {  
             const parsedContent = parseContent(section.content);
             // console.log(parsedContent);
             const {
@@ -52,7 +52,7 @@ const Projects = () => {
 
             const firstImage = imageUrls.length > 0 ? imageUrls[0] : null;
 
-            return (
+            return section.isVisible ? (
               <div key={index} className="col">
                 <div
                   className="card h-100 shadow-sm cursor-pointer"
@@ -80,7 +80,7 @@ const Projects = () => {
                   </div>
                 </div>
               </div>
-            );
+            ) : null;
           })}
         </div>
       )}

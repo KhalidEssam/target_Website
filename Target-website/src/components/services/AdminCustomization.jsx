@@ -55,6 +55,32 @@ const AdminCustomization = () => {
       console.error("Error creating page:", error);
     }
   };
+  // Handle Update Section
+  const handleUpdateSection = async (sectionId, isVisible) => {
+    try {
+      const response = await fetch(
+        `/api/pages/${selectedPage.slug}/sections/${sectionId}`,
+        {
+          method: "PUT",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ ...sections.find((sec) => sec._id === sectionId), isVisible }),
+        }
+      );
+
+      if (response.ok) {
+        setSections(
+          sections.map((sec) =>
+            sec._id === sectionId ? { ...sec, isVisible } : sec
+          )
+        );
+        alert("Section visibility updated successfully!");
+      } else {
+        alert("Failed to update section visibility.");
+      }
+    } catch (error) {
+      console.error("Error updating section visibility:", error);
+    }
+  };
 
   const handleAddSection = async () => {
     if (!selectedPage) return alert("Please select a page first.");
@@ -185,7 +211,7 @@ const AdminCustomization = () => {
             <input
               type="number"
               placeholder="Enter cost estimation"
-              value={newSection.content?.metadata?.evaluatedCost || ""}
+              value={newSection.content?.metadata?.cost || ""}
               onChange={(e) =>
                 setNewSection({
                   ...newSection,
@@ -193,7 +219,7 @@ const AdminCustomization = () => {
                     ...newSection.content,
                     metadata: {
                       ...newSection.content?.metadata,
-                      evaluatedCost: e.target.value,
+                      cost: e.target.value,
                     },
                   },
                 })
@@ -367,7 +393,7 @@ const AdminCustomization = () => {
             // Ensure content is properly structured
             const {
               description,
-              evaluatedCost,
+              cost,
               date,
               generalInfo,
               text,
@@ -379,6 +405,16 @@ const AdminCustomization = () => {
 
             return (
               <div key={section._id} className="section-item">
+                <label>
+                  <input
+                    type="checkbox"
+                    checked={section.isVisible}
+                    onChange={() =>
+                      handleUpdateSection(section._id, !section.isVisible)
+                    }
+                  />
+                  Visible
+                </label>
                 <h3>{section.name}</h3>
                 <p>
                   <strong>Type:</strong> {section.type}
@@ -387,7 +423,7 @@ const AdminCustomization = () => {
                   <strong>Description:</strong> {description || "N/A"}
                 </p>
                 <p>
-                  <strong>Evaluated Cost:</strong> ${evaluatedCost || "N/A"}
+                  <strong>Evaluated Cost:</strong> ${cost || "N/A"}
                 </p>
                 <p>
                   <strong>Date:</strong> {date || "N/A"}
@@ -395,14 +431,12 @@ const AdminCustomization = () => {
                 <p>
                   <strong>General Info:</strong> {generalInfo || "N/A"}
                 </p>
-
                 {/* Render content based on section type */}
                 {section.type === "text" && (
                   <p>
                     <strong>Content:</strong> {text}
                   </p>
                 )}
-
                 {section.type === "image" && imageUrl && (
                   <div>
                     <p>
@@ -415,7 +449,6 @@ const AdminCustomization = () => {
                     />
                   </div>
                 )}
-
                 {section.type === "slider" && imageUrls?.length > 0 && (
                   <div>
                     <p>
