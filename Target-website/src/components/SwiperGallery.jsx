@@ -6,10 +6,20 @@ import { Navigation, Pagination } from "swiper/modules";
 
 const SwiperGallery = ({ content }) => {
   // Destructure with fallbacks
-  const { props: { images = [] } = {} } = content || {};
+
+  const imageUrls = Object.keys(content || {}).reduce((acc, key) => {
+    if (key === "imageUrls") {
+      return content[key];
+    }
+    else if (key === "props") {
+      return content[key].imageUrls;
+      
+    }
+    return acc;
+  }, []);
 
   // If no images are provided, show a message
-  if (!images || images.length === 0) {
+  if (!imageUrls || imageUrls.length === 0) {
     return <p>No images to display.</p>;
   }
 
@@ -24,7 +34,7 @@ const SwiperGallery = ({ content }) => {
         modules={[Navigation, Pagination]}
         className="custom-swiper"
       >
-      {images.map((src, index) => (
+      {imageUrls.map((src, index) => (
           <SwiperSlide key={index} className="swiper-slide">
             <img
               src={src}

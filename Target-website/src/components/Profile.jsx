@@ -55,7 +55,6 @@ const Profile = () => {
         body: formData,
       });
       const data = await res.json();
-      console.log(data.imageUrl);
 
       if (!res.ok) throw new Error(data.error);
 

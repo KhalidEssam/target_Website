@@ -6,7 +6,7 @@ const Projects = () => {
   const [selectedSection, setSelectedSection] = useState(null);
 
   useEffect(() => {
-    fetch("/api/pages/name/targetprojects") // Backend call
+    fetch("/api/pages/name/targetprojects")
       .then((res) => res.json())
       .then((data) => {
         if (data && data.sections) {
@@ -16,9 +16,21 @@ const Projects = () => {
       .catch((err) => console.error("Error fetching sections:", err));
   }, []);
 
-  // Handle card click
   const handleCardClick = (section) => {
     setSelectedSection(section);
+  };
+
+  // Function to check if content is a valid JSON string
+  const parseContent = (content) => {
+    if (typeof content === "object" && content !== null) {
+      return content; // Already an object, return as is
+    }
+    try {
+      return JSON.parse(content); // Attempt to parse if it's a string
+    } catch (error) {
+      console.error("Error parsing section content:", error);
+      return {}; // Return an empty object on failure
+    }
   };
 
   return (
@@ -30,21 +42,23 @@ const Projects = () => {
       ) : (
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {sections.map((section, index) => {
-            // Ensure section.content is an array
-            const selectedSection = JSON.parse(section.content);
+            const parsedContent = parseContent(section.content);
+            // console.log(parsedContent);
+            const {
+              imageUrls = [],
+              description = "No description available.",
+              cost = "N/A",
+            } = parsedContent.props || parsedContent;
 
-
-            // Extract the first image from the section content (if available)
-            const firstImage = selectedSection.props.images[0]
+            const firstImage = imageUrls.length > 0 ? imageUrls[0] : null;
 
             return (
               <div key={index} className="col">
-                {/* {contentArray && console.log(JSON.parse(selectedSection))} */}
                 <div
                   className="card h-100 shadow-sm cursor-pointer"
                   onClick={() => handleCardClick(section)}
                 >
-                  {/* Card Cover Image */}
+                  {/* Cover Image */}
                   {firstImage && (
                     <img
                       src={firstImage}
@@ -58,7 +72,10 @@ const Projects = () => {
                   <div className="card-body">
                     <h5 className="card-title">{section.name}</h5>
                     <p className="card-text">
-                      {section.description || "No description available."}
+                      <strong>Description:</strong> {description}
+                    </p>
+                    <p className="card-text">
+                      <strong>Evaluated Cost:</strong> ${cost}
                     </p>
                   </div>
                 </div>
