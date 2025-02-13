@@ -268,6 +268,69 @@ const AdminCustomization = () => {
             />
           </div>
 
+          <div className="form-group">
+            <label>Sector</label>
+            <input
+              type="text"
+              placeholder="Enter sector information"
+              value={newSection.content?.metadata?.sector || ""}
+              onChange={(e) =>
+                setNewSection({
+                  ...newSection,
+                  content: {
+                    ...newSection.content,
+                    metadata: {
+                      ...newSection.content?.metadata,
+                      sector: e.target.value,
+                    },
+                  },
+                })
+              }
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Client</label>
+            <input
+              type="text"
+              placeholder="Enter client information"
+              value={newSection.content?.metadata?.client || ""}
+              onChange={(e) =>
+                setNewSection({
+                  ...newSection,
+                  content: {
+                    ...newSection.content,
+                    metadata: {
+                      ...newSection.content?.metadata,
+                      client: e.target.value,
+                    },
+                  },
+                })
+              }
+            />
+          </div>
+
+          <div className="form-group">
+            <label>Description</label>
+            <textarea
+              rows="2"
+              placeholder="Enter description"
+              value={newSection.content?.metadata?.description || ""}
+              onChange={(e) =>
+                setNewSection({
+                  ...newSection,
+                  content: {
+                    ...newSection.content,
+                    metadata: {
+                      ...newSection.content?.metadata,
+                      description: e.target.value,
+                    },
+                  },
+                })
+              }
+            />
+          </div>
+
           {/* Dynamic Content Inputs Based on Section Type */}
           <div className="form-group">
             {newSection.type === "text" && (
@@ -423,13 +486,13 @@ const AdminCustomization = () => {
                   <strong>Description:</strong> {description || "N/A"}
                 </p>
                 <p>
-                  <strong>Evaluated Cost:</strong> ${cost || "N/A"}
+                  <strong>Evaluated Cost:</strong> ${section.content?.metadata?.cost || "N/A"}
                 </p>
                 <p>
-                  <strong>Date:</strong> {date || "N/A"}
+                  <strong>Date:</strong> {section.content?.metadata?.date || "N/A"}
                 </p>
                 <p>
-                  <strong>General Info:</strong> {generalInfo || "N/A"}
+                  <strong>General Info:</strong> {section.content?.metadata?.generalInfo || "N/A"}
                 </p>
                 {/* Render content based on section type */}
                 {section.type === "text" && (

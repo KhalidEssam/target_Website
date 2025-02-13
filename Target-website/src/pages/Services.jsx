@@ -1,6 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import BrowseOrderByPhoneNumber from "../components/services/BrowseOrderByPhoneNumber";
 import ShowAvailableSupplies from "../components/services/Supplies";
+import Constuction from "../components/services/Construction";
 import { useState , useEffect } from "react";
 
 import { useTranslation } from "../hooks/useTranslation";
@@ -40,6 +41,11 @@ const Services = () => {
         route: "supplies",
         component: ShowAvailableSupplies ,
         param: { supplies },
+      },
+      {
+        name: "Construction",
+        route: "construction",
+        component: Constuction,
       },
     ];
 

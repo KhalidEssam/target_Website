@@ -17,7 +17,8 @@ const Projects = () => {
   }, []);
 
   const handleCardClick = (section) => {
-    setSelectedSection(section);
+    selectedSection === section ? setSelectedSection(null) : setSelectedSection(section);
+    // setSelectedSection(section);
   };
 
   // Function to check if content is a valid JSON string
@@ -75,7 +76,7 @@ const Projects = () => {
                       <strong>Description:</strong> {description}
                     </p>
                     <p className="card-text">
-                      <strong>Evaluated Cost:</strong> ${cost}
+                      <strong>Evaluated Cost:</strong> ${parsedContent.metadata?.cost || cost}
                     </p>
                   </div>
                 </div>
@@ -87,7 +88,7 @@ const Projects = () => {
 
       {/* Render DynamicComponent when a section is selected */}
       {selectedSection && (
-        <div className="mt-5">
+        <div style={{ marginTop: "20vh" }}>
           <DynamicComponent section={selectedSection} />
         </div>
       )}
