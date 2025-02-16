@@ -44,9 +44,9 @@ const ConstructionServicePage = () => {
       </section>
 
       {/* Services Section */}
-      <section className="services-section">
+      <section className="services-sectionX ">
         <h2>Our Services</h2>
-        <div className="services-grid">
+        <div className="services-grid d-block d-md-flex justify-content-center overflow-scroll">
           <div className="service-card">
             <h3>Residential Construction</h3>
             <p>We build homes that stand the test of time.</p>
@@ -55,7 +55,7 @@ const ConstructionServicePage = () => {
             <h3>Commercial Construction</h3>
             <p>Creating spaces for businesses to thrive.</p>
           </div>
-          <div className="service-card">
+          <div className="service-card d-block">
             <h3>Renovation & Remodeling</h3>
             <p>Transforming your space into something extraordinary.</p>
           </div>
@@ -91,17 +91,7 @@ const ConstructionServicePage = () => {
         )}
       </section>
 
-      {/* Contact Section */}
-      <section className="contact-section">
-        <h2>Contact Us</h2>
-        <p>Ready to start your project? Reach out to us today!</p>
-        <form className="contact-form">
-          <input type="text" placeholder="Your Name" required />
-          <input type="email" placeholder="Your Email" required />
-          <textarea placeholder="Your Message" rows="5" required></textarea>
-          <button type="submit">Send Message</button>
-        </form>
-      </section>
+    
     </div>
   );
 };
