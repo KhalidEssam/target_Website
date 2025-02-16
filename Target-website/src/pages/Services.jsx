@@ -1,7 +1,7 @@
 import { Route, Routes } from "react-router-dom";
 import BrowseOrderByPhoneNumber from "../components/services/BrowseOrderByPhoneNumber";
 import ShowAvailableSupplies from "../components/services/Supplies";
-import Constuction from "../components/services/Construction";
+import ConstructionServicePage from "../components/services/Construction";
 import { useState , useEffect } from "react";
 
 import { useTranslation } from "../hooks/useTranslation";
@@ -45,7 +45,7 @@ const Services = () => {
       {
         name: "Construction",
         route: "construction",
-        component: Constuction,
+        component: ConstructionServicePage,
       },
     ];
 
@@ -54,7 +54,7 @@ const Services = () => {
 
   return (
     <>
-      <h1>{t("navbar.services")}</h1>
+      <h1 className="mt-vh">{t("navbar.services")}</h1>
 
       <Routes>
         {availableServices.map((service) => (

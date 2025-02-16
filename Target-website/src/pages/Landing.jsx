@@ -2,6 +2,8 @@
 import FullscreenSlider from "../components/Slider";
 import FAQ from "../components/Faq";
 import { useTranslation } from "../hooks/useTranslation";
+import Cardlogo from "../components/Cardlogo";
+import { Margin } from "@mui/icons-material";
 
 const Landing = () => {
   const { translate: t } = useTranslation();
@@ -11,6 +13,9 @@ const Landing = () => {
       <div className="fullscreen-slider">
         <FullscreenSlider />
       </div>
+
+   
+     
 
       {/* Card Section */}
       <section
@@ -46,6 +51,11 @@ const Landing = () => {
         </div>
       </section>
       <FAQ />
+
+         {/* Card Section */}
+        <div className="d-flex justify-content-center p-4">
+          <Cardlogo className="shadow-lg rounded-3" />
+        </div>
     </>
   );
 };

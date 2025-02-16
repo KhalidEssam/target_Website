@@ -96,7 +96,7 @@ const StyledWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 320px;
+    max-width: 320px;
     border-radius: 24px;
     line-height: 1.6;
     transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
@@ -113,6 +113,7 @@ const StyledWrapper = styled.div`
     overflow: hidden;
     background: #0a3cff;
     transition: all 0.48s cubic-bezier(0.23, 1, 0.32, 1);
+    width: 80vw;
   }
 
   .content::before {

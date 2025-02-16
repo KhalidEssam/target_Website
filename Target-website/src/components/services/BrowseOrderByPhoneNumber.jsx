@@ -49,10 +49,7 @@ const BrowseOrderByPhoneNumber = () => {
   };
 
   return (
-    <div className='container mt-5'>
-
-
-
+    <div className='container mt-vh '>
 
       <h1>{t("services.browseOrderByPhoneNumber")}</h1>
 
