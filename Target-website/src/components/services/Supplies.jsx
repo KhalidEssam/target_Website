@@ -18,7 +18,7 @@ const ShowAvailableSupplies = ({ supplies }) => {
     setError(null);
 
     try {
-      const response = await fetch(`./api/supplies/${supplyId}`);
+      const response = await fetch(`/api/orders/${supplyId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch supply details.');
       }
@@ -53,19 +53,19 @@ const ShowAvailableSupplies = ({ supplies }) => {
         {error && <p className="error-message">{error}</p>}
       </section>
 
-      {/* Display Fetched Supply Data */}
+      Display Fetched Supply Data
       {supplyData && (
         <section className="supply-details-section">
           <h2>Fetched Supply Details</h2>
           <Row className="g-4">
             <Col key={supplyData._id} sm={12} md={6} lg={4} xl={3}>
               <Card className="h-100 shadow-sm border-0" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-                <CardImg
+                {/* <CardImg
                   top
                   src={supplyData.imageUrls[0]}
                   alt={supplyData.type}
                   style={{ height: '200px', objectFit: 'cover' }}
-                />
+                /> */}
                 <CardBody className="d-flex flex-column">
                   <CardTitle tag="h5" className="fw-bold mb-3" style={{ color: '#2c3e50' }}>
                     {supplyData.type}

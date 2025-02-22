@@ -18,7 +18,7 @@ const ConstructionServicePage = () => {
     setError(null);
 
     try {
-      const response = await fetch(`./api/construction/${projectId}`);
+      const response = await fetch(`/api/orders/${projectId}`);
       if (!response.ok) {
         throw new Error('Failed to fetch project details.');
       }
