@@ -1,11 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Card, CardImg, CardBody, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { toast } from 'react-toastify';
+import SupplySearch from './supplies/SupplySearch';
+import SupplyCard from './supplies/SupplyCard';
+import FetchedSupply from './supplies/FetchedSupply';
+import AvailableSupplies from './supplies/AvailableSupplies';
+import CartDrawer from './supplies/CartDrawer';
+import CheckoutModal from './supplies/CheckoutModal';
 
 const ShowAvailableSupplies = ({ supplies }) => {
-  const [supplyId, setSupplyId] = useState('');
   const [supplyData, setSupplyData] = useState(null);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [cart, setCart] = useState([]);
+  const [cartOpen, setCartOpen] = useState(false);
+  const [checkoutModal, setCheckoutModal] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState('cash');
+
   // Handle form submission for fetching a specific supply
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -32,90 +40,134 @@ const ShowAvailableSupplies = ({ supplies }) => {
     }
   };
 
+  // Cart management functions
+  const addToCart = (item) => {
+    const existingItem = cart.find(cartItem => cartItem._id === item._id);
+    const updatedCart = existingItem 
+      ? cart.map(cartItem => 
+          cartItem._id === item._id 
+            ? { ...cartItem, quantity: cartItem.quantity + 1 }
+            : cartItem
+        )
+      : [...cart, { ...item, quantity: 1 }];
+    setCart(updatedCart);
+    toast.success('Item added to cart!');
+  };
+
+  const removeFromCart = (itemId) => {
+    setCart(cart.filter(item => item._id !== itemId));
+    toast.error('Item removed from cart!');
+  };
+
+  const updateQuantity = (itemId, newQuantity) => {
+    const updatedCart = cart.map(item => 
+      item._id === itemId 
+        ? { ...item, quantity: newQuantity }
+        : item
+    );
+    setCart(updatedCart);
+  };
+
+  const calculateTotal = () => {
+    return cart.reduce((total, item) => total + (item.price * item.quantity), 0);
+  };
+
+  // Handle checkout
+  const handleCheckout = async () => {
+    if (cart.length === 0) {
+      toast.error('Your cart is empty!');
+      return;
+    }
+
+    try {
+      // First create the order
+      const response = await fetch('/api/orders/create', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          items: cart,
+          paymentMethod: paymentMethod,
+          total: calculateTotal()
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to process order');
+      }
+
+      const orderData = await response.json();
+
+      // Handle payment based on selected method
+      if (paymentMethod === 'cash') {
+        // For cash on delivery, just confirm the order
+        toast.success('Order created successfully! A representative will contact you for delivery.');
+        setCart([]);
+        setCheckoutModal(false);
+      } else if (paymentMethod === 'online') {
+        // For online payment, initiate Paymob payment
+        try {
+          const paymentResponse = await fetch('/api/payments/initiate', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              orderId: orderData.id,
+              amount: calculateTotal(),
+              orderDescription: 'Store supplies order',
+              customerEmail: '', // To be implemented with user auth
+              customerPhone: ''  // To be implemented with user auth
+            })
+          });
+
+          if (!paymentResponse.ok) {
+            throw new Error('Failed to initiate payment');
+          }
+
+          const paymentData = await paymentResponse.json();
+          
+          // Open Paymob payment window
+          window.open(paymentData.paymentUrl, '_blank');
+          
+          // Wait for payment status update
+          // This should be implemented with a webhook from Paymob
+          toast.info('Payment window opened. Please complete the payment.');
+        } catch (paymentError) {
+          throw new Error('Failed to initiate online payment: ' + paymentError.message);
+        }
+      }
+
+    } catch (error) {
+      toast.error('Error processing order: ' + error.message);
+    }
+  };
+
   return (
     <div className="supplies-service-page mt-vh">
-      {/* Input Section for Supply ID */}
-      <section className="supply-input-section">
-        <h2>Fetch Supply Details</h2>
-        <form onSubmit={handleSubmit} className="supply-form">
-          <input
-            type="text"
-            placeholder="Enter Supply ID"
-            value={supplyId}
-            onChange={(e) => setSupplyId(e.target.value)}
-            required
-          />
-          <button type="submit" disabled={loading}>
-            {loading ? 'Fetching...' : 'Fetch Supply'}
-          </button>
-        </form>
-
-        {error && <p className="error-message">{error}</p>}
-      </section>
-
-      Display Fetched Supply Data
-      {supplyData && (
-        <section className="supply-details-section">
-          <h2>Fetched Supply Details</h2>
-          <Row className="g-4">
-            <Col key={supplyData._id} sm={12} md={6} lg={4} xl={3}>
-              <Card className="h-100 shadow-sm border-0" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-                {/* <CardImg
-                  top
-                  src={supplyData.imageUrls[0]}
-                  alt={supplyData.type}
-                  style={{ height: '200px', objectFit: 'cover' }}
-                /> */}
-                <CardBody className="d-flex flex-column">
-                  <CardTitle tag="h5" className="fw-bold mb-3" style={{ color: '#2c3e50' }}>
-                    {supplyData.type}
-                  </CardTitle>
-                  <CardText className="flex-grow-1" style={{ color: '#7f8c8d' }}>
-                    {supplyData.description}
-                  </CardText>
-                  <CardText className="mt-2 fw-bold" style={{ color: '#3498db' }}>
-                    Available Quantity: {supplyData.quantity}
-                  </CardText>
-                </CardBody>
-              </Card>
-            </Col>
-          </Row>
-        </section>
-      )}
-
-      {/* Display All Available Supplies */}
-      <section className="all-supplies-section">
-        <h2>Available Supplies</h2>
-        <Row className="g-4">
-          {supplies && supplies.length > 0 ? (
-            supplies.map((supply) => (
-              <Col key={supply._id} sm={12} md={6} lg={4} xl={3}>
-                <Card className="h-100 shadow-sm border-0" style={{ borderRadius: '15px', overflow: 'hidden' }}>
-                  <CardImg
-                    top
-                    src={supply.imageUrls[0]}
-                    alt={supply.type}
-                    style={{ height: '200px', objectFit: 'cover' }}
-                  />
-                  <CardBody className="d-flex flex-column">
-                    <CardTitle tag="h5" className="fw-bold mb-3" style={{ color: '#2c3e50' }}>
-                      {supply.type}
-                    </CardTitle>
-                    <CardText className="flex-grow-1" style={{ color: '#7f8c8d' }}>
-                      {supply.description}
-                    </CardText>
-                    <CardText className="mt-2 fw-bold" style={{ color: '#3498db' }}>
-                      Available Quantity: {supply.quantity}
-                    </CardText>
-                  </CardBody>
-                </Card>
-              </Col>
-            ))
-          ) : (
-            <p>No supplies available.</p>
-          )}
-        </Row>
-      </section>
+      <SupplySearch supplies={supplies} setSupplyData={setSupplyData} />
+      <FetchedSupply supplyData={supplyData} />
+      <AvailableSupplies supplies={supplies} addToCart={addToCart} />
+      <CartDrawer
+        cart={cart}
+        cartOpen={cartOpen}
+        setCartOpen={setCartOpen}
+        checkoutModal={checkoutModal}
+        setCheckoutModal={setCheckoutModal}
+        removeFromCart={removeFromCart}
+        updateQuantity={updateQuantity}
+        calculateTotal={calculateTotal}
+      />
+      <CheckoutModal
+        checkoutModal={checkoutModal}
+        setCheckoutModal={setCheckoutModal}
+        paymentMethod={paymentMethod}
+        setPaymentMethod={setPaymentMethod}
+        cart={cart}
+        handleCheckout={handleCheckout}
+        calculateTotal={calculateTotal}
+      />
     </div>
   );
 };
