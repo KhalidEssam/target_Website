@@ -1,7 +1,7 @@
 import BrowseMaintenancePlans from './BrowseOrder';
 import Maintenance from './Maintenance';
 import ProfileForm from './EditProfileInfo';
-import AdminCustomization from './AdminCustomization';
+import {AdminCustomization} from './AdminCustomization';
 import AddOrg from './AddOrg';
 import OrderDetail from './OrderDetails';
 

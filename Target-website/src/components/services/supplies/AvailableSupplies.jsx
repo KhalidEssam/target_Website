@@ -4,7 +4,7 @@ import SupplyCard from './SupplyCard';
 
 const AvailableSupplies = ({ supplies, addToCart }) => {
   return (
-    <section className="all-supplies-section">
+    <section className="all-supplies-section container-sm ">
       <h2>Available Supplies</h2>
       <Row className="g-4">
         {supplies && supplies.length > 0 ? (

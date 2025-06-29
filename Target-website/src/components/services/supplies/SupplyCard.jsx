@@ -24,7 +24,7 @@ const SupplyCard = ({ supply, addToCart }) => {
         <CardText className="mt-2 fw-bold" style={{ color: '#3498db' }}>
           Available Quantity: {supply.quantity}
         </CardText>
-        <Button color="primary" onClick={() => addToCart(supply)}>
+        <Button color="primary" className='bg-primary m-2' onClick={() => addToCart(supply)}>
           <FaShoppingCart /> Add to Cart
         </Button>
       </CardBody>
