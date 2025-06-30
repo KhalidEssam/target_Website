@@ -3,12 +3,15 @@ import { useOktaAuth } from "@okta/okta-react";
 import { useDispatch } from "react-redux";
 import { login, logout } from "../store/features/userSlice";
 import { CiLogin, CiLogout } from "react-icons/ci";
+import { useTranslation } from "../hooks/useTranslation";
 
 export const handleLogin = async (oktaAuth) => {
   await oktaAuth.signInWithRedirect();
 };
 
 const Login = () => {
+    const { translate: t } = useTranslation();
+  
   const { oktaAuth, authState } = useOktaAuth();
   const dispatch = useDispatch();
 
@@ -45,17 +48,16 @@ const Login = () => {
     <div className="auth-container m-2 d-sm">
       {authState.isAuthenticated ? (
         <button className="btn btn-outline-secondary" onClick={handleLogout}>
-          {/* Logout
-           */}
           <CiLogout />
+          {t('common.navbar.logout')}
         </button>
       ) : (
         <button
           className="btn btn-outline-secondary"
           onClick={() => handleLogin(oktaAuth)}
         >
-          {/* Login */} Login
           <CiLogin />
+          {t('common.navbar.login')}
         </button>
       )}
     </div>

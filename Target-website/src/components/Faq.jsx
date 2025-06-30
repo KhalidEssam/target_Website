@@ -8,19 +8,19 @@ const FAQ = () => {
   return (
     <Box m="20px" sx={{ maxWidth: '800px', margin: '0 auto', padding: '20px' }}>
       <Typography variant="h4" gutterBottom sx={{ fontWeight: 'bold', textAlign: 'center', color: '#2c3e50', mb: 4 }}>
-        {t("body.FAQ")}
+        {t("common.body.FAQ")}
       </Typography>
 
       {/* Question 1 */}
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-            {t("faq.q1")}
+            {t("common.faq.q1")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-          {t("faq.a1")}
+          {t("common.faq.a1")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -29,12 +29,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-          {t("faq.q2")}
+          {t("common.faq.q2")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-            {t("faq.a2")}
+            {t("common.faq.a2")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -43,12 +43,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-          {t("faq.q3")}
+          {t("common.faq.q3")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-          {t("faq.a3")}
+          {t("common.faq.a3")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -57,12 +57,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-          {t("faq.q4")}
+          {t("common.faq.q4")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-          {t("faq.a4")}
+          {t("common.faq.a4")}
           </Typography>
         </AccordionDetails>
       </Accordion>
@@ -71,12 +71,12 @@ const FAQ = () => {
       <Accordion sx={{ mb: 2, boxShadow: 3, borderRadius: '8px' }}>
         <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: '#3498db' }} />}>
           <Typography variant="h6" sx={{ fontWeight: '600', color: '#34495e' }}>
-          {t("faq.q5")}
+          {t("common.faq.q5")}
           </Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography sx={{ color: '#7f8c8d' }}>
-          {t("faq.a5")}
+          {t("common.faq.a5")}
           </Typography>
         </AccordionDetails>
       </Accordion>

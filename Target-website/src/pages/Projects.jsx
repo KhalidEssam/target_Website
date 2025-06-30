@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from "react";
 import DynamicComponent from "../components/DynamicComponent";
+import { useTranslation } from "../hooks/useTranslation";
 
 const Projects = () => {
   const [sections, setSections] = useState([]);
+  const { translate: t } = useTranslation();
   const [selectedSection, setSelectedSection] = useState(null);
 
   useEffect(() => {
@@ -36,10 +38,10 @@ const Projects = () => {
 
   return (
     <div className="container my-5">
-      <h1 className="text-center mb-4">Projects</h1>
+      <h1 className="text-center mb-4">{t('common.projects.title')}</h1>
 
       {sections.length === 0 ? (
-        <p className="text-center">Loading projects...</p>
+        <p className="text-center">{t('common.projects.loading')}</p>
       ) :  (
         <div className="row row-cols-1 row-cols-md-3 g-4">
           {sections.map((section, index) => {  
@@ -71,12 +73,12 @@ const Projects = () => {
 
                   {/* Card Body */}
                   <div className="card-body">
-                    <h5 className="card-title">{section.name}</h5>
+                    <h5 className="card-title">{t('common.projects.projectName') + section.name}</h5>
                     <p className="card-text">
-                      <strong>Description:</strong> {description}
+                      <strong>{t('common.projects.descriptionLabel')}:</strong> {description}
                     </p>
                     <p className="card-text">
-                      <strong>Evaluated Cost:</strong> ${parsedContent.metadata?.cost || cost}
+                      <strong>{t('common.projects.costLabel')}:</strong> ${parsedContent.metadata?.cost || cost}
                     </p>
                   </div>
                 </div>

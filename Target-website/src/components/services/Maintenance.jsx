@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useSelector } from 'react-redux';
+import { useTranslation } from "../../hooks/useTranslation";
 
 // Utility function for file validation
 const validateFile = (file) => {
@@ -20,6 +21,7 @@ const validateFile = (file) => {
 };
 
 const Maintenance = () => {
+  const { translate: t } = useTranslation();
   const [formData, setFormData] = useState({
     type: '',
     items: [{ type: '', description: '', imageUrls: [] }],
@@ -115,7 +117,7 @@ const Maintenance = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.type || !formData.partyId) {
-      alert('Please fill all required fields.');
+      alert(t('maintenance.alert.requiredFields'));
       return;
     }
     try {
@@ -125,7 +127,7 @@ const Maintenance = () => {
         body: JSON.stringify(formData),
       });
       if (!response.ok) throw new Error('Failed to create maintenance record');
-      alert('Maintenance record created successfully');
+      alert(t('maintenance.alert.success'));
     } catch (error) {
       console.error('Error creating maintenance record:', error.message);
     }
@@ -143,7 +145,7 @@ const Maintenance = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormGroup>
-        <Label for="type">Type</Label>
+        <Label for="type">{t('maintenance.labels.type')}</Label>
         <Input
           type="select"
           name="type"
@@ -151,16 +153,16 @@ const Maintenance = () => {
           value={formData.type}
           onChange={handleChange}
         >
-          <option value="">Select</option>
-          <option value="Maintenance">Maintenance</option>
-          <option value="Suppliance">Suppliance</option>
-          <option value="Consultation">Consultation</option>
-          <option value="Construction">Construction</option>
+          <option value="">{t('maintenance.options.select')}</option>
+          <option value="Maintenance">{t('maintenance.types.maintenance')}</option>
+          <option value="Suppliance">{t('maintenance.types.suppliance')}</option>
+          <option value="Consultation">{t('maintenance.types.consultation')}</option>
+          <option value="Construction">{t('maintenance.types.construction')}</option>
         </Input>
       </FormGroup>
 
       <FormGroup>
-        <Label>Items</Label>
+        <Label>{t('maintenance.labels.items')}</Label>
         {formData.items.map((item, index) => (
           <div key={index} className="mb-3">
             <Input
@@ -170,16 +172,16 @@ const Maintenance = () => {
               onChange={(e) => handleItemsChange(index, e)}
               className="mb-2"
             >
-              <option value="">Select Item Type</option>
-              <option value="Vehicle">Vehicle</option>
-              <option value="Equipment">Equipment</option>
+              <option value="">{t('maintenance.itemTypes.select')}</option>
+              <option value="Vehicle">{t('maintenance.itemTypes.vehicle')}</option>
+              <option value="Equipment">{t('maintenance.itemTypes.equipment')}</option>
             </Input>
             <Input
               type="textarea"
               name="description"
               value={item.description}
               onChange={(e) => handleItemsChange(index, e)}
-              placeholder="Enter description"
+              placeholder={t('maintenance.placeholders.itemDescription')}
               className="mb-2"
             />
             <Input
@@ -189,17 +191,17 @@ const Maintenance = () => {
               className="mb-2"
             />
             <Button color="danger" onClick={() => handleRemoveItem(index)}>
-              Remove
+              {t('maintenance.buttons.remove')}
             </Button>
           </div>
         ))}
         <Button color="primary" onClick={handleAddItem}>
-          Add Item
+          {t('maintenance.buttons.addItem')}
         </Button>
       </FormGroup>
 
       <FormGroup>
-        <Label for="partyId">Party</Label>
+        <Label for="partyId">{t('maintenance.labels.party')}</Label>
         <Input
           type="select"
           name="partyId"
@@ -208,26 +210,26 @@ const Maintenance = () => {
           onChange={handleChange}
           disabled={!parties.length}
         >
-          <option value="">Select a Party</option>
+          <option value="">{t('maintenance.options.selectParty')}</option>
           {partyOptions}
         </Input>
       </FormGroup>
-      <a href="add-Org">Can't find your Organization?</a>
+      <a href="add-Org">{t('maintenance.links.cantFindOrg')}</a>
 
       <FormGroup>
-        <Label for="description">Description</Label>
+        <Label for="description">{t('maintenance.labels.description')}</Label>
         <Input
           type="textarea"
           name="description"
           id="description"
           value={formData.description}
           onChange={handleChange}
-          placeholder="Enter detailed description"
+          placeholder={t('maintenance.placeholders.detailedDescription')}
         />
       </FormGroup>
 
       <FormGroup>
-        <Label for="status">Status</Label>
+        <Label for="status">{t('maintenance.labels.status')}</Label>
         <Input
           type="select"
           name="status"
@@ -235,15 +237,15 @@ const Maintenance = () => {
           value={formData.status}
           onChange={handleChange}
         >
-          <option value="Pending">Pending</option>
-          <option value="In Progress">In Progress</option>
-          <option value="Completed">Completed</option>
-          <option value="Cancelled">Cancelled</option>
+          <option value="Pending">{t('maintenance.statuses.pending')}</option>
+          <option value="In Progress">{t('maintenance.statuses.inProgress')}</option>
+          <option value="Completed">{t('maintenance.statuses.completed')}</option>
+          <option value="Cancelled">{t('maintenance.statuses.cancelled')}</option>
         </Input>
       </FormGroup>
 
       <FormGroup>
-        <Label for="priority">Priority</Label>
+        <Label for="priority">{t('maintenance.labels.priority')}</Label>
         <Input
           type="select"
           name="priority"
@@ -251,14 +253,14 @@ const Maintenance = () => {
           value={formData.priority}
           onChange={handleChange}
         >
-          <option value="Low">Low</option>
-          <option value="Medium">Medium</option>
-          <option value="High">High</option>
+          <option value="Low">{t('maintenance.priorities.low')}</option>
+          <option value="Medium">{t('maintenance.priorities.medium')}</option>
+          <option value="High">{t('maintenance.priorities.high')}</option>
         </Input>
       </FormGroup>
 
       <Button color="primary" type="submit" disabled={!formData.type || !formData.partyId}>
-        Submit
+        {t('maintenance.buttons.submit')}
       </Button>
     </Form>
   );

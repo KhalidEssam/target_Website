@@ -37,43 +37,43 @@ const BrowseOrderByPhoneNumber = () => {
         setOrders(data || []);
 
         if (data.length === 0) {
-          alert('No orders found for this phone number.');
+          alert(t('common.browseOrders.noOrders'));
         }
       } catch (error) {
         console.error('Error fetching orders:', error);
       } 
     }
     else {
-      alert('Please enter a valid phone number.');
+      alert(t('common.browseOrders.invalidPhone'));
     }
   };
 
   return (
     <div className='container mt-vh '>
 
-      <h1>{t("services.browseOrderByPhoneNumber")}</h1>
+      <h1>{t('common.browseOrders.title')}</h1>
 
       <Input
         type="text"
         name="search"
         id="search"
-        placeholder={t("services.browseOrderByPhoneNumber")}
+        placeholder={t('common.browseOrders.searchPlaceholder')}
         onChange={handleQuery}
       />
 
-      <button type='submit' onClick={handleSearch}>{t("services.search")}</button>
+      <button type='submit' onClick={handleSearch}>{t('common.services.search')}</button>
 
       {orders.length > 0 ? orders.map((order) => (
         <div key={order._id} className='card m-2 ' onClick={() => navigate(`/profile/orders/${order._id}`)}>
-          <p>Order ID: {order._id}</p>
-          <p>Party ID: {order.partyId}</p>
+          <p>{t('browseOrders.orderId')}: {order._id}</p>
+          <p>{t('browseOrders.partyId')}: {order.partyId}</p>
           {/* <p>Party Name: {order.partyName}</p> */}
           {/* <p>Phone Number: {order.phoneNumber}</p> */}
-          <p>Description: {order.description}</p>
+          <p>{t('browseOrders.description')}: {order.description}</p>
           {/* <p>City: {order.city}</p>
           <p>State: {order.state}</p> */}
         </div>
-      )) : <p>{t("services.Noordersfound")}</p>}
+      )) : <p>{t('common.services.Noordersfound')}</p>}
     </div>
   );
 };

@@ -1,13 +1,16 @@
 
+import { useTranslation } from '../hooks/useTranslation';
+
 export const MainContent = ( { userInfo, availableServices } ) => {
+    const { translate: t } = useTranslation();
     return (
         < >
         {/* Personal Information */}
         <div className="profile-section">
-          <h5>Personal Information</h5>
-          <p>Locale: {userInfo.locale}</p>
+          <h5>{t('common.profile.mainContent.personalInfo')}</h5>
+          <p>{t('common.profile.mainContent.locale')}: {userInfo.locale}</p>
           <p>
-            Website:{" "}
+            {t('common.profile.mainContent.website')}:{" "}
             <a
               href={userInfo.website}
               target="_blank"
@@ -16,13 +19,13 @@ export const MainContent = ( { userInfo, availableServices } ) => {
               {userInfo.website}
             </a>
           </p>
-          <p>Gender: {userInfo.gender}</p>
-          <p>Birthdate: {userInfo.birthdate}</p>
+          <p>{t('common.profile.mainContent.gender')}: {userInfo.gender}</p>
+          <p>{t('common.profile.mainContent.birthdate')}: {userInfo.birthdate}</p>
         </div>
 
         {/* Available Services */}
         <div className="profile-section">
-          <h5>Available Services</h5>
+          <h5>{t('common.profile.mainContent.availableServices')}</h5>
           {availableServices.length > 0 ? (
             <ul className="services-list">
               {availableServices.map((service) => (
@@ -34,7 +37,7 @@ export const MainContent = ( { userInfo, availableServices } ) => {
               ))}
             </ul>
           ) : (
-            <p>No services available for your role.</p>
+            <p>{t('common.profile.mainContent.noServices')}</p>
           )}
         </div>
 

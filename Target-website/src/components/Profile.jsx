@@ -2,6 +2,7 @@ import MainContent from "./ProfileContent";
 import { Route, Routes } from "react-router-dom";
 import { serviceMetadata } from "./services/serviceMetadata";
 import { useOktaAuth } from "@okta/okta-react";
+import { useTranslation } from "../hooks/useTranslation";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import UserGallery from "./Gallery";
@@ -10,6 +11,7 @@ import UserGallery from "./Gallery";
 import ProfileForm from "./services/EditProfileInfo";
 
 const Profile = () => {
+  const { translate: t } = useTranslation();
   const userInfo = useSelector((state) => state.user.userInfo);
   // const { oktaAuth, authState } = useOktaAuth();
   const [isLoading, setIsLoading] = useState(false);
@@ -26,15 +28,15 @@ const Profile = () => {
   );
   const validateFile = (file) => {
     if (!file) {
-      console.error("No file selected");
+      console.error(t("common.profile.noFile"));
       return false;
     }
     if (!["image/jpeg", "image/png", "image/jpg"].includes(file.type)) {
-      console.error("Unsupported file type");
+      console.error(t("common.profile.unsupportedType"));
       return false;
     }
     if (file.size > 5 * 1024 * 1024) {
-      console.error("File size exceeds 5MB");
+      console.error(t("common.profile.fileSize"));
       return false;
     }
     return true;
@@ -73,9 +75,9 @@ const Profile = () => {
 
       const result = await response.json();
       if (response.ok) {
-        alert("Profile updated successfully");
+        alert(t("common.profile.success"));
       } else {
-        alert(`Error: ${result.error}`);
+        alert(`${t("common.profile.error")}: ${result.error}`);
       }
     
 
@@ -89,7 +91,7 @@ const Profile = () => {
   };
 
   if (!userInfo) {
-    return <div>Loading...</div>;
+    return <div>{t("common.profile.loading")}</div>;
   }
 
   return (
@@ -111,7 +113,7 @@ const Profile = () => {
                 disabled={isLoading}
               />
               {isLoading && (
-                <div className="loading-animation">Uploading...</div>
+                <div className="loading-animation">{t("common.profile.uploading")}</div>
               )}
               {imageUrl && (
                 <img
@@ -124,11 +126,11 @@ const Profile = () => {
           )}
           <h5 className="profile-name">{userInfo.name}</h5>
           {userInfo.groups && (
-            <p className="profile-role">Role: {userInfo.groups}</p>
+            <p className="profile-role">{t("common.profile.role")} {userInfo.groups}</p>
           )}
-          <p>Email: {userInfo.email}</p>
+          <p>{t("common.profile.email")} {userInfo.email}</p>
           <p>
-            Profile:{" "}
+            {t("common.profile.profile")}{" "}
             <a
               href={userInfo.profile}
               target="_blank"
@@ -138,7 +140,7 @@ const Profile = () => {
             </a>
           </p>
           <a href={`/profile/edit-profile-info`} className="edit-link">
-            Edit profile Information
+            {t("common.profile.editProfile")}
           </a>
         </div>
       </div>

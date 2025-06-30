@@ -6,8 +6,8 @@ const ContactUs = () => {
     <div className=" mt-vh contact-us">
       {/* Banner Section */}
       <div className="contact-banner  ">
-        <h1>{t("contactUs.title")}</h1>
-        <p>{t("contactUs.subtitle")}</p>
+        <h1>{t("common.contactUs.title")}</h1>
+        <p>{t("common.contactUs.subtitle")}</p>
       </div>
 
       {/* Map and Info Section */}
@@ -25,17 +25,17 @@ const ContactUs = () => {
           ></iframe>
         </div>
         <div className="info-container">
-          <h3>{t("contactUs.ourLocation")}</h3>
-          <p>{t("contactUs.address")}</p>
-          <h3>{t("contactUs.contactInformation")}</h3>
-          <p>{t("contactUs.email")}</p>
-          <p>{t("contactUs.phone")}</p>
+          <h3>{t("common.contactUs.ourLocation")}</h3>
+          <p>{t("common.contactUs.address")}</p>
+          <h3>{t("common.contactUs.contactInformation")}</h3>
+          <p>{t("common.contactUs.email")}</p>
+          <p>{t("common.contactUs.phone")}</p>
         </div>
       </div>
 
       {/* Contact Form Section */}
       <div className="contact-form">
-        <h2>{t("contactUs.title")}</h2>
+        <h2>{t("common.contactUs.title")}</h2>
         <form onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
@@ -50,18 +50,18 @@ const ContactUs = () => {
           window.location.href = mailto;
         }}>
           <div className="form-group">
-            <label>{t("contactUs.name")}</label>
-            <input type="text" name="name" placeholder={t("contactUs.name")} required />
+            <label>{t("common.contactUs.name")}</label>
+            <input type="text" name="name" placeholder={t("common.contactUs.name")} required />
           </div>
           <div className="form-group">
-            <label>{t("contactUs.emailField")}</label>
-            <input type="email" name="email" placeholder={t("contactUs.emailPlaceholder")} required />
+            <label>{t("common.contactUs.emailField")}</label>
+            <input type="email" name="email" placeholder={t("common.contactUs.emailPlaceholder")} required />
           </div>
           <div className="form-group">
-            <label>{t("contactUs.message")}</label>
-            <textarea rows="5" name="message" placeholder={t("contactUs.messagePlaceholder")} required></textarea>
+            <label>{t("common.contactUs.message")}</label>
+            <textarea rows="5" name="message" placeholder={t("common.contactUs.messagePlaceholder")} required></textarea>
           </div>
-          <button type="submit" >{t("contactUs.sendMessage")}</button>
+          <button type="submit" >{t("common.contactUs.sendMessage")}</button>
         </form>
       </div>
     </div>

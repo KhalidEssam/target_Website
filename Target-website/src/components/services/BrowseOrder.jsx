@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { Input } from 'reactstrap';
+import { useTranslation } from '../../hooks/useTranslation';
 
 const BrowseMaintenancePlans = () => {
+  const { translate: t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState('');
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
@@ -65,12 +67,12 @@ const BrowseMaintenancePlans = () => {
 
   return (
     <>
-      <h1>Browse Maintenance Plans</h1>
+      <h1>{t('browseOrders.title')}</h1>
       <Input
         type="text"
         name="search"
         id="search"
-        placeholder="Search by party name or phone number..."
+        placeholder={t('browseOrders.searchPlaceholder')}
         value={searchQuery}
         onChange={handleSearch}
       />
@@ -80,11 +82,11 @@ const BrowseMaintenancePlans = () => {
           return (
             <div className="card m-2" key={index} onClick={() => window.location.href = window.location + `/${order._id}`} >
               <p>{order.description}</p>
-              <p>{order.adminId ? "Admin ID: " + order.adminId : "No admin assigned"}</p>
-              <p>{party ? "Party Name: " + party.name : "No party assigned"}</p>
-              <p>{party?.phoneNumber ? "Phone: " + party.phoneNumber : "No phone number"}</p>
-              <p>{order.items.map(item => item._id).join(', ')}</p>
-              <p>{order.items.map(item => item.type).join(', ')}</p>
+              <p>{order.adminId ? t('browseOrders.adminId') + order.adminId : t('browseOrders.noAdmin')}</p>
+              <p>{party ? t('browseOrders.partyName') + party.name : t('browseOrders.noParty')}</p>
+              <p>{party?.phoneNumber ? t('browseOrders.phone') + party.phoneNumber : t('browseOrders.noPhone')}</p>
+              <p>{t('browseOrders.itemIds')} {order.items.map(item => item._id).join(', ')}</p>
+              <p>{t('browseOrders.itemTypes')} {order.items.map(item => item.type).join(', ')}</p>
             </div>
           );
         })}

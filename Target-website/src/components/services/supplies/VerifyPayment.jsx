@@ -4,10 +4,12 @@ import { toast } from 'react-toastify';
 import { CiCircleCheck, CiCircleAlert, CiCircleRemove } from 'react-icons/ci';
 import { usePaymentWebSocket, usePaymentNotifications } from '../../../utils/websocket';
 import styles from './VerifyPayment.module.css';
+import { useTranslation } from '../../../hooks/useTranslation';
 
 const VerifyPayment = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { translate: t } = useTranslation();
 
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
@@ -25,16 +27,16 @@ const VerifyPayment = () => {
 
       switch (notification.status) {
         case 'success':
-          toast.success('Payment successful! Your order has been confirmed.');
+          toast.success(t('verifyPayment.messages.success'));
           break;
         case 'failed':
-          toast.error('Payment failed. Please try again.');
+          toast.error(t('verifyPayment.messages.failed'));
           break;
         case 'pending':
-          toast.info('Payment is pending. Please wait for confirmation.');
+          toast.info(t('verifyPayment.messages.pending'));
           break;
         default:
-          toast.warning('Payment status updated.');
+          toast.warning(t('verifyPayment.messages.statusUpdated'));
       }
 
       if (['success', 'failed'].includes(notification.status)) {
@@ -68,16 +70,16 @@ const VerifyPayment = () => {
     // Show toast notification on load based on status
     switch (status) {
       case 'success':
-        toast.success('Payment successful! Your order has been confirmed.');
+        toast.success(t('verifyPayment.messages.success'));
         break;
       case 'failed':
-        toast.error('Payment failed. Please try again.');
+        toast.error(t('verifyPayment.messages.failed'));
         break;
       case 'pending':
-        toast.info('Payment is pending. Please wait for confirmation.');
+        toast.info(t('verifyPayment.messages.pending'));
         break;
       default:
-        toast.warning('Payment status unknown.');
+        toast.warning(t('verifyPayment.messages.statusUnknown'));
     }
 
     // Redirect if final status
@@ -94,7 +96,7 @@ const VerifyPayment = () => {
         {!isConnected && (
           <div className={styles['connection-status'] + ' ' + styles['warning']}>
             <CiCircleAlert className={styles['status-icon'] + ' ' + styles['pending']} />
-            Connecting to server for updates...
+            {t('verifyPayment.messages.connectingToServer')}
           </div>
         )}
 
@@ -125,22 +127,22 @@ const VerifyPayment = () => {
         <div className={styles['status-details']}>
           <p className={styles['detail-label']}>Status:</p>
           <p className={styles['detail-value']}>{
-            paymentStatus === 'success' ? 'Completed Successfully' : 
-            paymentStatus === 'failed' ? 'Failed' : 
-            paymentStatus === 'pending' ? 'Pending Confirmation' : 
-            'Unknown'
+            paymentStatus === 'success' ? t('verifyPayment.status.completed') : 
+            paymentStatus === 'failed' ? t('verifyPayment.status.failed') : 
+            paymentStatus === 'pending' ? t('verifyPayment.status.pending') : 
+            t('verifyPayment.status.unknown')
           }</p>
 
           {orderId && (
             <>
-              <p className={styles['detail-label']}>Order ID:</p>
+              <p className={styles['detail-label']}>{t('verifyPayment.labels.orderID')}</p>
               <p className={styles['detail-value']}>{orderId}</p>
             </>
           )}
 
           {transactionId && (
             <>
-              <p className={styles['detail-label']}>Transaction ID:</p>
+              <p className={styles['detail-label']}>{t('verifyPayment.labels.transactionID')}</p>
               <p className={styles['detail-value']}>{transactionId}</p>
             </>
           )}

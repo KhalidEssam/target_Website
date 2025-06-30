@@ -1,7 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
+import { useTranslation } from "../../hooks/useTranslation";
 import { useSelector } from "react-redux";
 
 const ProfileForm = () => {
+  const { translate: t } = useTranslation();
   const user = useSelector((state) => state.user);
   const userInfo = user.userInfo;
 
@@ -118,13 +120,13 @@ const ProfileForm = () => {
 
       const result = await response.json();
       if (response.ok) {
-        alert("Profile updated successfully");
+        alert(t("common.profile.form.success"));
       } else {
-        alert(`Error: ${result.error}`);
+        alert(`${t("common.profile.form.error")}: ${result.error}`);
       }
     } catch (error) {
       console.error("Error updating profile:", error);
-      alert("Failed to update profile");
+      alert(t("common.profile.form.error"));
     } finally {
       setLoading(false);
     }
@@ -132,12 +134,12 @@ const ProfileForm = () => {
 
   return (
     <div className="container">
-      <h2>Edit Profile</h2>
+      <h2>{t("common.profile.form.title")}</h2>
       <form onSubmit={handleSubmit}>
         {Object.keys(profileData).map((key) => (
           <div key={key} className="mb-3">
             <label htmlFor={key} className="form-label">
-              {key.replace(/([A-Z])/g, " $1").toUpperCase()}
+              {t(`common.profile.form.fields.${key}`)}
             </label>
             <input
               type="text"
@@ -150,7 +152,7 @@ const ProfileForm = () => {
           </div>
         ))}
         <button type="submit" className="btn btn-primary" disabled={loading}>
-          {loading ? "Updating..." : "Update Profile"}
+          {loading ? t("common.profile.form.loading") : t("common.profile.form.submit")}
         </button>
       </form>
     </div>

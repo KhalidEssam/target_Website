@@ -54,7 +54,7 @@ const Services = () => {
 
   return (
     <>
-      <h1 className="mt-vh">{t("navbar.services")}</h1>
+      <h1 className="mt-vh">{t("common.services.services")}</h1>
 
       <Routes>
         {availableServices.map((service) => (

@@ -11,6 +11,7 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import UserGallery from "../Gallery";
 import ReactDOM from "react-dom";
+import { useTranslation } from "../../hooks/useTranslation";
 // Utility function for file validation
 
 const validateFile = (file) => {
@@ -95,6 +96,7 @@ const generateDataGridData = (items) => {
 };
 
 const OrderDetail = () => {
+  const { translate: t } = useTranslation();
   const UserID = useSelector((state) => state.user.userInfo.sub);
 
   const { id } = useParams();
@@ -187,14 +189,14 @@ const OrderDetail = () => {
       });
 
       if (response.ok) {
-        alert("Order updated successfully");
+        alert(t('common.orderDetails.success.updated'));
         navigate("/profile/orders");
       } else {
-        alert("Error updating order");
+        alert(t('common.orderDetails.error.update'));
       }
     } catch (error) {
       console.error("Error updating order:", error);
-      alert("Failed to update order");
+      alert(t('common.orderDetails.error.updateFailed'));
     }
   };
 
@@ -208,27 +210,27 @@ const OrderDetail = () => {
     try {
       const response = await fetch(`/api/orders/${id}`, { method: "DELETE" });
       if (response.ok) {
-        alert("Order deleted successfully");
+        alert(t('common.orderDetails.success.deleted'));
         navigate("/profile/orders");
       } else {
-        alert("Error deleting order");
+        alert(t('common.orderDetails.error.delete'));
       }
     } catch (error) {
       console.error("Error deleting order:", error);
-      alert("Failed to delete order");
+      alert(t('common.orderDetails.error.deleteFailed'));
     }
   };
 
-  if (!order) return <p>Loading...</p>;
+  if (!order) return <p>{t('common.orderDetails.loading')}</p>;
   const { columns, rows } = generateDataGridData(order.items);
 
   return (
     <>
-      <h1>Order Details</h1>
-      <p>Selected Image: {selectedImage}</p>
-      <p>window.selectedImageUrl: </p>
-      <p>Description: {order.description}</p>
-      <p>Party ID: {order.partyId}</p>
+      <h1>{t('common.orderDetails.title')}</h1>
+      <p>{t('common.orderDetails.selectedImage')}: {selectedImage}</p>
+      <p>{t('common.orderDetails.windowImageUrl')}</p>
+      <p>{t('common.orderDetails.description')}: {order.description}</p>
+      <p>{t('common.orderDetails.partyId')}: {order.partyId}</p>
 
       {/* Data Grid Table */}
       <div style={{ height: 400, width: "100%", marginBottom: "20px" }}>

@@ -26,16 +26,16 @@ const Landing = () => {
           {/* Text Content */}
           <div className="col-md-5 text-center text-md-start">
             <h1 className="display-5 fw-bold mb-4" style={{ color: "#2c3e50" }}>
-              {t("navbar.targetForEngineering")}
+              {t("common.navbar.targetForEngineering")}
             </h1>
             <p className="lead mb-4" style={{ color: "#34495e" }}>
-              {t("body.story")}
+              {t("common.body.story")}
             </p>
             <button
               className="btn btn-primary btn-lg px-4 py-2"
               style={{ backgroundColor: "#3498db", border: "none" }}
             >
-              {t("body.readMore")}
+              {t("common.body.readMore")}
             </button>
           </div>
 
