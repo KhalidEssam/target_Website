@@ -1,6 +1,8 @@
 import React from "react";
 import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
 import { FaShoppingCart } from "react-icons/fa";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 const CartDrawer = ({
   cart,
@@ -12,6 +14,10 @@ const CartDrawer = ({
   updateQuantity,
   calculateTotal,
 }) => {
+  const { isLoggedIn, userInfo } = useSelector((state) => state.user);
+  const Total = calculateTotal();
+  const navigate = useNavigate();
+
   return (
     <>
       <div className="cart-button ">
@@ -91,13 +97,23 @@ const CartDrawer = ({
           )}
         </ModalBody>
         <ModalFooter>
-          <Button
-            color="primary"
-            className="bg-primary m-2"
-            onClick={() => setCheckoutModal(true)}
-          >
-            Proceed to Checkout
-          </Button>
+          {!isLoggedIn ? (
+            <Button
+              color="primary"
+              className="bg-primary m-2"
+              onClick={() => navigate("/login")}
+            >
+              Login to Checkout
+            </Button>
+          ) : Total > 0 ? (
+            <Button
+              color="primary"
+              className="bg-primary m-2"
+              onClick={() => setCheckoutModal(true)}
+            >
+              Proceed to Checkout
+            </Button>
+          ) : null}
         </ModalFooter>
       </Modal>
     </>

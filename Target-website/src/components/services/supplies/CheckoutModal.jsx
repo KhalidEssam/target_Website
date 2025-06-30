@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Button } from 'reactstrap';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const CheckoutModal = ({
   checkoutModal,
@@ -21,13 +23,9 @@ const CheckoutModal = ({
     try {
       const orderData = await createOrder();
       if (!orderData) return;
-  
-      if (paymentMethod === 'cash') {
-        toast.success('Order placed successfully (Cash on Delivery)');
-        setCart([]); // optional if passed via props
-        setCheckoutModal(false);
-        return;
-      }
+      console.log(orderData);
+      if (paymentMethod === 'cash') return;
+
   
       // Online payment
       const paymentResponse = await fetch('/api/payments/initiate', {
@@ -50,13 +48,16 @@ const CheckoutModal = ({
   
       const paymentData = await paymentResponse.json();
       if (paymentData.success) {
+        toast.success('Payment initialization successful. Please complete the payment in the iframe.');
         handlePaymentInitiate(paymentData.paymentUrl);
       } else {
+        toast.error('Failed to initialize payment. Please try again.');
         throw new Error('Payment response was not successful');
       }
   
     } catch (err) {
       toast.error('Checkout failed: ' + err.message);
+      setCheckoutModal(false);
     } finally {
       setLoading(false);
     }
@@ -65,16 +66,14 @@ const CheckoutModal = ({
 
   const handlePaymentResponse = async (response) => {
     if (response.success) {
-      // Payment successful, close modal and show success message
+      toast.success('Payment successful! Order has been placed.');
       setCheckoutModal(false);
       setShowPaymentIframe(false);
       setPaymentUrl('');
-      // You might want to add a success message here
     } else {
-      // Payment failed, show error message
+      toast.error('Payment failed. Please try again.');
       setShowPaymentIframe(false);
       setPaymentUrl('');
-      // You might want to add an error message here
     }
   };
 

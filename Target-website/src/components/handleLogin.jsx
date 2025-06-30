@@ -1,17 +1,16 @@
-import React from 'react';
-import { useOktaAuth } from '@okta/okta-react';
-import { useDispatch } from 'react-redux';
-import { login, logout } from '../store/features/userSlice';
+import React from "react";
+import { useOktaAuth } from "@okta/okta-react";
+import { useDispatch } from "react-redux";
+import { login, logout } from "../store/features/userSlice";
 import { CiLogin, CiLogout } from "react-icons/ci";
 
+export const handleLogin = async (oktaAuth) => {
+  await oktaAuth.signInWithRedirect();
+};
 
 const Login = () => {
   const { oktaAuth, authState } = useOktaAuth();
   const dispatch = useDispatch();
-
-  const handleLogin = async () => {
-    await oktaAuth.signInWithRedirect();
-  };
 
   const handleLogout = async () => {
     await oktaAuth.signOut();
@@ -27,7 +26,7 @@ const Login = () => {
           dispatch(login(user));
         }
       } catch (error) {
-        console.error('Error fetching user info:', error);
+        console.error("Error fetching user info:", error);
       }
     };
 
@@ -48,13 +47,15 @@ const Login = () => {
         <button className="btn btn-outline-secondary" onClick={handleLogout}>
           {/* Logout
            */}
-            <CiLogout />
+          <CiLogout />
         </button>
       ) : (
-        <button className="btn btn-outline-secondary" onClick={handleLogin}>
-          {/* Login */}
+        <button
+          className="btn btn-outline-secondary"
+          onClick={() => handleLogin(oktaAuth)}
+        >
+          {/* Login */} Login
           <CiLogin />
-
         </button>
       )}
     </div>
