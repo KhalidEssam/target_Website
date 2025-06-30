@@ -159,6 +159,7 @@ const ShowAvailableSupplies = ({ supplies }) => {
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
         cart={cart}
+        setCart={setCart}
         calculateTotal={calculateTotal}
         createOrder={createOrder}
       />

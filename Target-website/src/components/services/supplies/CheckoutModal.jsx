@@ -9,6 +9,7 @@ const CheckoutModal = ({
   paymentMethod,
   setPaymentMethod,
   cart,
+  setCart,
   // handleCheckout,
   calculateTotal,
   createOrder
