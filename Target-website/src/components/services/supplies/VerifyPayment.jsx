@@ -7,6 +7,7 @@ import { usePaymentWebSocket, usePaymentNotifications } from '../../../utils/web
 const VerifyPayment = () => {
   const navigate = useNavigate();
   const location = useLocation();
+
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
   const [transactionId, setTransactionId] = useState(null);
@@ -35,7 +36,6 @@ const VerifyPayment = () => {
           toast.warning('Payment status updated.');
       }
 
-      // Redirect after update
       if (['success', 'failed'].includes(notification.status)) {
         setTimeout(() => {
           navigate('/orders');
@@ -46,14 +46,25 @@ const VerifyPayment = () => {
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search);
-    const status = urlParams.get('status');
-    const orderIdParam = urlParams.get('orderId');
-    const transactionIdParam = urlParams.get('transactionId');
+    console.log(urlParams)
 
-    if (status) setPaymentStatus(status);
-    if (orderIdParam) setOrderId(orderIdParam);
-    if (transactionIdParam) setTransactionId(transactionIdParam);
+    // Extract params according to your URL keys
+    const successParam = urlParams.get('success');
+    const pendingParam = urlParams.get('pending');
+    const idParam = urlParams.get('id'); // transaction id
+    const orderParam = urlParams.get('order'); // order id
 
+    // Determine status based on success and pending flags
+    let status = null;
+    if (successParam === 'true') status = 'success';
+    else if (pendingParam === 'true') status = 'pending';
+    else if (successParam === 'false') status = 'failed';
+
+    setPaymentStatus(status);
+    if (orderParam) setOrderId(orderParam);
+    if (idParam) setTransactionId(idParam);
+
+    // Show toast notification on load based on status
     switch (status) {
       case 'success':
         toast.success('Payment successful! Your order has been confirmed.');
@@ -68,6 +79,7 @@ const VerifyPayment = () => {
         toast.warning('Payment status unknown.');
     }
 
+    // Redirect if final status
     if (status === 'success' || status === 'failed') {
       setTimeout(() => {
         navigate('/orders');
