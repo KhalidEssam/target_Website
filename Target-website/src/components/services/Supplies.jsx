@@ -128,18 +128,8 @@ const ShowAvailableSupplies = ({ supplies }) => {
       if (!response.ok) {
         throw new Error('Failed to create order');
       }
-
       const orderData = await response.json();
-
-      // Handle payment based on selected method
-      if (selectedPaymentMethod === 'cash') {
-        // For cash payment, order is created but payment is pending
-        console.log("Order success");
-        toast.success('Order created successfully! A representative will contact you for payment.');
-        setCart([]);
-        setCheckoutModal(false);
-        return orderData;
-      } 
+      return orderData;
 
     } catch (error) {
       toast.error('Order processing failed: ' + error.message);
@@ -169,7 +159,6 @@ const ShowAvailableSupplies = ({ supplies }) => {
         paymentMethod={paymentMethod}
         setPaymentMethod={setPaymentMethod}
         cart={cart}
-        // handleCheckout={handleCheckout}
         calculateTotal={calculateTotal}
         createOrder={createOrder}
       />

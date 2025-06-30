@@ -22,11 +22,16 @@ const CheckoutModal = ({
   
     try {
       const orderData = await createOrder();
-      if (!orderData) return;
       console.log(orderData);
-      if (paymentMethod === 'cash') return;
+      if (!orderData) return;
+      if (paymentMethod === 'cash') { 
+        toast.success('Order placed successfully (Cash on Delivery)');
+        setCart([]); // optional if passed via props
+        setCheckoutModal(false);
+        return;
+      }
 
-  
+      console.log("hi from online");
       // Online payment
       const paymentResponse = await fetch('/api/payments/initiate', {
         method: 'POST',
