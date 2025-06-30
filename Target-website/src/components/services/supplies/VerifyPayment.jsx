@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { CiCircleCheck, CiCircleAlert, CiCircleRemove } from 'react-icons/ci';
 import { usePaymentWebSocket, usePaymentNotifications } from '../../../utils/websocket';
+import styles from './VerifyPayment.module.css';
 
 const VerifyPayment = () => {
   const navigate = useNavigate();
@@ -80,37 +81,70 @@ const VerifyPayment = () => {
     }
 
     // Redirect if final status
-    if (status === 'success' || status === 'failed') {
-      setTimeout(() => {
-        navigate('/orders');
-      }, 3000);
-    }
+    // if (status === 'success' || status === 'failed') {
+    //   setTimeout(() => {
+    //     navigate('/orders');
+    //   }, 3000);
+    // }
   }, [location.search, navigate]);
 
   return (
-    <div className="payment-verification-container">
-      <div className="payment-verification-box">
+    <div className={styles['payment-verification-container']}>
+      <div className={styles['payment-verification-box']}>
         {!isConnected && (
-          <p className="text-warning mb-2">Connecting to server for updates...</p>
+          <div className={styles['connection-status'] + ' ' + styles['warning']}>
+            <CiCircleAlert className={styles['status-icon'] + ' ' + styles['pending']} />
+            Connecting to server for updates...
+          </div>
         )}
+
         {error && (
-          <p className="text-danger mb-2">WebSocket error: {error.message}</p>
+          <div className={styles['connection-status'] + ' ' + styles['error']}>
+            <CiCircleRemove className={styles['status-icon'] + ' ' + styles['failed']} />
+            Connection error: {error.message}
+          </div>
         )}
 
-        {paymentStatus === 'success' ? (
-          <div className="status-icon success"><CiCircleCheck /></div>
-        ) : paymentStatus === 'failed' ? (
-          <div className="status-icon failed"><CiCircleRemove /></div>
-        ) : paymentStatus === 'pending' ? (
-          <div className="status-icon pending"><CiCircleAlert /></div>
-        ) : (
-          <div className="status-icon unknown"><CiCircleAlert /></div>
-        )}
+        <div className={styles['status-icon'] + ' ' + 
+          (paymentStatus === 'success' ? styles['success'] : 
+           paymentStatus === 'failed' ? styles['failed'] : 
+           paymentStatus === 'pending' ? styles['pending'] : 
+           styles['unknown'])}>
+          {paymentStatus === 'success' ? <CiCircleCheck /> : 
+           paymentStatus === 'failed' ? <CiCircleRemove /> : 
+           <CiCircleAlert />}
+        </div>
 
-        <h2>Payment Status</h2>
-        <p>Status: {paymentStatus || 'Unknown'}</p>
-        {orderId && <p>Order ID: {orderId}</p>}
-        {transactionId && <p>Transaction ID: {transactionId}</p>}
+        <h2 className={styles['status-title']}>
+          {paymentStatus === 'success' ? 'Payment Successful' : 
+           paymentStatus === 'failed' ? 'Payment Failed' : 
+           paymentStatus === 'pending' ? 'Payment Pending' : 
+           'Payment Status'}
+        </h2>
+
+        <div className={styles['status-details']}>
+          <p className={styles['detail-label']}>Status:</p>
+          <p className={styles['detail-value']}>{
+            paymentStatus === 'success' ? 'Completed Successfully' : 
+            paymentStatus === 'failed' ? 'Failed' : 
+            paymentStatus === 'pending' ? 'Pending Confirmation' : 
+            'Unknown'
+          }</p>
+
+          {orderId && (
+            <>
+              <p className={styles['detail-label']}>Order ID:</p>
+              <p className={styles['detail-value']}>{orderId}</p>
+            </>
+          )}
+
+          {transactionId && (
+            <>
+              <p className={styles['detail-label']}>Transaction ID:</p>
+              <p className={styles['detail-value']}>{transactionId}</p>
+            </>
+          )}
+        </div>
       </div>
     </div>
   );
