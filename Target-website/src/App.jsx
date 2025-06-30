@@ -3,6 +3,7 @@ import "./App.css";
 import { LoginCallback } from "@okta/okta-react";
 import { useOktaAuth } from '@okta/okta-react';
 import Login from "./components/handleLogin";
+import VerifyPayment from "./components/services/supplies/VerifyPayment";
 
 import useDirection from "./hooks/useDirection";
 import useTheme from "./hooks/useTheme";
@@ -64,7 +65,8 @@ function App() {
           {/* <Route path='/' Component={LoginCallback }  /> */}
 
 
-          <Route path="/login" element={  <Login />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/payment/verify" element={<VerifyPayment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
         <ToastContainer position="top-right" autoClose={3000} />
