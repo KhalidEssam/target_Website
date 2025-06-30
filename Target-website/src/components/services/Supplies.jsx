@@ -90,8 +90,15 @@ const ShowAvailableSupplies = ({ supplies }) => {
       toast.error('You must be logged in to place an order.');
       return null;
     }
-  
+
     try {
+      // Calculate total amount
+      const totalAmount = calculateTotal();
+      
+      // Get payment method from state
+      const selectedPaymentMethod = paymentMethod || 'cash';
+      
+      // Start by creating the order
       const response = await fetch('/api/orders', {
         method: 'POST',
         headers: {
@@ -100,113 +107,46 @@ const ShowAvailableSupplies = ({ supplies }) => {
         body: JSON.stringify({
           type: 'Suppliance',
           adminId: userInfo.sub,
-          partyId: '678566f5dd7f692615b08b7a', // you can replace this with auth-based value
-          items: cart.map(({ type, quantity, description, imageUrls }) => ({
+          partyId: '678566f5dd7f692615b08b7a', // Replace with actual party ID from auth
+          items: cart.map(({ type, quantity, description, imageUrls, price }) => ({
             type,
             quantity,
             description,
-            imageUrls
+            imageUrls,
+            price // Include price in items for total calculation
           })),
-          paymentMethod,
+          paymentMethod: selectedPaymentMethod,
           description: 'Store supplies order',
           priority: 'Medium',
-          total: calculateTotal()
+          totalAmount: totalAmount,
+          paymentDueDate: new Date().toISOString(),
+          status: 'Pending',
+          paymentStatus: 'pending'
         })
       });
-  
+
       if (!response.ok) {
-        throw new Error('Failed to process order');
+        throw new Error('Failed to create order');
       }
-  
+
       const orderData = await response.json();
-      return orderData;
-  
+
+      // Handle payment based on selected method
+      if (selectedPaymentMethod === 'cash') {
+        // For cash payment, order is created but payment is pending
+        console.log("Order success");
+        toast.success('Order created successfully! A representative will contact you for payment.');
+        setCart([]);
+        setCheckoutModal(false);
+        return orderData;
+      } 
+
     } catch (error) {
-      toast.error('Order creation failed: ' + error.message);
+      toast.error('Order processing failed: ' + error.message);
+      console.error('Order processing error:', error);
       return null;
     }
   };
-  
-  
-  // // Handle checkout
-  // const handleCheckout = async () => {
-  //   if (cart.length === 0) {
-  //     toast.error('Your cart is empty!');
-  //     return;
-  //   }
-  //   if(!isLoggedIn) return;
-
-  //   try {
-  //     // First create the order
-  //     console.log();
-  //     const response = await fetch('/api/orders', {
-  //       method: 'POST',
-  //       headers: {
-  //         'Content-Type': 'application/json',
-  //       },
-  //       body: JSON.stringify({
-  //         type: 'Suppliance', // or 'Maintenance' etc.
-  //         adminId: userInfo.sub, // you must get this from your auth system
-  //         partyId: "678566f5dd7f692615b08b7a", // from auth or form
-  //         items: cart.map(({ type, quantity, description, imageUrls }) => ({
-  //           type,
-  //           quantity,
-  //           description,
-  //           imageUrls
-  //         })),
-  //         paymentMethod: paymentMethod,
-  //         description: 'Store supplies order',
-  //         priority: 'Medium', // or Low/High
-  //         total: calculateTotal()
-  //       })
-  //     });
-
-  //     if (!response.ok) {
-  //       throw new Error('Failed to process order');
-  //     }
-
-  //     const orderData = await response.json();
-
-  //     // Handle payment based on selected method
-  //     if (paymentMethod === 'cash') {
-  //       // For cash on delivery, just confirm the order
-  //       toast.success('Order created successfully! A representative will contact you for delivery.');
-  //       setCart([]);
-  //       setCheckoutModal(false);
-  //     } else if (paymentMethod === 'online') {
-  //       // For online payment, initiate Paymob payment
-  //       try {
-  //         const paymentResponse = await fetch('/api/payments/initiate', {
-  //           method: 'POST',
-  //           headers: {
-  //             'Content-Type': 'application/json',
-  //           },
-  //           body: JSON.stringify({
-  //             orderId: orderData.id,
-  //             amount: calculateTotal(),
-  //             orderDescription: 'Store supplies order',
-  //             customerEmail: '', // To be implemented with user auth
-  //             customerPhone: ''  // To be implemented with user auth
-  //           })
-  //         });
-
-  //         if (!paymentResponse.ok) {
-  //           throw new Error('Failed to initiate payment');
-  //         }
-
-  //         const paymentData = await paymentResponse.json();
-          
-  //         // Use the new payment handling method
-  //         handlePaymentInitiate(paymentData.paymentUrl);
-  //       } catch (paymentError) {
-  //         throw new Error('Failed to initiate online payment: ' + paymentError.message);
-  //       }
-  //     }
-
-  //   } catch (error) {
-  //     toast.error('Error processing order: ' + error.message);
-  //   }
-  // };
 
   return (
     <div className="supplies-service-page mt-vh">

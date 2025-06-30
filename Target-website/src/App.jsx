@@ -1,7 +1,8 @@
 import { useSelector } from "react-redux";
 import "./App.css";
-import {  LoginCallback } from "@okta/okta-react";
+import { LoginCallback } from "@okta/okta-react";
 import { useOktaAuth } from '@okta/okta-react';
+import Login from "./components/handleLogin";
 
 import useDirection from "./hooks/useDirection";
 import useTheme from "./hooks/useTheme";
@@ -22,13 +23,13 @@ import Landing from "./pages/Landing";
 import Projects from "./pages/Projects";
 import ContactUs from "./pages/ContactUs";
 import Services from "./pages/Services";
-import { use } from "react";
-
-
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { handleLogin } from "./components/handleLogin";
 
 
 function App() {
+  
   useDirection(); // Apply RTL/LTR direction
   useTheme();
   const isDarkMode = useSelector((state) => state.theme.isDarkMode);
@@ -63,9 +64,10 @@ function App() {
           {/* <Route path='/' Component={LoginCallback }  /> */}
 
 
+          <Route path="/login" element={  <Login />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        
+        <ToastContainer position="top-right" autoClose={3000} />
         <Footer /> {/* Footer component */}
       </div>
       
