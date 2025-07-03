@@ -23,6 +23,7 @@ const validateFile = (file) => {
 const Maintenance = () => {
   const { translate: t } = useTranslation();
   const [formData, setFormData] = useState({
+    orderMode: 'B2B',
     type: '',
     items: [{ type: '', description: '', imageUrls: [] }],
     adminId: '',
@@ -30,6 +31,12 @@ const Maintenance = () => {
     description: '',
     status: 'Pending',
     priority: 'Medium',
+    totalAmount: 0,
+    paymentStatus: 'pending',
+    payments: [],
+    lastPaymentDate: null,
+    paymentDueDate: null,
+    paidAmount: 0,
   });
 
   const user = useSelector((state) => state.user);
@@ -117,7 +124,7 @@ const Maintenance = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.type || !formData.partyId) {
-      alert(t('maintenance.alert.requiredFields'));
+      alert(t('common.maintenance.alert.requiredFields'));
       return;
     }
     try {
@@ -127,7 +134,7 @@ const Maintenance = () => {
         body: JSON.stringify(formData),
       });
       if (!response.ok) throw new Error('Failed to create maintenance record');
-      alert(t('maintenance.alert.success'));
+      alert(t('common.maintenance.alert.success'));
     } catch (error) {
       console.error('Error creating maintenance record:', error.message);
     }
@@ -145,7 +152,7 @@ const Maintenance = () => {
   return (
     <Form onSubmit={handleSubmit}>
       <FormGroup>
-        <Label for="type">{t('maintenance.labels.type')}</Label>
+        <Label for="type">{t('common.maintenance.labels.type')}</Label>
         <Input
           type="select"
           name="type"
@@ -153,16 +160,16 @@ const Maintenance = () => {
           value={formData.type}
           onChange={handleChange}
         >
-          <option value="">{t('maintenance.options.select')}</option>
-          <option value="Maintenance">{t('maintenance.types.maintenance')}</option>
-          <option value="Suppliance">{t('maintenance.types.suppliance')}</option>
-          <option value="Consultation">{t('maintenance.types.consultation')}</option>
-          <option value="Construction">{t('maintenance.types.construction')}</option>
+          <option value="">{t('common.maintenance.typeOptions.select')}</option>
+          <option value="Maintenance">{t('common.maintenance.typeOptions.maintenance')}</option>
+          <option value="Suppliance">{t('common.maintenance.typeOptions.materialSupplies')}</option>
+          <option value="Consultation">{t('common.maintenance.typeOptions.consultation')}</option>
+          <option value="Construction">{t('common.maintenance.typeOptions.construction')}</option>
         </Input>
       </FormGroup>
 
       <FormGroup>
-        <Label>{t('maintenance.labels.items')}</Label>
+        <Label>{t('common.maintenance.labels.items')}</Label>
         {formData.items.map((item, index) => (
           <div key={index} className="mb-3">
             <Input
@@ -172,16 +179,16 @@ const Maintenance = () => {
               onChange={(e) => handleItemsChange(index, e)}
               className="mb-2"
             >
-              <option value="">{t('maintenance.itemTypes.select')}</option>
-              <option value="Vehicle">{t('maintenance.itemTypes.vehicle')}</option>
-              <option value="Equipment">{t('maintenance.itemTypes.equipment')}</option>
+              <option value="">{t('common.maintenance.itemTypes.select')}</option>
+              <option value="Vehicle">{t('common.maintenance.itemTypes.vehicle')}</option>
+              <option value="Equipment">{t('common.maintenance.itemTypes.equipment')}</option>
             </Input>
             <Input
               type="textarea"
               name="description"
               value={item.description}
               onChange={(e) => handleItemsChange(index, e)}
-              placeholder={t('maintenance.placeholders.itemDescription')}
+              placeholder={t('common.maintenance.placeholders.itemDescription')}
               className="mb-2"
             />
             <Input
@@ -191,17 +198,17 @@ const Maintenance = () => {
               className="mb-2"
             />
             <Button color="danger" onClick={() => handleRemoveItem(index)}>
-              {t('maintenance.buttons.remove')}
+              {t('common.maintenance.buttons.remove')}
             </Button>
           </div>
         ))}
-        <Button color="primary" onClick={handleAddItem}>
-          {t('maintenance.buttons.addItem')}
+        <Button color="primary" className="mt-2 btn bg-primary" onClick={handleAddItem}>
+          {t('common.maintenance.buttons.addItem')}
         </Button>
       </FormGroup>
 
       <FormGroup>
-        <Label for="partyId">{t('maintenance.labels.party')}</Label>
+        <Label for="partyId">{t('common.maintenance.labels.party')}</Label>
         <Input
           type="select"
           name="partyId"
@@ -210,26 +217,26 @@ const Maintenance = () => {
           onChange={handleChange}
           disabled={!parties.length}
         >
-          <option value="">{t('maintenance.options.selectParty')}</option>
+          <option value="">{t('common.maintenance.options.selectParty')}</option>
           {partyOptions}
         </Input>
       </FormGroup>
-      <a href="add-Org">{t('maintenance.links.cantFindOrg')}</a>
+      <a href="add-Org">{t('common.maintenance.links.cantFindOrg')}</a>
 
       <FormGroup>
-        <Label for="description">{t('maintenance.labels.description')}</Label>
+        <Label for="description">{t('common.maintenance.labels.description')}</Label>
         <Input
           type="textarea"
           name="description"
           id="description"
           value={formData.description}
           onChange={handleChange}
-          placeholder={t('maintenance.placeholders.detailedDescription')}
+          placeholder={t('common.maintenance.placeholders.detailedDescription')}
         />
       </FormGroup>
 
       <FormGroup>
-        <Label for="status">{t('maintenance.labels.status')}</Label>
+        <Label for="status">{t('common.maintenance.labels.status')}</Label>
         <Input
           type="select"
           name="status"
@@ -237,15 +244,15 @@ const Maintenance = () => {
           value={formData.status}
           onChange={handleChange}
         >
-          <option value="Pending">{t('maintenance.statuses.pending')}</option>
-          <option value="In Progress">{t('maintenance.statuses.inProgress')}</option>
-          <option value="Completed">{t('maintenance.statuses.completed')}</option>
-          <option value="Cancelled">{t('maintenance.statuses.cancelled')}</option>
+          <option value="Pending">{t('common.maintenance.status.pending')}</option>
+          <option value="In Progress">{t('common.maintenance.status.inProgress')}</option>
+          <option value="Completed">{t('common.maintenance.status.completed')}</option>
+          <option value="Cancelled">{t('common.maintenance.status.cancelled')}</option>
         </Input>
       </FormGroup>
 
       <FormGroup>
-        <Label for="priority">{t('maintenance.labels.priority')}</Label>
+        <Label for="priority">{t('common.maintenance.labels.priority')}</Label>
         <Input
           type="select"
           name="priority"
@@ -253,14 +260,14 @@ const Maintenance = () => {
           value={formData.priority}
           onChange={handleChange}
         >
-          <option value="Low">{t('maintenance.priorities.low')}</option>
-          <option value="Medium">{t('maintenance.priorities.medium')}</option>
-          <option value="High">{t('maintenance.priorities.high')}</option>
+          <option value="Low">{t('common.maintenance.priority.low')}</option>
+          <option value="Medium">{t('common.maintenance.priority.medium')}</option>
+          <option value="High">{t('common.maintenance.priority.high')}</option>
         </Input>
       </FormGroup>
 
-      <Button color="primary" type="submit" disabled={!formData.type || !formData.partyId}>
-        {t('maintenance.buttons.submit')}
+      <Button color="primary" className='btn bg-primary' type="submit" disabled={!formData.type || !formData.partyId}>
+        {t('common.maintenance.form.submit')}
       </Button>
     </Form>
   );

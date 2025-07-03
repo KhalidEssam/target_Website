@@ -20,12 +20,12 @@ const CheckoutModal = ({
 
   const handleCheckout = async () => {
     setLoading(true);
-  
+
     try {
       const orderData = await createOrder();
       console.log(orderData);
       if (!orderData) return;
-      if (paymentMethod === 'cash') { 
+      if (paymentMethod === 'cash') {
         toast.success('Order placed successfully (Cash on Delivery)');
         setCart([]); // optional if passed via props
         setCheckoutModal(false);
@@ -47,11 +47,11 @@ const CheckoutModal = ({
           customerPhone: ''  // Get from auth
         })
       });
-  
+
       if (!paymentResponse.ok) {
         throw new Error('Failed to initiate payment');
       }
-  
+
       const paymentData = await paymentResponse.json();
       if (paymentData.success) {
         toast.success('Payment initialization successful. Please complete the payment in the iframe.');
@@ -60,7 +60,7 @@ const CheckoutModal = ({
         toast.error('Failed to initialize payment. Please try again.');
         throw new Error('Payment response was not successful');
       }
-  
+
     } catch (err) {
       toast.error('Checkout failed: ' + err.message);
       setCheckoutModal(false);
@@ -68,7 +68,7 @@ const CheckoutModal = ({
       setLoading(false);
     }
   };
-  
+
 
   const handlePaymentResponse = async (response) => {
     if (response.success) {
@@ -149,9 +149,10 @@ const CheckoutModal = ({
       </ModalBody>
       <ModalFooter>
         {!showPaymentIframe ? (
-          <Button className='btn bg-primary ' onClick={handleCheckout}>
+          <Button className='btn bg-primary' onClick={handleCheckout} disabled={loading}>
             {loading ? 'Processing...' : 'Complete Order'}
           </Button>
+
         ) : (
           <Button className='btn bg-primary ' onClick={handlePaymentComplete}>
             Close Payment

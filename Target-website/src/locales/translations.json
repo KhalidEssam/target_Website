@@ -15,6 +15,97 @@
       "itemIds": { "en": "Item IDs: ", "ar": "أرقام العناصر: " },
       "itemTypes": { "en": "Item Types: ", "ar": "أنواع العناصر: " }
     },
+    "maintenance":{
+      "title": { "en": "Maintenance", "ar": "الصيانة" },
+      "alert": {
+        "requiredFields": { "en": "Please fill in all required fields", "ar": "الرجاء ملء جميع الحقول المطلوبة" },
+        "success": { "en": "Maintenance record created successfully", "ar": "تم إنشاء سجل الصيانة بنجاح" },
+        "error": { "en": "Error creating maintenance record", "ar": "خطأ في إنشاء سجل الصيانة" }
+      },
+      "typeOptions":{
+        "select":{ "en": "Select", "ar": "اختر" },
+        "maintenance":{ "en": "Maintenance", "ar": "الصيانة" },
+        "construction":{ "en": "Construction", "ar": "البناء" },
+        "consultation":{ "en": "Consultation", "ar": "الاستشارات" },
+        "materialSupplies":{ "en": "Material Supplies", "ar": "توريد المواد" }
+      }, 
+      "itemTypes":{
+        "select":{ "en": "Select", "ar": "اختر" },
+        "vehicle":{ "en": "Vehicle", "ar": "المركبة" },
+        "tractor":{ "en": "Tractor", "ar": "الtractor" },
+        "engine":{ "en": "Engine", "ar": "الهندسة" },
+        "equipment":{ "en": "Equipment", "ar": "المعدات" }
+      }, 
+      "form": {
+        "title": { "en": "Maintenance", "ar": "الصيانة" },
+        "submit": { "en": "Submit", "ar": "إرسال" },
+        "loading": { "en": "Loading...", "ar": "جاري التحميل..." },
+        "success": { "en": "Maintenance record created successfully", "ar": "تم إنشاء سجل الصيانة بنجاح" },
+        "error": { "en": "Error creating maintenance record", "ar": "خطأ في إنشاء سجل الصيانة" }
+      },
+      "fields": {
+        "orderMode": { "en": "Order Mode", "ar": "نوع الطلب" },
+        "type": { "en": "Type", "ar": "النوع" },
+        "items": { "en": "Items", "ar": "العناصر" },
+        "adminId": { "en": "Admin ID", "ar": "رقم المسؤول" },
+        "partyId": { "en": "Party ID", "ar": "رقم الحزب" },
+        "description": { "en": "Description", "ar": "الوصف" },
+        "status": { "en": "Status", "ar": "الحالة" },
+        "priority": { "en": "Priority", "ar": "ال الأولوية" },
+        "totalAmount": { "en": "Total Amount", "ar": "المبلغ الإجمالي" },
+        "paymentStatus": { "en": "Payment Status", "ar": "حالة الدفع" },
+        "payments": { "en": "Payments", "ar": "الدفعات" },
+        "lastPaymentDate": { "en": "Last Payment Date", "ar": "تاريخ الدفع الأخير" },
+        "paymentDueDate": { "en": "Payment Due Date", "ar": "تاريخ الدفع المحدد" },
+        "paidAmount": { "en": "Paid Amount", "ar": "المبلغ المدفوع" }
+      },
+      "status": {
+        "pending": { "en": "Pending", "ar": "قيد الانتظار" },
+        "completed": { "en": "Completed", "ar": "تم الانتهاء" },
+        "cancelled": { "en": "Cancelled", "ar": "تم الالغاء" },
+        "inProgress": { "en": "In Progress", "ar": "قيد التنفيذ" }
+      },
+      "priority": {
+        "low": { "en": "Low", "ar": "منخفض" },
+        "medium": { "en": "Medium", "ar": "متوسط" },
+        "high": { "en": "High", "ar": "عالي" }
+      },
+      "options":{
+        "selectParty": { "en": "Select Party", "ar": "اختر الحزب" }
+      },
+      "labels": {
+        "orderMode": { "en": "Order Mode", "ar": "نوع الطلب" },
+        "type": { "en": "Type", "ar": "النوع" },
+        "items": { "en": "Items", "ar": "العناصر" },
+        "adminId": { "en": "Admin ID", "ar": "رقم المسؤول" },
+        "partyId": { "en": "Party ID", "ar": "رقم الحزب" },
+        "description": { "en": "Description", "ar": "الوصف" },
+        "status": { "en": "Status", "ar": "الحالة" },
+        "priority": { "en": "Priority", "ar": "ال الأولوية" },
+        "totalAmount": { "en": "Total Amount", "ar": "المبلغ الإجمالي" },
+        "paymentStatus": { "en": "Payment Status", "ar": "حالة الدفع" },
+        "payments": { "en": "Payments", "ar": "الدفعات" },
+        "lastPaymentDate": { "en": "Last Payment Date", "ar": "تاريخ الدفع الأخير" },
+        "paymentDueDate": { "en": "Payment Due Date", "ar": "تاريخ الدفع المحدد" },
+        "paidAmount": { "en": "Paid Amount", "ar": "المبلغ المدفوع" },
+        "party": { "en": "Party", "ar": "الحزب" }
+      },
+      "links":{
+        "cantFindOrg": { "en": "Can't find organization", "ar": "لا يمكن العثور على المنظمة" }
+      },
+      "placeholders":{
+        "partyName": { "en": "Party Name", "ar": "اسم الحزب" },
+        "detailedDescription": { "en": "Detailed Description", "ar": "الوصف التفصيلي" },
+        "itemDescription": { "en": "Item Description", "ar": "وصف العنصر" }
+      },
+      "buttons":{
+        "add": { "en": "Add", "ar": "إضافة" },
+        "remove": { "en": "Remove", "ar": "إزالة" },
+        "submit": { "en": "Submit", "ar": "إرسال" },
+        "addItem": { "en": "Add Item", "ar": "إضافة عنصر" }
+      }
+    },
+
     "orderDetails": {
       "title": { "en": "Order Details", "ar": "تفاصيل الطلب" },
       "loading": { "en": "Loading...", "ar": "جاري التحميل..." },

@@ -105,9 +105,11 @@ const ShowAvailableSupplies = ({ supplies }) => {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
+          orderMode: 'B2C',
           type: 'Suppliance',
-          adminId: userInfo.sub,
-          partyId: '678566f5dd7f692615b08b7a', // Replace with actual party ID from auth
+          // adminId: userInfo.sub,
+          // partyId: '678566f5dd7f692615b08b7a', // Replace with actual party ID from auth
+          userId: userInfo.sub,
           items: cart.map(({ type, quantity, description, imageUrls, price }) => ({
             type,
             quantity,
