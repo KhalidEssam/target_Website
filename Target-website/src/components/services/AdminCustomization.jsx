@@ -7,7 +7,7 @@ import SectionForm from './admin/SectionForm';
 import SectionList from './admin/SectionList';
 import './admin/AdminCustomization.css';
 
-export const AdminCustomization = () => {
+const AdminCustomization = () => {
   const [pages, setPages] = useState([]);
   const [selectedPage, setSelectedPage] = useState(null);
   const [sections, setSections] = useState([]);
@@ -193,6 +193,9 @@ export const AdminCustomization = () => {
     </div>
   );
 };
+
+export default AdminCustomization;
+
 
 // export default AdminCustomization;
 //             />
@@ -539,4 +542,3 @@ export const AdminCustomization = () => {
 //   );
 // };
 
-// export default AdminCustomization;

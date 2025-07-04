@@ -23,7 +23,7 @@ const Profile = () => {
   // Filter services based on user role
   const availableServices = serviceMetadata.filter((service) =>
     service.roles.some(
-      (role) => userInfo.groups.includes(role) || role === "Everyone"
+      (role) => (userInfo.groups.includes(role) || role === "Everyone") && service.available === true
     )
   );
   const validateFile = (file) => {

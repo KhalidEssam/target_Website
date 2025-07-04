@@ -1,6 +1,5 @@
 {
-  "common": {
-    "browseOrders": {
+  "browseOrders": {
       "orderId": { "en": "Order ID:", "ar": "رقم الطلب:" },
       "partyId": { "en": "Party ID:", "ar": "رقم الحزب:" },
       "description": { "en": "Description:", "ar": "الوصف:" },
@@ -15,6 +14,8 @@
       "itemIds": { "en": "Item IDs: ", "ar": "أرقام العناصر: " },
       "itemTypes": { "en": "Item Types: ", "ar": "أنواع العناصر: " }
     },
+  "common": {
+    
     "maintenance":{
       "title": { "en": "Maintenance", "ar": "الصيانة" },
       "alert": {

@@ -1,7 +1,7 @@
 import BrowseMaintenancePlans from './BrowseOrder';
 import Maintenance from './Maintenance';
 import ProfileForm from './EditProfileInfo';
-import {AdminCustomization} from './AdminCustomization';
+import AdminCustomization from './AdminCustomization';
 import AddOrg from './AddOrg';
 import OrderDetail from './OrderDetails';
 
@@ -11,36 +11,41 @@ export const serviceMetadata = [
         route: "/orders",
         component: BrowseMaintenancePlans,
         roles: ["Admin"],
+        available: true,
     }, 
     {
         name: "Order Details",
         route: "/orders/:id",
         component: OrderDetail,
         roles: ["Admin"],
-
+        available: false,
     },
     {
         name: "Add Maintenance order",
         route: "/maintenance",
         component: Maintenance,
         roles: ["Admin", "user"],
+        available: true,
     },
     {
         name: "Edit Profile Info",
         route: "/edit-profile-info",
         component: ProfileForm,
         roles: ["Everyone"],
+        available: false,
     },
     {
         name: "Admin Customization",
         route: "/admin-customization",
         component: AdminCustomization,
         roles: ["Admin"],
+        available: true,
     },
     {
         name: "Add Organization",
         route: "/add-Org",
         component: AddOrg,
         roles: ["Admin"],
+        available: true,
     },
 ]
