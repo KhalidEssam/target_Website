@@ -18,7 +18,7 @@ export const serviceMetadata = [
         route: "/orders/:id",
         component: OrderDetail,
         roles: ["Admin"],
-        available: false,
+        available: true,
     },
     {
         name: "Add Maintenance order",

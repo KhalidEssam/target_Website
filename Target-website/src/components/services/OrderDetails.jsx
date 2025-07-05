@@ -117,18 +117,31 @@ const OrderDetail = () => {
     };
   }, []);
 
-  // Fetch Order Data
   useEffect(() => {
+    if (!id || id === ":id") return;
+
+    const controller = new AbortController();
+    const signal = controller.signal;
+
     const fetchOrder = async () => {
       try {
-        const response = await fetch(`/api/orders/${id}`);
+        const response = await fetch(`/api/orders/${id}`, { signal });
         const data = await response.json();
         setOrder(data || {});
       } catch (error) {
-        console.error("Error fetching order:", error);
+        if (error.name === "AbortError") {
+          console.log("Fetch aborted");
+        } else {
+          console.error("Error fetching order:", error);
+        }
       }
     };
+
     fetchOrder();
+
+    return () => {
+      controller.abort(); // Cleanup on unmount
+    };
   }, [id]);
 
   const [isLoading, setIsLoading] = useState(false); // State to manage loading animation
@@ -189,14 +202,14 @@ const OrderDetail = () => {
       });
 
       if (response.ok) {
-        alert(t('common.orderDetails.success.updated'));
+        alert(t("common.orderDetails.success.updated"));
         navigate("/profile/orders");
       } else {
-        alert(t('common.orderDetails.error.update'));
+        alert(t("common.orderDetails.error.update"));
       }
     } catch (error) {
       console.error("Error updating order:", error);
-      alert(t('common.orderDetails.error.updateFailed'));
+      alert(t("common.orderDetails.error.updateFailed"));
     }
   };
 
@@ -210,27 +223,33 @@ const OrderDetail = () => {
     try {
       const response = await fetch(`/api/orders/${id}`, { method: "DELETE" });
       if (response.ok) {
-        alert(t('common.orderDetails.success.deleted'));
+        alert(t("common.orderDetails.success.deleted"));
         navigate("/profile/orders");
       } else {
-        alert(t('common.orderDetails.error.delete'));
+        alert(t("common.orderDetails.error.delete"));
       }
     } catch (error) {
       console.error("Error deleting order:", error);
-      alert(t('common.orderDetails.error.deleteFailed'));
+      alert(t("common.orderDetails.error.deleteFailed"));
     }
   };
 
-  if (!order) return <p>{t('common.orderDetails.loading')}</p>;
+  if (!order) return <p>{t("common.orderDetails.loading")}</p>;
   const { columns, rows } = generateDataGridData(order.items);
 
   return (
     <>
-      <h1>{t('common.orderDetails.title')}</h1>
-      <p>{t('common.orderDetails.selectedImage')}: {selectedImage}</p>
-      <p>{t('common.orderDetails.windowImageUrl')}</p>
-      <p>{t('common.orderDetails.description')}: {order.description}</p>
-      <p>{t('common.orderDetails.partyId')}: {order.partyId}</p>
+      <h1>{t("common.orderDetails.title")}</h1>
+      <p>
+        {t("common.orderDetails.selectedImage")}: {selectedImage}
+      </p>
+      <p>{t("common.orderDetails.windowImageUrl")}</p>
+      <p>
+        {t("common.orderDetails.description")}: {order.description}
+      </p>
+      <p>
+        {t("common.orderDetails.partyId")}: {order.partyId}
+      </p>
 
       {/* Data Grid Table */}
       <div style={{ height: 400, width: "100%", marginBottom: "20px" }}>
@@ -245,71 +264,70 @@ const OrderDetail = () => {
 
       {/* Items Section */}
       {order.items?.map((item) => (
-  <div key={item._id}>
-    <p>Item: {item.type}</p>
-    {item.imageUrls?.length > 0 ? (
-      <ItemSwiper images={item.imageUrls} itemType={item.type} />
-    ) : (
-      <p>No images available</p>
-    )}
+        <div key={item._id}>
+          <p>Item: {item.type}</p>
+          {item.imageUrls?.length > 0 ? (
+            <ItemSwiper images={item.imageUrls} itemType={item.type} />
+          ) : (
+            <p>No images available</p>
+          )}
 
-    <button onClick={() => setIsGalleryOpen(item._id)}>
-      Add image from user gallery
-    </button>
-
-    {isGalleryOpen === item._id &&
-      ReactDOM.createPortal(
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "white",
-            padding: "20px",
-            borderRadius: "10px",
-            boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
-            zIndex: 1000,
-          }}
-        >
-          <button onClick={() => setIsGalleryOpen(null)}>Close</button>
-          <UserGallery />
-
-          <button
-            onClick={() => {
-              if (!selectedImage) return;
-              setOrder((prevOrder) => ({
-                ...prevOrder,
-                items: prevOrder.items.map((subitem) =>
-                  subitem._id === item._id
-                    ? {
-                        ...subitem,
-                        imageUrls: [
-                          ...(subitem.imageUrls || []),
-                          selectedImage,
-                        ],
-                      }
-                    : subitem
-                ),
-              }));
-              setIsGalleryOpen(null);
-              setSelectedImage(""); // Reset selected image
-            }}
-          >
-            Confirm Selection
+          <button onClick={() => setIsGalleryOpen(item._id)}>
+            Add image from user gallery
           </button>
 
-          <Input
-            type="file"
-            accept="image/*"
-            onChange={(e) => handleBrowseImage(e, item._id)}
-          />
-        </div>,
-        document.body
-      )}
-  </div>
-))}
+          {isGalleryOpen === item._id &&
+            ReactDOM.createPortal(
+              <div
+                style={{
+                  position: "fixed",
+                  top: "50%",
+                  left: "50%",
+                  transform: "translate(-50%, -50%)",
+                  background: "white",
+                  padding: "20px",
+                  borderRadius: "10px",
+                  boxShadow: "0 0 10px rgba(0, 0, 0, 0.2)",
+                  zIndex: 1000,
+                }}
+              >
+                <button onClick={() => setIsGalleryOpen(null)}>Close</button>
+                <UserGallery />
 
+                <button
+                  onClick={() => {
+                    if (!selectedImage) return;
+                    setOrder((prevOrder) => ({
+                      ...prevOrder,
+                      items: prevOrder.items.map((subitem) =>
+                        subitem._id === item._id
+                          ? {
+                              ...subitem,
+                              imageUrls: [
+                                ...(subitem.imageUrls || []),
+                                selectedImage,
+                              ],
+                            }
+                          : subitem
+                      ),
+                    }));
+                    setIsGalleryOpen(null);
+                    setSelectedImage(""); // Reset selected image
+                  }}
+                >
+                  Confirm Selection
+                </button>
+
+                <Input
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => handleBrowseImage(e, item._id)}
+                />
+              </div>,
+              document.body
+            )}
+        </div>
+      ))}
 
       {/* Order Controls */}
       <Input
