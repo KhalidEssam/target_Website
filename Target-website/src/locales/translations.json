@@ -12,9 +12,11 @@
       "phone": { "en": "Phone: ", "ar": "الهاتف: " },
       "noPhone": { "en": "No phone number", "ar": "لا يوجد رقم هاتف" },
       "itemIds": { "en": "Item IDs: ", "ar": "أرقام العناصر: " },
-      "itemTypes": { "en": "Item Types: ", "ar": "أنواع العناصر: " }
+      "itemTypes": { "en": "Item Types: ", "ar": "أنواع العناصر: " },
+      "noOrders": {"en":"no orders associated with these details","ar":"لا توجد طلبات متاحة تأكد من البيانات."}
     },
   "common": {
+
     
     "maintenance":{
       "title": { "en": "Maintenance", "ar": "الصيانة" },

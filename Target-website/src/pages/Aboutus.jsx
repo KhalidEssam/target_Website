@@ -37,7 +37,6 @@ const AboutUs = () => {
             
             <p className={isClicked ? "d-felx card col-md-4 m-auto" : "d-none" } >
             {t('common.aboutUs.ownerInfo')}
-لمجالات الانشائية و التنموية في البلاد
         </p>
         </div>
        

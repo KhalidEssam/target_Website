@@ -37,27 +37,27 @@ const BrowseOrderByPhoneNumber = () => {
         setOrders(data || []);
 
         if (data.length === 0) {
-          alert(t('common.browseOrders.noOrders'));
+          alert(t('browseOrders.noOrders'));
         }
       } catch (error) {
         console.error('Error fetching orders:', error);
       } 
     }
     else {
-      alert(t('common.browseOrders.invalidPhone'));
+      alert(t('browseOrders.invalidPhone'));
     }
   };
 
   return (
     <div className='container mt-vh '>
 
-      <h1>{t('common.browseOrders.title')}</h1>
+      <h1>{t('browseOrders.title')}</h1>
 
       <Input
         type="text"
         name="search"
         id="search"
-        placeholder={t('common.browseOrders.searchPlaceholder')}
+        placeholder={t('browseOrders.searchPlaceholder')}
         onChange={handleQuery}
       />
 
