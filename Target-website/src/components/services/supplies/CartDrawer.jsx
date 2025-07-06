@@ -1,39 +1,40 @@
 import React from "react";
-import { Modal, ModalHeader, ModalBody, ModalFooter, Button } from "reactstrap";
+import {
+  Modal,
+  ModalHeader,
+  ModalBody,
+  ModalFooter,
+  Button,
+} from "reactstrap";
 import { FaShoppingCart } from "react-icons/fa";
-import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { setCartDrawerOpen } from "../../../store/features/cartSlice";
 
-const CartDrawer = ({
-  cart,
-  cartOpen,
-  setCartOpen,
-  checkoutModal,
-  setCheckoutModal,
-  removeFromCart,
-  updateQuantity,
-  calculateTotal,
-}) => {
-  const { isLoggedIn, userInfo } = useSelector((state) => state.user);
-  const Total = calculateTotal();
+const CartDrawer = ({ setCheckoutModal, removeFromCart, updateQuantity }) => {
+  const { items: cart, total, cartOpen } = useSelector((state) => state.cart);
+  const { isLoggedIn } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const toggleCartDrawer = () => {
+    dispatch(setCartDrawerOpen(!cartOpen));
+  };
 
   return (
     <>
-      <div className="cart-button ">
+      <div className="cart-button">
         <Button
           color="primary"
           className="bg-primary m-2"
-          onClick={() => setCartOpen(!cartOpen)}
+          onClick={toggleCartDrawer}
         >
           <FaShoppingCart /> Cart ({cart.length})
         </Button>
       </div>
 
-      <Modal isOpen={cartOpen} toggle={() => setCartOpen(!cartOpen)} size="lg">
-        <ModalHeader toggle={() => setCartOpen(!cartOpen)}>
-          Your Cart
-        </ModalHeader>
+      <Modal isOpen={cartOpen} toggle={toggleCartDrawer} size="lg">
+        <ModalHeader toggle={toggleCartDrawer}>Your Cart</ModalHeader>
         <ModalBody>
           {cart.length === 0 ? (
             <p>Your cart is empty.</p>
@@ -44,7 +45,6 @@ const CartDrawer = ({
                   key={item._id}
                   className="cart-item position-relative border p-3 mb-3 rounded shadow-sm"
                 >
-                  {/* Product image floated right */}
                   <img
                     src={item.imageUrls[0]}
                     alt={item.type}
@@ -55,7 +55,6 @@ const CartDrawer = ({
                       objectFit: "cover",
                     }}
                   />
-
                   <h5>{item.type}</h5>
                   <h6>{item.description}</h6>
 
@@ -91,7 +90,7 @@ const CartDrawer = ({
               ))}
 
               <div className="cart-total">
-                <h4>Total: ${calculateTotal()}</h4>
+                <h4>Total: ${total}</h4>
               </div>
             </div>
           )}
@@ -105,7 +104,7 @@ const CartDrawer = ({
             >
               Login to Checkout
             </Button>
-          ) : Total > 0 ? (
+          ) : total > 0 ? (
             <Button
               color="primary"
               className="bg-primary m-2"

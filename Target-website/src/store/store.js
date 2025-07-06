@@ -5,17 +5,19 @@ import storage from 'redux-persist/lib/storage';
 import themeReducer from './features/themeSlice';
 import userReducer from './features/userSlice';
 import languageReducer from './features/languageSlice'; // Import language slice
+import cartReducer from './features/cartSlice'
 
 const persistConfig = {
   key: 'root', // The key to save the persisted data in localStorage
   storage,
-  whitelist: ['language' , 'theme'], // Persist only language preference
+  whitelist: ['language' , 'theme', 'cart'], 
 };
 
 const rootReducer = combineReducers({
   theme: themeReducer,
   user: userReducer,
   language: languageReducer, // Add language reducer
+  cart: cartReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

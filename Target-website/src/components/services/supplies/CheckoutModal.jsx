@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Button } from 'reactstrap';
 import { toast } from 'react-toastify';
+import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CheckoutModal = ({
@@ -8,57 +9,50 @@ const CheckoutModal = ({
   setCheckoutModal,
   paymentMethod,
   setPaymentMethod,
-  cart,
-  setCart,
-  // handleCheckout,
-  calculateTotal,
   createOrder
 }) => {
   const [showPaymentIframe, setShowPaymentIframe] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState('');
   const [loading, setLoading] = useState(false);
 
+  const cart = useSelector((state) => state.cart.items);
+  const total = useSelector((state) => state.cart.total);
+
   const handleCheckout = async () => {
     setLoading(true);
 
     try {
       const orderData = await createOrder();
-      console.log(orderData);
       if (!orderData) return;
+
       if (paymentMethod === 'cash') {
         toast.success('Order placed successfully (Cash on Delivery)');
-        setCart([]); // optional if passed via props
         setCheckoutModal(false);
         return;
       }
 
-      console.log("hi from online");
       // Online payment
       const paymentResponse = await fetch('/api/payments/initiate', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           orderId: orderData._id,
-          amount: calculateTotal(),
+          amount: total,
           orderDescription: 'Store supplies order',
           customerEmail: '', // Get from auth
           customerPhone: ''  // Get from auth
         })
       });
 
-      if (!paymentResponse.ok) {
-        throw new Error('Failed to initiate payment');
-      }
+      if (!paymentResponse.ok) throw new Error('Failed to initiate payment');
 
       const paymentData = await paymentResponse.json();
       if (paymentData.success) {
-        toast.success('Payment initialization successful. Please complete the payment in the iframe.');
+        toast.success('Payment initialization successful.');
         handlePaymentInitiate(paymentData.paymentUrl);
       } else {
-        toast.error('Failed to initialize payment. Please try again.');
-        throw new Error('Payment response was not successful');
+        toast.error('Payment init failed.');
+        throw new Error('Unsuccessful payment response');
       }
 
     } catch (err) {
@@ -69,22 +63,7 @@ const CheckoutModal = ({
     }
   };
 
-
-  const handlePaymentResponse = async (response) => {
-    if (response.success) {
-      toast.success('Payment successful! Order has been placed.');
-      setCheckoutModal(false);
-      setShowPaymentIframe(false);
-      setPaymentUrl('');
-    } else {
-      toast.error('Payment failed. Please try again.');
-      setShowPaymentIframe(false);
-      setPaymentUrl('');
-    }
-  };
-
   const handlePaymentComplete = () => {
-    // This will be called when the iframe is closed
     setShowPaymentIframe(false);
     setPaymentUrl('');
   };
@@ -113,16 +92,17 @@ const CheckoutModal = ({
                 <option value="online">Online Payment (Paymob)</option>
               </Input>
             </FormGroup>
+
             <div className="checkout-summary">
               <h4>Order Summary</h4>
               {cart.map((item) => (
-                <div key={item._id} className="checkout-item">
-                  <p>{item.type} x {item.quantity}</p>
-                  <p>${item.price * item.quantity}</p>
+                <div key={item._id} className="checkout-item d-flex justify-content-between border-bottom py-2">
+                  <span>{item.type} x {item.quantity}</span>
+                  <span>${item.price * item.quantity}</span>
                 </div>
               ))}
-              <div className="checkout-total">
-                <h4>Total: ${calculateTotal()}</h4>
+              <div className="checkout-total mt-3">
+                <h4>Total: ${total}</h4>
               </div>
             </div>
           </>
@@ -152,9 +132,8 @@ const CheckoutModal = ({
           <Button className='btn bg-primary' onClick={handleCheckout} disabled={loading}>
             {loading ? 'Processing...' : 'Complete Order'}
           </Button>
-
         ) : (
-          <Button className='btn bg-primary ' onClick={handlePaymentComplete}>
+          <Button className='btn bg-primary' onClick={handlePaymentComplete}>
             Close Payment
           </Button>
         )}

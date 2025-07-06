@@ -4,12 +4,14 @@ import React, { useState, useEffect } from "react";
 import Login from "./handleLogin";
 import LanguageToggle from "./LanguageToggle";
 import { useTranslation } from "../hooks/useTranslation"; 
+import {CartIcon} from './cartNav'
 
-const Navbar = () => {
+const Navbar = ( {setCartOpen , cartOpen}) => {
   const { isLoggedIn, userInfo } = useSelector((state) => state.user);
   const { translate:t } = useTranslation();
 
-  
+  // const cartItems = useSelector(state => state.cart.items);
+
 
   return (
     <>
@@ -177,6 +179,7 @@ const ExpandableNavbar = () => {
               {isDarkMode ? t("common.navbar.darkMode") : t("common.navbar.lightMode")}
             </button>
             <LanguageToggle />
+            <CartIcon />
           </div>
         </div>
       </nav>
