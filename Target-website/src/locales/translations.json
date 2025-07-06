@@ -1,50 +1,71 @@
 {
   "browseOrders": {
-      "orderId": { "en": "Order ID:", "ar": "رقم الطلب:" },
-      "partyId": { "en": "Party ID:", "ar": "رقم الحزب:" },
-      "description": { "en": "Description:", "ar": "الوصف:" },
-      "title": { "en": "Browse Orders", "ar": "تصفح الطلبات" },
-      "searchPlaceholder": { "en": "Search by party name or phone number...", "ar": "ابحث باسم الحزب أو رقم الهاتف..." },
-      "adminId": { "en": "Admin ID: ", "ar": "رقم المسؤول: " },
-      "noAdmin": { "en": "No admin assigned", "ar": "لم يتم تعيين مسؤول" },
-      "partyName": { "en": "Party Name: ", "ar": "اسم الحزب: " },
-      "noParty": { "en": "No party assigned", "ar": "لم يتم تعيين حزب" },
-      "phone": { "en": "Phone: ", "ar": "الهاتف: " },
-      "noPhone": { "en": "No phone number", "ar": "لا يوجد رقم هاتف" },
-      "itemIds": { "en": "Item IDs: ", "ar": "أرقام العناصر: " },
-      "itemTypes": { "en": "Item Types: ", "ar": "أنواع العناصر: " },
-      "noOrders": {"en":"no orders associated with these details","ar":"لا توجد طلبات متاحة تأكد من البيانات."}
+    "orderId": { "en": "Order ID:", "ar": "رقم الطلب:" },
+    "partyId": { "en": "Party ID:", "ar": "رقم الحزب:" },
+    "userId": { "en": "User ID: ", "ar": "المستخدم : " },
+    "description": { "en": "Description:", "ar": "الوصف:" },
+    "title": { "en": "Browse Orders", "ar": "تصفح الطلبات" },
+    "searchPlaceholder": {
+      "en": "Search by party name or phone number...",
+      "ar": "ابحث باسم الحزب أو رقم الهاتف..."
     },
+    "adminId": { "en": "Admin ID: ", "ar": "رقم المسؤول: " },
+    "noAdmin": { "en": "No admin assigned", "ar": "لم يتم تعيين مسؤول" },
+    "partyName": { "en": "Party Name: ", "ar": "اسم الحزب: " },
+    "noParty": { "en": "No party assigned", "ar": "لم يتم تعيين حزب" },
+    "noUser": { "en": "No user assigned", "ar": "لم يتم تعيين مستخدم" },
+    "phone": { "en": "Phone: ", "ar": "الهاتف: " },
+    "noPhone": { "en": "No phone number", "ar": "لا يوجد رقم هاتف" },
+    "itemIds": { "en": "Item IDs: ", "ar": "أرقام العناصر: " },
+    "itemTypes": { "en": "Item Types: ", "ar": "أنواع العناصر: " },
+    "noOrders": {
+      "en": "no orders associated with these details",
+      "ar": "لا توجد طلبات متاحة تأكد من البيانات."
+    }
+  },
   "common": {
-
-    
-    "maintenance":{
+    "maintenance": {
       "title": { "en": "Maintenance", "ar": "الصيانة" },
       "alert": {
-        "requiredFields": { "en": "Please fill in all required fields", "ar": "الرجاء ملء جميع الحقول المطلوبة" },
-        "success": { "en": "Maintenance record created successfully", "ar": "تم إنشاء سجل الصيانة بنجاح" },
-        "error": { "en": "Error creating maintenance record", "ar": "خطأ في إنشاء سجل الصيانة" }
+        "requiredFields": {
+          "en": "Please fill in all required fields",
+          "ar": "الرجاء ملء جميع الحقول المطلوبة"
+        },
+        "success": {
+          "en": "Maintenance record created successfully",
+          "ar": "تم إنشاء سجل الصيانة بنجاح"
+        },
+        "error": {
+          "en": "Error creating maintenance record",
+          "ar": "خطأ في إنشاء سجل الصيانة"
+        }
       },
-      "typeOptions":{
-        "select":{ "en": "Select", "ar": "اختر" },
-        "maintenance":{ "en": "Maintenance", "ar": "الصيانة" },
-        "construction":{ "en": "Construction", "ar": "البناء" },
-        "consultation":{ "en": "Consultation", "ar": "الاستشارات" },
-        "materialSupplies":{ "en": "Material Supplies", "ar": "توريد المواد" }
-      }, 
-      "itemTypes":{
-        "select":{ "en": "Select", "ar": "اختر" },
-        "vehicle":{ "en": "Vehicle", "ar": "المركبة" },
-        "tractor":{ "en": "Tractor", "ar": "الtractor" },
-        "engine":{ "en": "Engine", "ar": "الهندسة" },
-        "equipment":{ "en": "Equipment", "ar": "المعدات" }
-      }, 
+      "typeOptions": {
+        "select": { "en": "Select", "ar": "اختر" },
+        "maintenance": { "en": "Maintenance", "ar": "الصيانة" },
+        "construction": { "en": "Construction", "ar": "البناء" },
+        "consultation": { "en": "Consultation", "ar": "الاستشارات" },
+        "materialSupplies": { "en": "Material Supplies", "ar": "توريد المواد" }
+      },
+      "itemTypes": {
+        "select": { "en": "Select", "ar": "اختر" },
+        "vehicle": { "en": "Vehicle", "ar": "المركبة" },
+        "tractor": { "en": "Tractor", "ar": "الtractor" },
+        "engine": { "en": "Engine", "ar": "الهندسة" },
+        "equipment": { "en": "Equipment", "ar": "المعدات" }
+      },
       "form": {
         "title": { "en": "Maintenance", "ar": "الصيانة" },
         "submit": { "en": "Submit", "ar": "إرسال" },
         "loading": { "en": "Loading...", "ar": "جاري التحميل..." },
-        "success": { "en": "Maintenance record created successfully", "ar": "تم إنشاء سجل الصيانة بنجاح" },
-        "error": { "en": "Error creating maintenance record", "ar": "خطأ في إنشاء سجل الصيانة" }
+        "success": {
+          "en": "Maintenance record created successfully",
+          "ar": "تم إنشاء سجل الصيانة بنجاح"
+        },
+        "error": {
+          "en": "Error creating maintenance record",
+          "ar": "خطأ في إنشاء سجل الصيانة"
+        }
       },
       "fields": {
         "orderMode": { "en": "Order Mode", "ar": "نوع الطلب" },
@@ -58,8 +79,14 @@
         "totalAmount": { "en": "Total Amount", "ar": "المبلغ الإجمالي" },
         "paymentStatus": { "en": "Payment Status", "ar": "حالة الدفع" },
         "payments": { "en": "Payments", "ar": "الدفعات" },
-        "lastPaymentDate": { "en": "Last Payment Date", "ar": "تاريخ الدفع الأخير" },
-        "paymentDueDate": { "en": "Payment Due Date", "ar": "تاريخ الدفع المحدد" },
+        "lastPaymentDate": {
+          "en": "Last Payment Date",
+          "ar": "تاريخ الدفع الأخير"
+        },
+        "paymentDueDate": {
+          "en": "Payment Due Date",
+          "ar": "تاريخ الدفع المحدد"
+        },
         "paidAmount": { "en": "Paid Amount", "ar": "المبلغ المدفوع" }
       },
       "status": {
@@ -73,7 +100,7 @@
         "medium": { "en": "Medium", "ar": "متوسط" },
         "high": { "en": "High", "ar": "عالي" }
       },
-      "options":{
+      "options": {
         "selectParty": { "en": "Select Party", "ar": "اختر الحزب" }
       },
       "labels": {
@@ -88,20 +115,32 @@
         "totalAmount": { "en": "Total Amount", "ar": "المبلغ الإجمالي" },
         "paymentStatus": { "en": "Payment Status", "ar": "حالة الدفع" },
         "payments": { "en": "Payments", "ar": "الدفعات" },
-        "lastPaymentDate": { "en": "Last Payment Date", "ar": "تاريخ الدفع الأخير" },
-        "paymentDueDate": { "en": "Payment Due Date", "ar": "تاريخ الدفع المحدد" },
+        "lastPaymentDate": {
+          "en": "Last Payment Date",
+          "ar": "تاريخ الدفع الأخير"
+        },
+        "paymentDueDate": {
+          "en": "Payment Due Date",
+          "ar": "تاريخ الدفع المحدد"
+        },
         "paidAmount": { "en": "Paid Amount", "ar": "المبلغ المدفوع" },
         "party": { "en": "Party", "ar": "الحزب" }
       },
-      "links":{
-        "cantFindOrg": { "en": "Can't find organization", "ar": "لا يمكن العثور على المنظمة" }
+      "links": {
+        "cantFindOrg": {
+          "en": "Can't find organization",
+          "ar": "لا يمكن العثور على المنظمة"
+        }
       },
-      "placeholders":{
+      "placeholders": {
         "partyName": { "en": "Party Name", "ar": "اسم الحزب" },
-        "detailedDescription": { "en": "Detailed Description", "ar": "الوصف التفصيلي" },
+        "detailedDescription": {
+          "en": "Detailed Description",
+          "ar": "الوصف التفصيلي"
+        },
         "itemDescription": { "en": "Item Description", "ar": "وصف العنصر" }
       },
-      "buttons":{
+      "buttons": {
         "add": { "en": "Add", "ar": "إضافة" },
         "remove": { "en": "Remove", "ar": "إزالة" },
         "submit": { "en": "Submit", "ar": "إرسال" },
@@ -117,14 +156,26 @@
       "description": { "en": "Description", "ar": "الوصف" },
       "partyId": { "en": "Party ID", "ar": "رقم الحزب" },
       "success": {
-        "updated": { "en": "Order updated successfully", "ar": "تم تحديث الطلب بنجاح" },
-        "deleted": { "en": "Order deleted successfully", "ar": "تم حذف الطلب بنجاح" }
+        "updated": {
+          "en": "Order updated successfully",
+          "ar": "تم تحديث الطلب بنجاح"
+        },
+        "deleted": {
+          "en": "Order deleted successfully",
+          "ar": "تم حذف الطلب بنجاح"
+        }
       },
       "error": {
         "update": { "en": "Error updating order", "ar": "خطأ في تحديث الطلب" },
-        "updateFailed": { "en": "Failed to update order", "ar": "فشل في تحديث الطلب" },
+        "updateFailed": {
+          "en": "Failed to update order",
+          "ar": "فشل في تحديث الطلب"
+        },
         "delete": { "en": "Error deleting order", "ar": "خطأ في حذف الطلب" },
-        "deleteFailed": { "en": "Failed to delete order", "ar": "فشل في حذف الطلب" }
+        "deleteFailed": {
+          "en": "Failed to delete order",
+          "ar": "فشل في حذف الطلب"
+        }
       }
     },
     "profile": {
@@ -263,7 +314,10 @@
     },
     "projects": {
       "title": { "en": "Projects", "ar": "المشاريع" },
-      "loading": { "en": "Loading projects...", "ar": "جاري تحميل المشاريع..." },
+      "loading": {
+        "en": "Loading projects...",
+        "ar": "جاري تحميل المشاريع..."
+      },
       "projectName": { "en": "Project: ", "ar": "المشروع: " },
       "descriptionLabel": { "en": "Description", "ar": "الوصف" },
       "costLabel": { "en": "Evaluated Cost", "ar": "التكلفة المقدرة" }

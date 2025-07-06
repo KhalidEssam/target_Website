@@ -43,7 +43,8 @@ const ItemSwiper = ({ images, itemType }) => {
       autoplay={{ delay: 3000, disableOnInteraction: false }}
       loop={true}
       style={{
-        height: "300px",
+        height: "auto",
+        width: "25rem",
         backgroundSize: "cover",
         backgroundRepeat: "no-repeat",
         backgroundPosition: "center",
@@ -397,7 +398,7 @@ const OrderDetail = () => {
         </div>
       ))}
 
-      <Button color="primary" onClick={handleUpdateOrder}>
+      <Button className="bg-primary" color="primary" onClick={handleUpdateOrder}>
         Update Order
       </Button>
       <Button color="danger" onClick={handleDeleteOrder}>
