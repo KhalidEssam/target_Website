@@ -5,11 +5,14 @@ import { CiCircleCheck, CiCircleAlert, CiCircleRemove } from 'react-icons/ci';
 import { usePaymentWebSocket, usePaymentNotifications } from '../../../utils/websocket';
 import styles from './VerifyPayment.module.css';
 import { useTranslation } from '../../../hooks/useTranslation';
+import { clearCart } from '../../../store/features/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const VerifyPayment = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { translate: t } = useTranslation();
+  const dispatch = useDispatch();
 
   const [paymentStatus, setPaymentStatus] = useState(null);
   const [orderId, setOrderId] = useState(null);
@@ -118,7 +121,7 @@ const VerifyPayment = () => {
         </div>
 
         <h2 className={styles['status-title']}>
-          {paymentStatus === 'success' ? 'Payment Successful' : 
+          {paymentStatus === 'success' ? ('Payment Successful' + dispatch(clearCart())) : 
            paymentStatus === 'failed' ? 'Payment Failed' : 
            paymentStatus === 'pending' ? 'Payment Pending' : 
            'Payment Status'}
