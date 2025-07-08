@@ -126,13 +126,6 @@
 }
 
 
-.card {
-  padding: 2em;
-}
-.card:hover {
-  background-color: #e3e7eb;
-}
-
 /* Fullscreen Slider Section */
 .fullscreen-slider {
   height: 100vh; /* Fullscreen height */

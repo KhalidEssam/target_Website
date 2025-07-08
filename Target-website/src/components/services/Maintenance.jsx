@@ -2,7 +2,6 @@ import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import { useSelector } from 'react-redux';
 import { useTranslation } from "../../hooks/useTranslation";
-
 // Utility function for file validation
 const validateFile = (file) => {
   if (!file) {
@@ -22,6 +21,7 @@ const validateFile = (file) => {
 
 const Maintenance = () => {
   const { translate: t } = useTranslation();
+  const isDarkMode = useSelector((state) => state.theme.isDarkMode);
   const [formData, setFormData] = useState({
     orderMode: 'B2B',
     type: '',
@@ -150,7 +150,7 @@ const Maintenance = () => {
   }, [parties]);
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} style={{  color: isDarkMode ? 'white' : 'black' }}>
       <FormGroup>
         <Label for="type">{t('common.maintenance.labels.type')}</Label>
         <Input

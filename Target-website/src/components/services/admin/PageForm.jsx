@@ -30,7 +30,7 @@ const PageForm = ({ page, onInputChange, onSubmit }) => {
             required
           />
         </div>
-        <button type="button" className="btn-primary" onClick={onSubmit}>
+        <button type="button" className="btn-primary bg-primary" onClick={onSubmit}>
           {t("AdminCustom.createPage")}
         </button>
       </form>

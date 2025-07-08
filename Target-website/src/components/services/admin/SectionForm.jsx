@@ -44,7 +44,7 @@ const SectionForm = ({ section, onInputChange, onTypeChange, onSubmit }) => {
             onChange={(e) => onInputChange('description', e.target.value)}
           ></textarea>
         </div>
-        <button type="button" className="btn-primary" onClick={onSubmit}>
+        <button type="button" className="bg-primary" onClick={onSubmit}>
           {t("AdminCustom.addSection")}
         </button>
       </form>

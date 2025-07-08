@@ -41,9 +41,6 @@ body[theme="false"] {
   margin-top: 10vh;
 }
 
-body.dark-mode {
-  background-color: #000000 !important;  /* Dark color for light mode */
-}
 
 
 body {
@@ -76,9 +73,9 @@ a:hover {
   color: #a8acf1;
 }
 
-body.dark-mode   {
+/* body.dark-mode   {
   color: #c51f1f !important;  
-}
+} */
 
 body:not(.dark-mode) {
   color: #000000 !important;  /* Dark color for light mode */
@@ -415,7 +412,6 @@ button:hover {
 .supply-details-section {
   margin-top: 2rem;
 }
-
 
 @media (prefers-color-scheme: light) {
   :root {

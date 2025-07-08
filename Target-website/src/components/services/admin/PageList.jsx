@@ -13,7 +13,7 @@ const PageList = ({ pages, selectedPage, onPageSelect }) => {
           <button
             key={page._id}
             onClick={() => onPageSelect(page)}
-            className={`page-item ${selectedPage?.slug === page.slug ? 'selected' : ''}`}
+            className={`page-item bg-success ${selectedPage?.slug === page.slug ? 'selected' : ''}`}
           >
             <span className="page-name">{page.name}</span>
             <span className="page-slug">/{page.slug}</span>
