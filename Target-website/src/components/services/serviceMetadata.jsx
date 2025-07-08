@@ -1,4 +1,4 @@
-import BrowseMaintenancePlans from './BrowseOrder';
+import BrowseOrder from './BrowseOrder';
 import Maintenance from './Maintenance';
 import ProfileForm from './EditProfileInfo';
 import AdminCustomization from './AdminCustomization';
@@ -9,7 +9,7 @@ export const serviceMetadata = [
     {
         name: "Browse Maintenance Plans",
         route: "/orders",
-        component: BrowseMaintenancePlans,
+        component: BrowseOrder,
         roles: ["Admin"],
         available: true,
     }, 

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Button } from 'reactstrap';
+import { clearCart } from '../../../store/features/cartSlice';
+import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
-import { useSelector } from 'react-redux';
 import 'react-toastify/dist/ReactToastify.css';
 
 const CheckoutModal = ({
@@ -14,7 +15,7 @@ const CheckoutModal = ({
   const [showPaymentIframe, setShowPaymentIframe] = useState(false);
   const [paymentUrl, setPaymentUrl] = useState('');
   const [loading, setLoading] = useState(false);
-
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.items);
   const total = useSelector((state) => state.cart.total);
 
@@ -26,10 +27,12 @@ const CheckoutModal = ({
       if (!orderData) return;
 
       if (paymentMethod === 'cash') {
+        dispatch(clearCart());
         toast.success('Order placed successfully (Cash on Delivery)');
         setCheckoutModal(false);
         return;
       }
+
 
       // Online payment
       const paymentResponse = await fetch('/api/payments/initiate', {
@@ -48,6 +51,7 @@ const CheckoutModal = ({
 
       const paymentData = await paymentResponse.json();
       if (paymentData.success) {
+        // dispatch(clearCart());
         toast.success('Payment initialization successful.');
         handlePaymentInitiate(paymentData.paymentUrl);
       } else {
@@ -61,6 +65,7 @@ const CheckoutModal = ({
     } finally {
       setLoading(false);
     }
+
   };
 
   const handlePaymentComplete = () => {
@@ -71,6 +76,7 @@ const CheckoutModal = ({
   const handlePaymentInitiate = async (url) => {
     setPaymentUrl(url);
     setShowPaymentIframe(true);
+    // dispatch(clearCart());
   };
 
   return (

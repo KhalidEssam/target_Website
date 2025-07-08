@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from "react";
 import { Input } from "reactstrap";
 import { useTranslation } from "../../hooks/useTranslation";
+import { useSelector } from "react-redux";
 
-const BrowseMaintenancePlans = () => {
+const BrowseOrder = () => {
   const { translate: t } = useTranslation();
   const [searchQuery, setSearchQuery] = useState("");
   const [orders, setOrders] = useState([]);
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [parties, setParties] = useState([]);
+  const  isDarkMode = useSelector((state) => state.theme.isDarkMode);
+
 
   const fetchPartyOrganizations = async () => {
     try {
@@ -66,7 +69,7 @@ const BrowseMaintenancePlans = () => {
   };
 
   return (
-    <>
+    <div style={{  color: isDarkMode ? 'white' : 'black' }}>
       <h1>{t("browseOrders.title")}</h1>
       <Input
         type="text"
@@ -81,7 +84,6 @@ const BrowseMaintenancePlans = () => {
           const party = parties.find((p) => p._id === order.partyId);
           return (
             <>
-              {/* {console.log(order)} */}
 
               <div
                 className={`card m-2 ${
@@ -156,8 +158,8 @@ const BrowseMaintenancePlans = () => {
           );
         })}
       </div>
-    </>
+    </div>
   );
 };
 
-export default BrowseMaintenancePlans;
+export default BrowseOrder;

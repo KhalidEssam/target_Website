@@ -23,6 +23,26 @@
       "ar": "لا توجد طلبات متاحة تأكد من البيانات."
     }
   },
+    "AdminCustom": {
+      "title": { "en": "Page Customization", "ar": "تخصيص الصفحة" },
+      "pages": { "en": " Page Customization", "ar": "تخصيص الصفحة" },
+      "createPage": { "en": "Create Page", "ar": "إنشاء صفحة" },
+      "addSection": { "en": "Add Section", "ar": "إضافة قسم" },
+      "sections": { "en": "Sections", "ar": "الأقسام" },
+      "pageName": { "en": "Page Name", "ar": "اسم الصفحة" },
+      "pageSlug": { "en": "Slug", "ar": "الشريحة" },
+      "enterPageName": { "en": "Enter Page Name", "ar": "أدخل اسم الصفحة" },
+      "enterPageSlug": { "en": "Enter Slug", "ar": "أدخل الشريحة" },
+      "sectionName": { "en": "Section Name", "ar": "اسم القسم" },
+      "text": { "en": "Text", "ar": "نص" },
+      "image": { "en": "Image", "ar": "صورة" },
+      "slider": { "en": "Slider", "ar": "شريط" },
+      "sectionType": { "en": "Section Type", "ar": "نوع القسم" },
+      "enterSectionName": { "en": "Enter Section Name", "ar": "أدخل اسم القسم" },
+      "enterSectionType": { "en": "Enter Section Type", "ar": "أدخل نوع القسم" },
+      "description": { "en": "Description", "ar": "الوصف" },
+      "enterDescription": { "en": "Enter Description", "ar": "أدخل الوصف" }
+    },
   "common": {
     "maintenance": {
       "title": { "en": "Maintenance", "ar": "الصيانة" },
