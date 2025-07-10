@@ -1,11 +1,14 @@
 import React from 'react';
 import { Row, Col } from 'reactstrap';
 import SupplyCard from './SupplyCard';
+import { useTranslation } from "../../../hooks/useTranslation";
 
 const AvailableSupplies = ({ supplies, addToCart }) => {
+  const { translate: t } = useTranslation();
+  
   return (
     <section className="all-supplies-section container-sm ">
-      <h2>Available Supplies</h2>
+      <h2>{t("Supplies.availableSupplies")}</h2>
       <Row className="g-4">
         {supplies && supplies.length > 0 ? (
           supplies.map((supply) => (
@@ -15,7 +18,7 @@ const AvailableSupplies = ({ supplies, addToCart }) => {
           ))
         ) : (
           <Col className="text-center">
-            <p>No supplies available at the moment.</p>
+            <p>{t("Supplies.noAvailableSupplies")}</p>
           </Col>
         )}
       </Row>

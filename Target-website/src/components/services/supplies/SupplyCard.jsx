@@ -1,8 +1,9 @@
 import React from 'react';
 import { Card, CardImg, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 import { FaShoppingCart } from 'react-icons/fa';
-
+import { useTranslation } from '../../../hooks/useTranslation';
 const SupplyCard = ({ supply, addToCart }) => {
+  const { translate: t } = useTranslation();  
   return (
     <Card className="h-100 shadow-sm border-0" style={{ borderRadius: '15px', overflow: 'hidden' }}>
       <CardImg
@@ -25,7 +26,7 @@ const SupplyCard = ({ supply, addToCart }) => {
           Available Quantity: {supply.quantity}
         </CardText>
         <Button color="primary" className='bg-primary m-2' onClick={() => addToCart(supply)}>
-          <FaShoppingCart /> Add to Cart
+          <FaShoppingCart /> {t("Supplies.addtoCart")}
         </Button>
       </CardBody>
     </Card>

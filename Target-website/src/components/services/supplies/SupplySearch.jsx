@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Button } from 'reactstrap';
+import { useTranslation } from "../../../hooks/useTranslation";
 
 const SupplySearch = ({ supplies, setSupplyData }) => {
   const [supplyId, setSupplyId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const { translate: t } = useTranslation();
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -33,18 +35,19 @@ const SupplySearch = ({ supplies, setSupplyData }) => {
 
   return (
     <section className="supply-input-section">
-      <h2>Fetch Supply Details</h2>
+      <h2>{t("Supplies.fetchSupplyDetails")}</h2>
       <form onSubmit={handleSubmit} className="supply-form">
         <input
           type="text"
-          placeholder="Enter Supply ID"
+          placeholder={t("Supplies.enterSupplyID")}
           value={supplyId}
           onChange={(e) => setSupplyId(e.target.value)}
           required
         />
-        <button type="submit" disabled={loading}>
-          {loading ? 'Fetching...' : 'Fetch Supply'}
-        </button>
+       <button type="submit" disabled={loading}>
+        {loading ? t("Supplies.fetching") : t("Supplies.fetch")}
+      </button>
+
       </form>
       {error && <p className="error-message">{error}</p>}
     </section>

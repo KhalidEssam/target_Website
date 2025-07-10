@@ -10,12 +10,15 @@ import { FaShoppingCart } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { setCartDrawerOpen } from "../../../store/features/cartSlice";
+import { useTranslation } from "../../../hooks/useTranslation";
 
 const CartDrawer = ({ setCheckoutModal, removeFromCart, updateQuantity }) => {
   const { items: cart, total, cartOpen } = useSelector((state) => state.cart);
   const { isLoggedIn } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { translate: t } = useTranslation();
+
 
   const toggleCartDrawer = () => {
     dispatch(setCartDrawerOpen(!cartOpen));
@@ -29,15 +32,15 @@ const CartDrawer = ({ setCheckoutModal, removeFromCart, updateQuantity }) => {
           className="bg-primary m-2"
           onClick={toggleCartDrawer}
         >
-          <FaShoppingCart /> Cart ({cart.length})
+          <FaShoppingCart /> {t("Supplies.Cart")} ({cart.length})
         </Button>
       </div>
 
       <Modal isOpen={cartOpen} toggle={toggleCartDrawer} size="lg">
-        <ModalHeader toggle={toggleCartDrawer}>Your Cart</ModalHeader>
+        <ModalHeader toggle={toggleCartDrawer}>{t("Supplies.yourCart")}</ModalHeader>
         <ModalBody>
           {cart.length === 0 ? (
-            <p>Your cart is empty.</p>
+            <p>{t("Supplies.emptyCart")}</p>
           ) : (
             <div>
               {cart.map((item) => (
@@ -59,7 +62,7 @@ const CartDrawer = ({ setCheckoutModal, removeFromCart, updateQuantity }) => {
                   <h6>{item.description}</h6>
 
                   <div className="cart-item-details mt-2">
-                    <p>Price: ${item.price}</p>
+                    <p>{t("Supplies.Price")}: ${item.price}</p>
                     <div className="quantity-controls d-flex align-items-center">
                       <button
                         className="btn btn-secondary btn-sm me-2"
@@ -83,14 +86,15 @@ const CartDrawer = ({ setCheckoutModal, removeFromCart, updateQuantity }) => {
                       className="btn btn-danger btn-sm mt-2"
                       onClick={() => removeFromCart(item._id)}
                     >
-                      Remove
+                      {t("Supplies.remove")}
                     </button>
                   </div>
                 </div>
               ))}
 
               <div className="cart-total">
-                <h4>Total: ${total}</h4>
+                <h4>
+                  {t("Supplies.total")}: ${total}</h4>
               </div>
             </div>
           )}
@@ -102,7 +106,7 @@ const CartDrawer = ({ setCheckoutModal, removeFromCart, updateQuantity }) => {
               className="bg-primary m-2"
               onClick={() => navigate("/login")}
             >
-              Login to Checkout
+              {t("Supplies.logintoCheckout")}
             </Button>
           ) : total > 0 ? (
             <Button
@@ -110,7 +114,7 @@ const CartDrawer = ({ setCheckoutModal, removeFromCart, updateQuantity }) => {
               className="bg-primary m-2"
               onClick={() => setCheckoutModal(true)}
             >
-              Proceed to Checkout
+              {t("Supplies.checkoutProceed")}
             </Button>
           ) : null}
         </ModalFooter>

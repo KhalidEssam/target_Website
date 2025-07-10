@@ -23,26 +23,55 @@
       "ar": "لا توجد طلبات متاحة تأكد من البيانات."
     }
   },
-    "AdminCustom": {
-      "title": { "en": "Page Customization", "ar": "تخصيص الصفحة" },
-      "pages": { "en": " Page Customization", "ar": "تخصيص الصفحة" },
-      "createPage": { "en": "Create Page", "ar": "إنشاء صفحة" },
-      "addSection": { "en": "Add Section", "ar": "إضافة قسم" },
-      "sections": { "en": "Sections", "ar": "الأقسام" },
-      "pageName": { "en": "Page Name", "ar": "اسم الصفحة" },
-      "pageSlug": { "en": "Slug", "ar": "الشريحة" },
-      "enterPageName": { "en": "Enter Page Name", "ar": "أدخل اسم الصفحة" },
-      "enterPageSlug": { "en": "Enter Slug", "ar": "أدخل الشريحة" },
-      "sectionName": { "en": "Section Name", "ar": "اسم القسم" },
-      "text": { "en": "Text", "ar": "نص" },
-      "image": { "en": "Image", "ar": "صورة" },
-      "slider": { "en": "Slider", "ar": "شريط" },
-      "sectionType": { "en": "Section Type", "ar": "نوع القسم" },
-      "enterSectionName": { "en": "Enter Section Name", "ar": "أدخل اسم القسم" },
-      "enterSectionType": { "en": "Enter Section Type", "ar": "أدخل نوع القسم" },
-      "description": { "en": "Description", "ar": "الوصف" },
-      "enterDescription": { "en": "Enter Description", "ar": "أدخل الوصف" }
+  "Supplies":{
+    "availableSupplies": {"en": "Available Supplies","ar":"الخدمات المتاحة"},
+    "noAvailableSupplies": {"en":"No supplies available at the moment.","ar":"لا توجد منتجات متاحة تأكد من البيانات."},
+    "fetchSupplyDetails":{"en":"Fetch Supply Details","ar":"البحث عن منتج"},
+    "fetching":{"en":"Fetching...","ar":"جاري البحث"},
+    "fetch":{"en":"Fetch supply","ar":"البحث"},
+    "enterSupplyID":{"en":"Enter Supply ID","ar":"ادخل المنتج"},
+    "logintoCheckout":{"en":"Login to Checkout","ar":"سجل الدخول لاتمام الشراء"},
+    "yourCart":{"en":"Your Cart", "ar":"عربة الشراء"},
+    "emptyCart":{"en":"Your cart is empty.","ar":"عربة الشراء فارغة"},
+    "remove":{"en":"Remove", "ar":"ازالة"},
+    "total":{"en":" Total","ar":"ألاجمالي"},
+    "checkoutProceed":{
+      "en":"Proceed to Checkout",
+      "ar":"اتم الشراء"
     },
+    "Price":{"en":"Price",
+  "ar":"السعر"},
+  "Cart":{
+    "en":"Cart",
+    "ar":"عربة الشراء"
+  },
+  "addtoCart":{
+    "en":" Add to Cart",
+    "ar":" اضف الى العربة"
+  }
+
+
+  },
+  "AdminCustom": {
+    "title": { "en": "Page Customization", "ar": "تخصيص الصفحة" },
+    "pages": { "en": " Page Customization", "ar": "تخصيص الصفحة" },
+    "createPage": { "en": "Create Page", "ar": "إنشاء صفحة" },
+    "addSection": { "en": "Add Section", "ar": "إضافة قسم" },
+    "sections": { "en": "Sections", "ar": "الأقسام" },
+    "pageName": { "en": "Page Name", "ar": "اسم الصفحة" },
+    "pageSlug": { "en": "Slug", "ar": "الشريحة" },
+    "enterPageName": { "en": "Enter Page Name", "ar": "أدخل اسم الصفحة" },
+    "enterPageSlug": { "en": "Enter Slug", "ar": "أدخل الشريحة" },
+    "sectionName": { "en": "Section Name", "ar": "اسم القسم" },
+    "text": { "en": "Text", "ar": "نص" },
+    "image": { "en": "Image", "ar": "صورة" },
+    "slider": { "en": "Slider", "ar": "شريط" },
+    "sectionType": { "en": "Section Type", "ar": "نوع القسم" },
+    "enterSectionName": { "en": "Enter Section Name", "ar": "أدخل اسم القسم" },
+    "enterSectionType": { "en": "Enter Section Type", "ar": "أدخل نوع القسم" },
+    "description": { "en": "Description", "ar": "الوصف" },
+    "enterDescription": { "en": "Enter Description", "ar": "أدخل الوصف" }
+  },
   "common": {
     "maintenance": {
       "title": { "en": "Maintenance", "ar": "الصيانة" },
