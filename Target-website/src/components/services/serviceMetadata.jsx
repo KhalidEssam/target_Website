@@ -4,6 +4,8 @@ import ProfileForm from './EditProfileInfo';
 import AdminCustomization from './AdminCustomization';
 import AddOrg from './AddOrg';
 import OrderDetail from './OrderDetails';
+import UserOrderCard from './UserOrderCard';
+
 
 export const serviceMetadata = [
     {
@@ -11,14 +13,14 @@ export const serviceMetadata = [
         route: "/orders",
         component: BrowseOrder,
         roles: ["Admin"],
-        available: true,
+        available: false,
     }, 
     {
         name: "Order Details",
         route: "/orders/:id",
         component: OrderDetail,
         roles: ["Admin"],
-        available: true,
+        available: false,
     },
     {
         name: "Add Maintenance order",
@@ -48,4 +50,11 @@ export const serviceMetadata = [
         roles: ["Admin"],
         available: true,
     },
+    {
+        name:" User Orders",
+        route: "/my-orders",
+        component: UserOrderCard,
+        roles: ["Everyone"],
+        available: true,
+    }
 ]

@@ -1,12 +1,14 @@
 import MainContent from "./ProfileContent";
 import { Route, Routes } from "react-router-dom";
 import { serviceMetadata } from "./services/serviceMetadata";
-import { useOktaAuth } from "@okta/okta-react";
+// import { useOktaAuth } from "@okta/okta-react";
 import { useTranslation } from "../hooks/useTranslation";
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import UserGallery from "./Gallery";
-
+// import UserGallery from "./Gallery";
+import { useLocation } from "react-router-dom"; // or your router
+import { useEffect } from "react";
+import React from "react";
 //services
 import ProfileForm from "./services/EditProfileInfo";
 
@@ -17,8 +19,18 @@ const Profile = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const userId = userInfo.sub;
+  const [orders, setOrders] = useState([]);
+  const location = useLocation(); // get current route
 
         
+  useEffect(() => {
+    if (location.pathname === "/profile/my-orders") {
+      console.log("orders");
+      fetch("/api/orders/"+userId)
+        .then(res => res.json())
+        .then(data => setOrders(data));
+    }
+  }, [location.pathname]);
 
   // Filter services based on user role
   const availableServices = serviceMetadata.filter((service) =>
@@ -41,7 +53,6 @@ const Profile = () => {
     }
     return true;
   };
-
   const handleImageUpload = async (e, itemId) => {
     const file = e.target?.files?.[0];
     if (!validateFile(file)) return;
@@ -159,12 +170,17 @@ const Profile = () => {
           />
           <Route path="edit-profile-info" element={<ProfileForm />} />
           {availableServices.map((service) => (
-            <Route
-              key={service.name}
-              path={service.route}
-              element={<service.component />}
-            />
-          ))}
+  <Route
+    key={service.name}
+    path={service.route}
+    element={React.createElement(service.component, {
+      orders,
+      userInfo,
+      t,
+    })}
+  />
+))}
+
         </Routes>
       </div>
     </div>
