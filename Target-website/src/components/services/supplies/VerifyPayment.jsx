@@ -86,11 +86,11 @@ const VerifyPayment = () => {
     }
 
     // Redirect if final status
-    // if (status === 'success' || status === 'failed') {
-    //   setTimeout(() => {
-    //     navigate('/orders');
-    //   }, 3000);
-    // }
+    if (status === 'success' || status === 'failed') {
+      setTimeout(() => {
+        navigate('/profile/my-orders');
+      }, 5000);
+    }
   }, [location.search, navigate]);
 
   return (

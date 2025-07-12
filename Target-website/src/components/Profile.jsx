@@ -1,13 +1,12 @@
 import MainContent from "./ProfileContent";
 import { Route, Routes } from "react-router-dom";
 import { serviceMetadata } from "./services/serviceMetadata";
-// import { useOktaAuth } from "@okta/okta-react";
 import { useTranslation } from "../hooks/useTranslation";
 import { useState } from "react";
+import { selectOrder } from "../store/features/ordersSlice";
 import { useSelector, useDispatch } from "react-redux";
-// import UserGallery from "./Gallery";
-import { useLocation } from "react-router-dom"; // or your router
 import { useEffect } from "react";
+// import UserGallery from "./Gallery";
 import React from "react";
 //services
 import ProfileForm from "./services/EditProfileInfo";
@@ -15,27 +14,26 @@ import ProfileForm from "./services/EditProfileInfo";
 const Profile = () => {
   const { translate: t } = useTranslation();
   const userInfo = useSelector((state) => state.user.userInfo);
-  // const { oktaAuth, authState } = useOktaAuth();
   const [isLoading, setIsLoading] = useState(false);
   const [imageUrl, setImageUrl] = useState("");
   const userId = userInfo.sub;
-  const [orders, setOrders] = useState([]);
-  const location = useLocation(); // get current route
+  const orders = useSelector(selectOrder);
 
-        
-  useEffect(() => {
-    if (location.pathname === "/profile/my-orders") {
-      console.log("orders");
-      fetch("/api/orders/"+userId)
-        .then(res => res.json())
-        .then(data => setOrders(data));
-    }
-  }, [location.pathname]);
+  // useEffect(() => {
+    // if (location.pathname === "/profile/my-orders") {
+    // console.log(orders.payload.order.orders);
+    // fetch("/api/orders/"+userId)
+    //   .then(res => res.json())
+    //   .then(data => setOrders(data))
+    // }
+  // }, [location.pathname, orders]);
 
   // Filter services based on user role
   const availableServices = serviceMetadata.filter((service) =>
     service.roles.some(
-      (role) => (userInfo.groups.includes(role) || role === "Everyone") && service.available === true 
+      (role) =>
+        (userInfo.groups.includes(role) || role === "Everyone") &&
+        service.available === true
     )
   );
   const validateFile = (file) => {
@@ -74,8 +72,6 @@ const Profile = () => {
       setImageUrl(data.imageUrl);
       const editedData = { picture: data.imageUrl };
 
-        
-
       const response = await fetch(`/api/profile-asign/${userId}`, {
         method: "POST",
         headers: {
@@ -90,10 +86,8 @@ const Profile = () => {
       } else {
         alert(`${t("common.profile.error")}: ${result.error}`);
       }
-    
 
-        console.log("Profile image updated successfully!");
-    
+      console.log("Profile image updated successfully!");
     } catch (error) {
       console.error("Error updating profile image:", error);
     } finally {
@@ -124,7 +118,9 @@ const Profile = () => {
                 disabled={isLoading}
               />
               {isLoading && (
-                <div className="loading-animation">{t("common.profile.uploading")}</div>
+                <div className="loading-animation">
+                  {t("common.profile.uploading")}
+                </div>
               )}
               {imageUrl && (
                 <img
@@ -137,9 +133,13 @@ const Profile = () => {
           )}
           <h5 className="profile-name">{userInfo.name}</h5>
           {userInfo.groups && (
-            <p className="profile-role">{t("common.profile.role")} {userInfo.groups}</p>
+            <p className="profile-role">
+              {t("common.profile.role")} {userInfo.groups}
+            </p>
           )}
-          <p>{t("common.profile.email")} {userInfo.email}</p>
+          <p>
+            {t("common.profile.email")} {userInfo.email}
+          </p>
           <p>
             {t("common.profile.profile")}{" "}
             <a
@@ -170,17 +170,16 @@ const Profile = () => {
           />
           <Route path="edit-profile-info" element={<ProfileForm />} />
           {availableServices.map((service) => (
-  <Route
-    key={service.name}
-    path={service.route}
-    element={React.createElement(service.component, {
-      orders,
-      userInfo,
-      t,
-    })}
-  />
-))}
-
+            <Route
+              key={service.name}
+              path={service.route}
+              element={React.createElement(service.component, {
+                orders,
+                userInfo,
+                t,
+              })}
+            />
+          ))}
         </Routes>
       </div>
     </div>

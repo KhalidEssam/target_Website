@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useOktaAuth } from "@okta/okta-react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { login, logout } from "../store/features/userSlice";
+import { addAllOrders } from "../store/features/ordersSlice";
 import { CiLogin, CiLogout } from "react-icons/ci";
 import { useTranslation } from "../hooks/useTranslation";
 
@@ -10,8 +11,8 @@ export const handleLogin = async (oktaAuth) => {
 };
 
 const Login = () => {
-    const { translate: t } = useTranslation();
-  
+  const { translate: t } = useTranslation();
+  const userInfo = useSelector((state)=>state.user.userInfo)
   const { oktaAuth, authState } = useOktaAuth();
   const dispatch = useDispatch();
 
@@ -19,7 +20,7 @@ const Login = () => {
     await oktaAuth.signOut();
     dispatch(logout()); // Dispatch logout action'
   };
-  React.useEffect(() => {
+ useEffect(() => {
     const fetchUser = async () => {
       try {
         if (authState?.isAuthenticated) {
@@ -35,6 +36,24 @@ const Login = () => {
 
     fetchUser();
   }, [authState, oktaAuth, dispatch]);
+
+  useEffect(() => {
+    const fetchOrders = async () => {
+      if (authState?.isAuthenticated && userInfo.sub) {
+        try {
+          const res = await fetch("/api/orders/user/" + userInfo.sub);
+          const data = await res.json();
+          // console.log(data);
+          dispatch(addAllOrders(data));
+        } catch (error) {
+          console.error("Failed to fetch orders:", error);
+        }
+      }
+    };
+  
+    fetchOrders();
+  }, [authState, userInfo.sub, dispatch]);
+   
 
   if (!authState) {
     return (
