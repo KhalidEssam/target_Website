@@ -2,12 +2,14 @@ import { Input } from 'reactstrap';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useTranslation } from '../../hooks/useTranslation'; 
+import { useSelector } from "react-redux";
 const BrowseOrderByPhoneNumber = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [orders, setOrders] = useState([]);
   let query = '';
 
   const { translate : t } = useTranslation();
+  const token = useSelector((state) => state.token.accessToken);
 
   const navigate = useNavigate();
 
@@ -28,7 +30,11 @@ const BrowseOrderByPhoneNumber = () => {
     if(searchQuery.length === 11) {
         
     try {
-        const response = await fetch(`/api/orders/party/${searchQuery}`);
+        const response = await fetch(`/api/orders/party/${searchQuery}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data = await response.json();
         if (!response.ok) {
           console.error('Error fetching orders:', data.error);

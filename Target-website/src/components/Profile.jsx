@@ -4,8 +4,7 @@ import { serviceMetadata } from "./services/serviceMetadata";
 import { useTranslation } from "../hooks/useTranslation";
 import { useState } from "react";
 import { selectOrder } from "../store/features/ordersSlice";
-import { useSelector, useDispatch } from "react-redux";
-import { useEffect } from "react";
+import { useSelector,  } from "react-redux";
 // import UserGallery from "./Gallery";
 import React from "react";
 //services
@@ -18,15 +17,8 @@ const Profile = () => {
   const [imageUrl, setImageUrl] = useState("");
   const userId = userInfo.sub;
   const orders = useSelector(selectOrder);
+  const token = useSelector((state) => state.token.accessToken);
 
-  // useEffect(() => {
-    // if (location.pathname === "/profile/my-orders") {
-    // console.log(orders.payload.order.orders);
-    // fetch("/api/orders/"+userId)
-    //   .then(res => res.json())
-    //   .then(data => setOrders(data))
-    // }
-  // }, [location.pathname, orders]);
 
   // Filter services based on user role
   const availableServices = serviceMetadata.filter((service) =>
@@ -63,7 +55,10 @@ const Profile = () => {
     try {
       const res = await fetch("/api/upload-single", {
         method: "POST",
-        body: formData,
+        body: formData, 
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const data = await res.json();
 
@@ -76,6 +71,7 @@ const Profile = () => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(editedData),
       });

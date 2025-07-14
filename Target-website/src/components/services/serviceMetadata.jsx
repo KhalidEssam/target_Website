@@ -26,7 +26,7 @@ export const serviceMetadata = [
         name: "Add Maintenance order",
         route: "/maintenance",
         component: Maintenance,
-        roles: ["Admin", "user"],
+        roles: ["Admin", "user", "SuperAdmin"],
         available: true,
     },
     {

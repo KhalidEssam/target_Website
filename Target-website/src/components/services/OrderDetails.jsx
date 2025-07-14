@@ -11,8 +11,10 @@ import "swiper/css/pagination";
 import "swiper/css/autoplay";
 import UserGallery from "../Gallery";
 import ReactDOM from "react-dom";
+
 import { useTranslation } from "../../hooks/useTranslation";
 // Utility function for file validation
+
 
 const validateFile = (file) => {
   if (!file) {
@@ -97,6 +99,8 @@ const generateDataGridData = (items) => {
 };
 
 const OrderDetail = () => {
+  const token = useSelector((state) => state.token.accessToken);
+
   const { translate: t } = useTranslation();
   const UserID = useSelector((state) => state.user.userInfo.sub);
 
@@ -125,8 +129,13 @@ const OrderDetail = () => {
     const signal = controller.signal;
 
     const fetchOrder = async () => {
+
       try {
-        const response = await fetch(`/api/orders/${id}`, { signal });
+        const response = await fetch(`/api/orders/${id}` , {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }, { signal });
         const data = await response.json();
         setOrder(data || {});
       } catch (error) {
@@ -164,6 +173,9 @@ const OrderDetail = () => {
       const response = await fetch("/api/upload-single", {
         method: "POST",
         body: formData,
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
@@ -181,7 +193,10 @@ const OrderDetail = () => {
       // update usergallery with this uploaded image
       const response2 = await fetch(`/api/galleries/${UserID}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+
+        },
         body: JSON.stringify({ imageUrls: [data.imageUrl] }), // Now an array with 1 element
       });
       const data2 = await response2.json();
@@ -198,7 +213,10 @@ const OrderDetail = () => {
     try {
       const response = await fetch(`/api/orders/${id}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+
+         },
         body: JSON.stringify(order),
       });
 
@@ -222,7 +240,11 @@ const OrderDetail = () => {
     if (!confirmDelete) return;
 
     try {
-      const response = await fetch(`/api/orders/${id}`, { method: "DELETE" });
+      const response = await fetch(`/api/orders/${id}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      } ,{ method: "DELETE" });
       if (response.ok) {
         alert(t("common.orderDetails.success.deleted"));
         navigate("/profile/orders");

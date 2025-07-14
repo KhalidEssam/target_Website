@@ -1,15 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
-
 const UserGallery = () => {
   const [gallery, setGallery] = useState({});
   const OktaId = useSelector((state) => state.user.userInfo.sub);
   const [selectedImage, setSelectedImage] = useState(null);
+  const token = useSelector((state) => state.token.accessToken);
 
   useEffect(() => {
     const fetchGallery = async () => {
       try {
-        const response = await fetch(`/api/galleries/${OktaId}`);
+        const response = await fetch(`/api/galleries/${OktaId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
         const data = await response.json();
         setGallery(data);
       } catch (error) {

@@ -4,6 +4,7 @@ import ShowAvailableSupplies from "../components/services/Supplies";
 import ConstructionServicePage from "../components/services/Construction";
 import { useState , useEffect } from "react";
 
+
 import { useTranslation } from "../hooks/useTranslation";
 
 
@@ -11,9 +12,10 @@ const Services = () => {
   const [supplies, setSupplies] = useState([]);
   const { translate : t } = useTranslation();
 
+
   const fetchSupplies = async () => {
     try {
-      const response = await fetch("/api/orderItems");
+      const response = await fetch("/api/supply-items");
       const data = await response.json();
       if (!response.ok) {
         console.error("Error fetching supplies:", data.error);

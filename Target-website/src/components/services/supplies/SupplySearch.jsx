@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import { useTranslation } from "../../../hooks/useTranslation";
+import { useSelector } from 'react-redux';
 
 const SupplySearch = ({ supplies, setSupplyData }) => {
   const [supplyId, setSupplyId] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const { translate: t } = useTranslation();
+  const token = useSelector((state) => state.token.accessToken);
 
 
   const handleSubmit = async (e) => {
@@ -19,7 +21,11 @@ const SupplySearch = ({ supplies, setSupplyData }) => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/orders/${supplyId}`);
+      const response = await fetch(`/api/orders/${supplyId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch supply details.');
       }

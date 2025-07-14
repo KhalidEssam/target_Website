@@ -179,7 +179,7 @@ const OrderSummary = ({ order }) => {
 const UserOrderCard = ({ orders }) => {
   return (
     <Box>
-      {orders&& orders.payload.order.orders.map((order, index) => (
+      {orders.payload.order.orders && orders.payload?.order.orders.map((order, index) => (
         <OrderSummary key={order._id} order={order} />
       ))}
     </Box>

@@ -3,6 +3,7 @@ import { Modal, ModalHeader, ModalBody, ModalFooter, FormGroup, Label, Input, Bu
 import { clearCart } from '../../../store/features/cartSlice';
 import { useSelector, useDispatch } from 'react-redux';
 import { toast } from 'react-toastify';
+
 import 'react-toastify/dist/ReactToastify.css';
 
 const CheckoutModal = ({
@@ -18,6 +19,7 @@ const CheckoutModal = ({
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart.items);
   const total = useSelector((state) => state.cart.total);
+  const token = useSelector((state) => state.token.accessToken);
 
   const handleCheckout = async () => {
     setLoading(true);
@@ -37,7 +39,8 @@ const CheckoutModal = ({
       // Online payment
       const paymentResponse = await fetch('/api/payments/initiate', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json',     Authorization: `Bearer ${token}`,
+      },
         body: JSON.stringify({
           orderId: orderData._id,
           amount: total,
@@ -76,7 +79,6 @@ const CheckoutModal = ({
   const handlePaymentInitiate = async (url) => {
     setPaymentUrl(url);
     setShowPaymentIframe(true);
-    // dispatch(clearCart());
   };
 
   return (

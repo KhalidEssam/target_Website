@@ -10,6 +10,7 @@ const BrowseOrder = () => {
   const [filteredOrders, setFilteredOrders] = useState([]);
   const [parties, setParties] = useState([]);
   const  isDarkMode = useSelector((state) => state.theme.isDarkMode);
+  const token = useSelector((state) => state.token.accessToken);
 
 
   const fetchPartyOrganizations = async () => {
@@ -33,6 +34,8 @@ const BrowseOrder = () => {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+
         },
       });
       const data = await response.json();

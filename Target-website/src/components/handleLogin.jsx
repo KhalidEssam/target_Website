@@ -5,6 +5,7 @@ import { login, logout } from "../store/features/userSlice";
 import { addAllOrders } from "../store/features/ordersSlice";
 import { CiLogin, CiLogout } from "react-icons/ci";
 import { useTranslation } from "../hooks/useTranslation";
+import { saveToken, clearToken } from "../store/features/tokenSlice";
 
 export const handleLogin = async (oktaAuth) => {
   await oktaAuth.signInWithRedirect();
@@ -19,6 +20,8 @@ const Login = () => {
   const handleLogout = async () => {
     await oktaAuth.signOut();
     dispatch(logout()); // Dispatch logout action'
+    dispatch(clearToken()); // ✅ Clear token
+
   };
  useEffect(() => {
     const fetchUser = async () => {
@@ -26,8 +29,12 @@ const Login = () => {
         if (authState?.isAuthenticated) {
           // Wait until the tokens are resolved
           const user = await oktaAuth.getUser();
+          const accessToken = await oktaAuth.getAccessToken(); // ✅ Get the token
+
           // Dispatch login action with user data
           dispatch(login(user));
+          dispatch(saveToken(accessToken)); // ✅ Save the token in Redux
+
         }
       } catch (error) {
         console.error("Error fetching user info:", error);
@@ -39,17 +46,24 @@ const Login = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      if (authState?.isAuthenticated && userInfo.sub) {
+      if (authState?.isAuthenticated && userInfo.sub ) {
         try {
-          const res = await fetch("/api/orders/user/" + userInfo.sub);
+          const accessToken = await oktaAuth.getAccessToken(); // ✅ Get the token
+
+          console.log(accessToken);
+          const res = await fetch("/api/orders/user/" + userInfo.sub, {
+            headers: {
+              Authorization: `Bearer ${accessToken}`, // ✅ Include token
+            },
+          });
           const data = await res.json();
-          // console.log(data);
           dispatch(addAllOrders(data));
         } catch (error) {
           console.error("Failed to fetch orders:", error);
         }
       }
     };
+    
   
     fetchOrders();
   }, [authState, userInfo.sub, dispatch]);

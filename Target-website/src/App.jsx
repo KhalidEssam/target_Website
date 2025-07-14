@@ -18,6 +18,9 @@ import NotFound from "./components/404";
 // Router
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
+
+//
+import {TutorialTest} from "./components/test"
 // Pages
 import AboutUs from "./pages/Aboutus";
 import Landing from "./pages/Landing";
@@ -62,6 +65,7 @@ function App() {
           <Route path="/projects" element={<Projects />} />
           <Route path="/contact" element={<ContactUs />} />
           <Route path="/services/*" element={<Services />} />
+          <Route path="/test" element={<TutorialTest/>} />
           {/* <Route path='/' Component={LoginCallback }  /> */}
 
 

@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-
+import { useSelector } from 'react-redux';
 const ConstructionServicePage = () => {
   const [projectId, setProjectId] = useState('');
   const [constructionData, setConstructionData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const token = useSelector((state) => state.token.accessToken);
 
   // Handle form submission
   const handleSubmit = async (e) => {
@@ -18,7 +19,11 @@ const ConstructionServicePage = () => {
     setError(null);
 
     try {
-      const response = await fetch(`/api/orders/${projectId}`);
+      const response = await fetch(`/api/orders/${projectId}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
       if (!response.ok) {
         throw new Error('Failed to fetch project details.');
       }

@@ -20,7 +20,7 @@ const ShowAvailableSupplies = ({ supplies }) => {
   // const [cartOpen, setCartOpen] = useState(false);
   const [checkoutModal, setCheckoutModal] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState("cash");
-
+  const token = useSelector((state) => state.token.accessToken);
   const { items: cart, total } = useSelector((state) => state.cart);
   const { isLoggedIn, userInfo } = useSelector((state) => state.user);
   const dispatch = useDispatch();
@@ -59,18 +59,22 @@ const ShowAvailableSupplies = ({ supplies }) => {
     try {
       const response = await fetch("/api/orders", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
         body: JSON.stringify({
           orderMode: "B2C",
           type: "Suppliance",
           userId: userInfo.sub,
           items: cart.map(
-            ({ type, quantity, description, imageUrls, price }) => ({
+            ({ type, quantity, description, imageUrls, price, _id }) => ({
               type,
               quantity,
               description,
               imageUrls,
               price,
+              _id,
             })
           ),
           paymentMethod,

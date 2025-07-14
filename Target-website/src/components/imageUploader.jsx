@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import UserGallery from "./Gallery"; // Ensure this component is implemented
-
+import { useSelector } from "react-redux";
 const ImageUploader = ({ UserID,onImagesSelected  }) => {
     const [isGalleryOpen, setIsGalleryOpen] = useState(false);
     const [selectedImages, setSelectedImages] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-  
+    const token = useSelector((state) => state.token.accessToken);
+
     useEffect(() => {
       if (onImagesSelected) {
         onImagesSelected(selectedImages); // Update parent whenever selected images change
@@ -35,7 +36,12 @@ const ImageUploader = ({ UserID,onImagesSelected  }) => {
       // Upload image
       const response = await fetch("/api/upload-single", {
         method: "POST",
-        body: formData,
+        body: formData, 
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+
+
       });
       const data = await response.json();
       if (!response.ok) throw new Error(data.error);
@@ -48,7 +54,11 @@ const ImageUploader = ({ UserID,onImagesSelected  }) => {
       // Update user gallery with the uploaded image
       const response2 = await fetch(`/api/galleries/${UserID}`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: { 
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+
+         },
         body: JSON.stringify({ imageUrls: [uploadedImageUrl] }),
       });
       const data2 = await response2.json();

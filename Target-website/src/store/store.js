@@ -7,6 +7,7 @@ import userReducer from './features/userSlice';
 import languageReducer from './features/languageSlice'; // Import language slice
 import cartReducer from './features/cartSlice'
 import orderReducer from './features/ordersSlice'
+import tokenReducer from './features/tokenSlice'
 
 const persistConfig = {
   key: 'root', // The key to save the persisted data in localStorage
@@ -20,6 +21,7 @@ const rootReducer = combineReducers({
   language: languageReducer, // Add language reducer
   cart: cartReducer,
   order:orderReducer,
+  token:tokenReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
