@@ -46,11 +46,11 @@ const Login = () => {
 
   useEffect(() => {
     const fetchOrders = async () => {
-      if (authState?.isAuthenticated && userInfo.sub ) {
-        try {
-          const accessToken = await oktaAuth.getAccessToken(); // ✅ Get the token
+      const accessToken = await oktaAuth.getAccessToken(); // ✅ Get the token
 
-          console.log(accessToken);
+      if (authState?.isAuthenticated && userInfo.sub && accessToken ) {
+        try {
+          console.log("token", accessToken);
           const res = await fetch("/api/orders/user/" + userInfo.sub, {
             headers: {
               Authorization: `Bearer ${accessToken}`, // ✅ Include token
@@ -64,9 +64,8 @@ const Login = () => {
       }
     };
     
-  
     fetchOrders();
-  }, [authState, userInfo.sub, dispatch]);
+  }, [authState, oktaAuth, userInfo.sub]);
    
 
   if (!authState) {
