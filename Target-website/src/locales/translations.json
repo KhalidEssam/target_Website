@@ -505,7 +505,8 @@
     },
     "labels": {
       "orderID": { "en": "Order ID:", "ar": "رقم الطلب:" },
-      "transactionID": { "en": "Transaction ID:", "ar": "رقم المعاملة:" }
+      "transactionID": { "en": "Transaction ID:", "ar": "رقم المعاملة:" },
+      "paymentID":{"en":"Payment ID","ar":"رقم الدفع"}
     }
   },
   "admin": {
