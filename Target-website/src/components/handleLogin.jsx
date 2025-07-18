@@ -50,7 +50,7 @@ const Login = () => {
 
       if (authState?.isAuthenticated && userInfo.sub && accessToken ) {
         try {
-          console.log("token", accessToken);
+          // console.log("token", accessToken);
           const res = await fetch("/api/orders/user/" + userInfo.sub, {
             headers: {
               Authorization: `Bearer ${accessToken}`, // ✅ Include token

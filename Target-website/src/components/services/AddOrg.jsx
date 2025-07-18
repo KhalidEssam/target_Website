@@ -43,14 +43,14 @@ const AddOrg = () => {
   };
 
   return (
-    <div className="container">
+    <div className="container card">
       <h1>Create Party Organization</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} >
         <div className="form-group">
           <label>Name:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control bg-secondary"
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
@@ -59,7 +59,7 @@ const AddOrg = () => {
           <label>Address:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control bg-secondary"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />
@@ -68,7 +68,7 @@ const AddOrg = () => {
           <label>Contact Person:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control bg-secondary"
             value={contactPerson}
             onChange={(e) => setContactPerson(e.target.value)}
           />
@@ -77,7 +77,7 @@ const AddOrg = () => {
           <label>Phone Number:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control bg-secondary"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
           />
@@ -86,7 +86,7 @@ const AddOrg = () => {
           <label>Email:</label>
           <input
             type="text"
-            className="form-control"
+            className="form-control bg-secondary"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -94,12 +94,12 @@ const AddOrg = () => {
         <div className="form-group">
           <label>Description:</label>
           <textarea
-            className="form-control"
+            className="form-control bg-secondary"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
         </div>
-        <button type="submit" className="btn btn-primary">
+        <button type="submit" className="btn bg-primary">
           Create
         </button>
       </form>
