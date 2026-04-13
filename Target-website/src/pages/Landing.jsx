@@ -42,7 +42,7 @@ const Landing = () => {
           {/* Image Content */}
           <div className="col-md-6">
             <img
-              src="wp.https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.23.28-AM.jpeg"
+              src="https://wp.target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.23.28-AM.jpeg"
               alt="Random"
               className="img-fluid rounded-3 shadow-sm"
               style={{ maxHeight: "400px", width: "100%", objectFit: "cover" }}
