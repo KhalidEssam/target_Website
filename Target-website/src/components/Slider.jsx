@@ -10,21 +10,21 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 const images = [
   
   {
-    url: "https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.56.46-AM.jpeg",
+    url: "https://wp.target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.56.46-AM.jpeg",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     title: "Image 1",
   },
   {
-    url: "https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.16.46-AM.jpeg",
+    url: "https://wp.target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.16.46-AM.jpeg",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
     title: "Image 2",
   },
   {
-    url: "https://target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.45.33-AM.jpeg",
+    url: "https://wp.target-for-engineering.com/wp-content/uploads/2021/07/WhatsApp-Image-2021-07-11-at-11.45.33-AM.jpeg",
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
